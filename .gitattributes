@@ -1,0 +1,34 @@
+# Normalize line endings for text files
+* text=auto
+
+# Unity YAML assets
+*.unity      text merge=unityyamlmerge eol=lf
+*.prefab     text merge=unityyamlmerge eol=lf
+*.asset      text merge=unityyamlmerge eol=lf
+*.mat        text merge=unityyamlmerge eol=lf
+*.anim       text merge=unityyamlmerge eol=lf
+*.controller text merge=unityyamlmerge eol=lf
+*.meta       text merge=unityyamlmerge eol=lf
+*.physicMaterial text merge=unityyamlmerge eol=lf
+*.cs         text diff=csharp
+
+# Binary files
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.psd  binary
+*.tga  binary
+*.tif  binary
+*.exr  binary
+*.hdr  binary
+*.fbx  binary
+*.obj  binary
+*.blend binary
+*.wav  binary
+*.mp3  binary
+*.ogg  binary
+*.ttf  binary
+*.otf  binary
+*.dll  binary
+*.so   binary
+*.a    binary
