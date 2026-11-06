@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: bd6ece07b84643cb82d162e64fe51002
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 254358
+  packageName: Hot Reload | Edit Code Without Compiling
+  packageVersion: 1.13.26
+  assetPath: Packages/com.singularitygroup.hotreload/Runtime/AssemblyCompat.cs
+  uploadId: 1037320
