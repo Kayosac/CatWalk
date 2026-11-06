@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.farik.blender-bridge": {
+      "version": "file:../../Tools/Packages/com.farik.blender-bridge-0.1.1-f3c4b34a7844.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.febucci.text-animator-unity": {
       "version": "file:com.febucci.text-animator-unity",
       "depth": 0,
