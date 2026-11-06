@@ -13,3 +13,6 @@ Desktop.ini
 # IDE
 .vscode/
 .idea/
+
+# Local procedural-sky captures and validation reports
+/Builds/SpaceSky/
