@@ -29,7 +29,7 @@ public class PauseMenu : MenuScreen
     protected override void Refresh()
     {
         ClearRows();
-        title.text = "Пауза";
+        title.text = Debt.Current != null ? "Пауза · " + Debt.Current.Summary : "Пауза";
 
         AddRow("Продолжить", () => { Close(); return null; });
         AddRow("Сохранить", () => { SaveGame.Current.Save(false); return "Сохранено."; });

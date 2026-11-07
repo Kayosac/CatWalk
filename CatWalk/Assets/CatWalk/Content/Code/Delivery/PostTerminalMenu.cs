@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-// Экранное меню почты: баланс, заказы этой почты с наградами и отметка доставки.
+// Экранное меню почты: баланс, заказы этой почты с наградами, отметка доставки и платежи по долгу (Debt).
 public class PostTerminalMenu : MenuScreen
 {
     PostTerminal terminal;
@@ -36,5 +36,17 @@ public class PostTerminalMenu : MenuScreen
                 terminal.Complete(received);
                 return $"Доставлено посылок: {received.Count}. Оплата: +{Wallet.Format(reward)}.";
             } : null);
+
+        Debt debt = Debt.Current;
+        if (debt == null || !debt.Active) return;
+        int balance = Wallet.Current.Balance;
+        if (debt.Paid) AddRow($"Кредиторам: платёж внесён · следующий через {Debt.Clock(debt.PaymentTimer)}");
+        else AddRow($"Кредиторам: платёж {Wallet.Format(debt.Payment)} (срок через {Debt.Clock(debt.PaymentTimer)})",
+            balance >= debt.Payment ? debt.PayScheduled : null);
+        if (debt.Demand > 0)
+            AddRow($"Требование кредиторов: {Wallet.Format(debt.Demand)} (срок через {Debt.Clock(debt.DemandTimer)})",
+                balance >= debt.Demand ? debt.PayDemand : null);
+        AddRow($"Внести {Wallet.Format(debt.ExtraPayment)} в счёт долга · осталось {Wallet.Format(debt.Left)}",
+            balance >= debt.ExtraPayment ? debt.PayExtra : null);
     }
 }
