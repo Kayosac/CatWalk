@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48dfb0f0a3bde4c6dac2d66d883531ae, type: 3}
+  m_Name: ErrandOrder_BrunoFish2
+  m_EditorClassIdentifier: 
+  cargo: "\u0411\u043E\u043B\u044C\u0448\u0430\u044F \u0440\u044B\u0431\u0430 (\u043E\u0447\u0435\u043D\u044C
+    \u043D\u0435\u0443\u0447\u0442\u0451\u043D\u043D\u0430\u044F)"
+  to: ice
+  reward: 760
+  fragile: 0
+  requires:
+  - fact: errand.bruno-fish2
+    compare: 0
+    value: 1
+  - fact: errand.bruno-fish2
+    compare: 1
+    value: 2
