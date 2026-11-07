@@ -3,7 +3,8 @@ using UnityEngine;
 
 // Кто живёт у почты и что говорит: приветствия, темы для разговора, благодарности за доставку
 // и короткая история — события, которые открываются по мере доставок сюда.
-// Реплики временные — тёплые, короткие, с лёгкой абсурдинкой.
+// Состояния (moods) меняют приветствие и темы по фактам — так поручения и слава меняют жизнь жителя.
+// Поручения (errands) житель предлагает сам. Реплики временные — тёплые, короткие, с лёгкой абсурдинкой.
 [CreateAssetMenu(menuName = "CatWalk/Resident Profile")]
 public class ResidentProfile : ScriptableObject
 {
@@ -25,6 +26,15 @@ public class ResidentProfile : ScriptableObject
         public string after;              // id события, которое должно быть уже рассказано; пусто — без условия
     }
 
+    // Состояние жителя: пока условия выполнены, свои приветствие и темы вместо обычных (пустое — обычное).
+    [Serializable]
+    public class Mood
+    {
+        public FactCondition[] when;
+        [TextArea] public string greeting;
+        [TextArea] public string[] topics;
+    }
+
     public string displayName = "Житель";
     [TextArea] public string greeting;        // при первой встрече
     [TextArea] public string greetingKnown;   // знакомому — после разговора или доставки
@@ -35,4 +45,6 @@ public class ResidentProfile : ScriptableObject
     public CargoReaction[] reactions;
     [TextArea] public string damagedRemark;   // о помятой хрупкой коробке
     public StoryEvent[] story;
+    public Mood[] moods;                      // первое подходящее — главное
+    public Errand[] errands;                  // по порядку: предлагается первое доступное
 }

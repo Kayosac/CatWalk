@@ -8,10 +8,14 @@ using UnityEngine.InputSystem;
 // Без анимаций: в покое модель «дышит» скейлом, а взмах — скейл-баунс на пружине, как приземление кота.
 // F рядом — новое событие истории, если оно открылось (над головой тогда висит «!»), иначе следующая тема.
 // После доставки на свою почту — реакция на груз или благодарность.
+// Есть доступное поручение (ResidentProfile.errands) — F открывает предложение (ErrandMenu), «!» тоже висит.
+// Состояние по фактам (ResidentProfile.moods) меняет приветствие и темы.
 // Реплика — облачко над головой: печатается посимвольно (Text Animator), висит lineTime и не мешает ходить.
 // Помнит доставки сюда, последний груз, знакомство, тему и рассказанное — в сохранении по адресу почты.
 public class Resident : MonoBehaviour, ISaveable
 {
+    public static readonly List<Resident> All = new();
+
     public ResidentProfile profile;
     public PostTerminal terminal;         // почта, у которой живёт
     public Transform visual;              // модель с пивотом в ногах
@@ -51,16 +55,30 @@ public class Resident : MonoBehaviour, ISaveable
     float hideAt, squash, squashVelocity;
     Quaternion restRotation;
     Vector3 baseScale;
+    ErrandMenu errandMenu;
 
     void Awake()
     {
         restRotation = transform.rotation;
         baseScale = visual.localScale;
         bubble.enabled = false;
+        // Посылки поручений выдаёт своя почта: заказ лежит в её списке, а виден по своим условиям.
+        if (profile.errands != null)
+            foreach (Errand e in profile.errands)
+                if (e != null) terminal.AddOrder(e.order);
     }
 
-    void OnEnable() => PostTerminal.Delivered += OnDelivered;
-    void OnDisable() => PostTerminal.Delivered -= OnDelivered;
+    void OnEnable()
+    {
+        All.Add(this);
+        PostTerminal.Delivered += OnDelivered;
+    }
+
+    void OnDisable()
+    {
+        All.Remove(this);
+        PostTerminal.Delivered -= OnDelivered;
+    }
 
     // Кот пешком; в машине его нет. Пока открыто меню, кот на месте (его скрипты лишь выключены) — житель его видит.
     Transform Cat => ParcelCarrier.Current != null ? ParcelCarrier.Current.transform : null;
@@ -84,16 +102,17 @@ public class Resident : MonoBehaviour, ISaveable
 
         bool menu = MenuScreen.Opened != null;
         ResidentProfile.StoryEvent news = News();
+        Errand offer = news == null ? Offer() : null;
         if (!menu && distance < talkDistance && !ParcelCarrier.Current.HasAction)
         {
-            Hud.Prompt(news != null ? "F — поговорить | есть новости" : "F — поговорить", 9);
+            Hud.Prompt(news != null ? "F — поговорить | есть новости" : offer != null ? "F — поговорить | есть дело" : "F — поговорить", 9);
             Keyboard k = Keyboard.current;
             if (k != null && k.fKey.wasPressedThisFrame) Talk();
         }
 
         if (!menu && pending != null) Show();
         bubble.enabled = !menu && Time.time < hideAt;
-        newsIcon.SetActive(news != null && !bubble.enabled);
+        newsIcon.SetActive((news != null || offer != null) && !bubble.enabled);
     }
 
     void LateUpdate()
@@ -104,8 +123,19 @@ public class Resident : MonoBehaviour, ISaveable
 
     bool Speaking => pending != null || Time.time < hideAt;
 
-    string Greeting() => memory.deliveries >= profile.warmDeliveries ? profile.greetingWarm
-                       : memory.known ? profile.greetingKnown : profile.greeting;
+    string Greeting()
+    {
+        ResidentProfile.Mood mood = Mood();
+        if (mood != null && !string.IsNullOrEmpty(mood.greeting)) return mood.greeting;
+        return memory.deliveries >= profile.warmDeliveries ? profile.greetingWarm
+             : memory.known ? profile.greetingKnown : profile.greeting;
+    }
+
+    ResidentProfile.Mood Mood() => profile.moods == null ? null : System.Array.Find(profile.moods, m => FactCondition.All(m.when));
+
+    // Первое поручение, о котором ещё не говорили и чьи условия выполнены.
+    Errand Offer() => profile.errands == null ? null
+        : System.Array.Find(profile.errands, e => e != null && e.State == 0 && FactCondition.All(e.requires));
 
     // Первое открывшееся и ещё не рассказанное событие истории.
     ResidentProfile.StoryEvent News() => System.Array.Find(profile.story, e => !memory.heard.Contains(e.id)
@@ -122,9 +152,37 @@ public class Resident : MonoBehaviour, ISaveable
             Say(news.line);
             return;
         }
-        if (profile.topics.Length == 0) return;
-        memory.topic %= profile.topics.Length;
-        Say(profile.topics[memory.topic++]);
+        Errand offer = Offer();
+        if (offer != null)
+        {
+            if (errandMenu == null) errandMenu = FindFirstObjectByType<ErrandMenu>(FindObjectsInactive.Include);
+            if (errandMenu != null)
+            {
+                errandMenu.Open(this, offer);
+                return;
+            }
+        }
+        ResidentProfile.Mood mood = Mood();
+        string[] topics = mood != null && mood.topics != null && mood.topics.Length > 0 ? mood.topics : profile.topics;
+        if (topics.Length == 0) return;
+        memory.topic %= topics.Length;
+        Say(topics[memory.topic++]);
+    }
+
+    // Ответ на поручение из ErrandMenu. Посылка сразу встаёт в зону выдачи; нет места — ждёт в меню почты.
+    public void Accept(Errand errand)
+    {
+        StoryFacts.Set(errand.Fact, 1);
+        if (errand.heat != 0) StoryFacts.Add("errand.heat", errand.heat);
+        bool slot = terminal.HasFreeIssueSlot;
+        if (slot) terminal.Take(errand.order);
+        Say(slot ? errand.accepted : errand.accepted + " Зона выдачи занята — посылка ждёт в меню почты.");
+    }
+
+    public void Refuse(Errand errand)
+    {
+        StoryFacts.Set(errand.Fact, -1);
+        Say(errand.refused);
     }
 
     void OnDelivered(PostTerminal post, List<Parcel> parcels)
