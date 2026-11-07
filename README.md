@@ -19,3 +19,9 @@ Select an FBX in Unity and choose **Open in Blender** in the inspector or **Blen
 If Blender is not detected, set its path in **Preferences → Blender Bridge**. Project options are under **Project Settings → Blender Bridge**.
 
 To update the bridge, create a new UPM archive from the desired upstream commit with `git archive --format=tar.gz --prefix=package/ --output=<archive.tgz> <commit>`, place it in `Tools/Packages/`, and update the archive path in `CatWalk/Packages/manifest.json`.
+
+## FuelStop04 station
+
+The assembled station is [FuelStop04.prefab](CatWalk/Assets/SpaceCourier/Prefabs/FuelStop04.prefab). Search for `t:Prefab FuelStop04` in Unity's Project window. The kit contains 35 reusable models, 182 module instances and one shared texture atlas, including the corrected cabin interior, supports and surface joins.
+
+Blender sources, previews, the asset catalog and rebuilding instructions are in [ArtSource/FuelStop04](ArtSource/FuelStop04/README.md). The kit is self-contained and does not require the old courier gameplay prototype.

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d0bba83dbe245baa9428f0509224d6, type: 3}
+  m_Name: ParkingDecal
+  m_EditorClassIdentifier: 
+  Source: {fileID: 919132149155446097, guid: 53df0c5f287a64f98a681bccf1369cc3, type: 3}
+  PrefabPath: Assets/SpaceCourier/Prefabs/Art/FuelStop04/Modules/ParkingDecal.prefab
+  MeshDirectory: Assets/SpaceCourier/Content/FuelStop04/Meshes
+  MaterialDirectory: Assets/SpaceCourier/Content/FuelStop04
+  Character: 0
+  ImportRotation: {x: 0, y: 180, z: 0}
+  ShoulderHeight: 1.14
+  HipHeight: 0.63
+  Materials:
+  - SourceName: FuelStop04_Atlas
+    Material: {fileID: 2100000, guid: 68e3c55396665414e84ac703497fe046, type: 2}
+  GeneratedParts:
+  - FuelStop04_Atlas
+  SourceHash: f5ebc77e75ddc7a575faebc6a0e34d44
