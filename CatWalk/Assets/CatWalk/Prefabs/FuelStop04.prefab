@@ -838,6 +838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5199924552653996454}
   - component: {fileID: 1723657258958752163}
+  - component: {fileID: 9187355698655165228}
   m_Layer: 0
   m_Name: FuelStop04
   m_TagString: Untagged
@@ -888,6 +889,23 @@ MonoBehaviour:
   priority: 1
   size: {x: 32, y: 10, z: 25}
   falloff: 3
+--- !u!114 &9187355698655165228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6380721100888424942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230ed40e6edaf4f09b448b15af7581e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: fuelstop04
+  title: "\u0417\u0430\u043F\u0440\u0430\u0432\u043A\u0430 04"
+  kind: 1
+  radius: 25
+  arrival: {fileID: 4786812483463492811}
 --- !u!1 &6491776332457732236
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,7 +937,7 @@ Transform:
   m_Children:
   - {fileID: 8222796658868633348}
   - {fileID: 92292242175023589}
-  - {fileID: 3197196876739791256}
+  - {fileID: 7789885111333875953}
   - {fileID: 7737007267727261567}
   m_Father: {fileID: 5199924552653996454}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4132,6 +4150,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4543282900051057398}
     m_Modifications:
+    - target: {fileID: 404832669533161821, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
+      propertyPath: m_Name
+      value: FuelPump
+      objectReference: {fileID: 0}
     - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.55
@@ -4172,16 +4194,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 404832669533161821, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_Name
-      value: FuelPump
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
---- !u!4 &3197196876739791256 stripped
+--- !u!4 &7789885111333875953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
   m_PrefabInstance: {fileID: 2220974776023013029}

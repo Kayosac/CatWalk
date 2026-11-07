@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5914388883603138880}
   - component: {fileID: 2274998973278655545}
+  - component: {fileID: 8813402910787607890}
   m_Layer: 0
   m_Name: SpaceKonbini
   m_TagString: Untagged
@@ -63,6 +64,23 @@ MonoBehaviour:
   priority: 1
   size: {x: 28, y: 10, z: 20}
   falloff: 3
+--- !u!114 &8813402910787607890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114624455391648212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230ed40e6edaf4f09b448b15af7581e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: konbini
+  title: "\u041A\u043E\u043D\u0431\u0438\u043D\u0438"
+  kind: 0
+  radius: 20
+  arrival: {fileID: 0}
 --- !u!1 &532026941135980063
 GameObject:
   m_ObjectHideFlags: 0
