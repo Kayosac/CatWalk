@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 // Сохранение игры, одно на сцену: JSON-файл в persistentDataPath.
 // Хранит строки всех ISaveable в сцене (включая неактивные) и своё ядро: баланс, топливо, позу и скорость машины,
 // кота пешком и все посылки. Загружается само через кадр после старта сцены — когда все системы прошли Start.
-// «Загрузить» перезапускает сцену, и та подхватывает файл. Автосохранение: после доставки и трат (как только
-// закрыто меню), когда машина встала на парковку, при выходе из игры. Esc без открытого меню — пауза.
+// «Загрузить» перезапускает сцену, и та подхватывает файл. Сохраняется только в телефонной будке (Phone/),
+// никакого автосохранения. Esc без открытого меню — пауза.
 public class SaveGame : MonoBehaviour
 {
     const int Version = 1;                // формат файла; другой номер — файл не читаем
@@ -20,7 +20,6 @@ public class SaveGame : MonoBehaviour
     public static bool Exists => File.Exists(FilePath);
 
     public PauseMenu pause;
-    public float dockSaveDelay = 3f;      // после загрузки машина оседает на парковку — это ещё не повод сохраняться, с
 
     [Serializable]
     class Entry
@@ -56,18 +55,12 @@ public class SaveGame : MonoBehaviour
     CosmoCarController car;
     CosmoCarSeat seat;
     FuelTank tank;
-    ParkingZone[] zones;
-    bool ready, pending, docked, menuWasOpen;
-    float readyTime;
+    bool menuWasOpen;
 
     void Awake() => Current = this;
 
-    void OnEnable() => PostTerminal.Delivered += OnDelivered;
-    void OnDisable() => PostTerminal.Delivered -= OnDelivered;
-
     void OnDestroy()
     {
-        if (Wallet.Current != null) Wallet.Current.Changed -= OnWalletChanged;
         if (Current == this) Current = null;
     }
 
@@ -76,49 +69,22 @@ public class SaveGame : MonoBehaviour
         car = FindFirstObjectByType<CosmoCarController>();
         if (car != null) seat = car.GetComponent<CosmoCarSeat>();
         tank = FindFirstObjectByType<FuelTank>();
-        zones = FindObjectsByType<ParkingZone>(FindObjectsSortMode.None);
-        if (Wallet.Current != null) Wallet.Current.Changed += OnWalletChanged;
 
         yield return null;                // все системы прошли Start
         if (Exists) Load();
-        pending = false;
-        ready = true;
-        readyTime = Time.time;
     }
-
-    void OnWalletChanged(int amount)
-    {
-        if (amount < 0) pending = true;
-    }
-
-    void OnDelivered(PostTerminal terminal, List<Parcel> parcels) => pending = true;
 
     void Update()
     {
         // Esc, которым только что закрыли другое меню, паузу не открывает.
         Keyboard k = Keyboard.current;
         if (pause != null && k != null && k.escapeKey.wasPressedThisFrame && MenuScreen.Opened == null && !menuWasOpen) pause.Open();
-
-        if (!ready) return;
-        bool nowDocked = seat != null && seat.Driving && Array.Exists(zones, z => z.IsDocked);
-        if (nowDocked && !docked && Time.time > readyTime + dockSaveDelay) pending = true;
-        docked = nowDocked;
-        if (pending && MenuScreen.Opened == null) Save();
     }
 
     void LateUpdate() => menuWasOpen = MenuScreen.Opened != null;
 
-    void OnApplicationQuit()
-    {
-        if (ready) Save(false);
-    }
-
-    public void Save(bool toast = true)
-    {
-        File.WriteAllText(FilePath, JsonUtility.ToJson(Collect(), true));
-        pending = false;
-        if (toast) Hud.Toast("Сохранено");
-    }
+    // Зовёт телефонная будка.
+    public void Save() => File.WriteAllText(FilePath, JsonUtility.ToJson(Collect(), true));
 
     // Последнее сохранение: сцена с нуля, файл подхватится на старте.
     public void LoadLast() => Reload();
@@ -131,7 +97,6 @@ public class SaveGame : MonoBehaviour
 
     void Reload()
     {
-        ready = false;
         if (MenuScreen.Opened != null) MenuScreen.Opened.Close(); // вернуть время и курсор
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
