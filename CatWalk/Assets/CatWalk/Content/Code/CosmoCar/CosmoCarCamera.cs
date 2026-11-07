@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 // Горизонта нет: без ПКМ камера осматривается относительно машины и вращается вместе с ней,
 // на ходу без движения мыши сама возвращается за спину.
 // С ПКМ мышь вращает прицел без ограничений, машина доворачивает за ним.
+// На маршевом с ростом скорости камера подходит к машине, FOV растёт, по экрану бегут полосы ветра (Shaders/SpeedLines).
 // Курсор отпускают меню (MenuScreen), ЛКМ — захватить снова. Правый стик геймпада осматривает так же, LB — как ПКМ (Controls).
 public class CosmoCarCamera : MonoBehaviour
 {
@@ -25,6 +26,18 @@ public class CosmoCarCamera : MonoBehaviour
     public float recenterSpeed = 2f;      // 1/с
     public float recenterMinSpeed = 2f;   // только на ходу, м/с
 
+    [Header("Маршевый")]
+    public float cruiseDistance = 3.2f;   // камера подходит к машине
+    public float cruiseHeight = 1.1f;
+    public float cruiseFov = 135f;        // угол обзора на полной маршевой скорости, °
+    public float normalMaxLag = 8f;       // насколько камера может отстать от машины, м
+    public float cruiseMaxLag = 0.4f;     // то же на полной маршевой скорости
+    public float rushSharpness = 3f;      // как быстро эффект догоняет скорость, 1/с
+    public float speedLinesStrength = 1f; // яркость полос ветра, 0 — без них
+
+    // 0…1: насколько разогнан маршевый. Растёт со скоростью, гаснет при выключении.
+    public float Rush { get; private set; }
+
     Quaternion look = Quaternion.identity;  // взгляд без сглаживания — по нему целится машина
     Quaternion shown = Quaternion.identity; // сглаженный поворот камеры
     Vector3 pivot, pivotVelocity;
@@ -32,6 +45,10 @@ public class CosmoCarCamera : MonoBehaviour
     bool steering;
     CosmoCarController car;
     Rigidbody targetBody;
+    Camera cam;
+    float baseFov;
+    Material speedLines;
+    GameObject speedLinesQuad;
 
     // Куда доворачивает машина при зажатой ПКМ.
     public Quaternion AimRotation => look * Quaternion.Euler(-restPitch, 0f, 0f);
@@ -51,7 +68,15 @@ public class CosmoCarCamera : MonoBehaviour
             pivot = target.position;
             look = shown = Frame() * Quaternion.Euler(pitch, yaw, 0f);
         }
+        cam = GetComponent<Camera>();
+        if (cam != null) baseFov = cam.fieldOfView;
+        CreateSpeedLines();
         SetCursorLocked(true);
+    }
+
+    void OnDestroy()
+    {
+        if (speedLines != null) Destroy(speedLines);
     }
 
     void LateUpdate()
@@ -96,10 +121,52 @@ public class CosmoCarCamera : MonoBehaviour
             look = Frame() * Quaternion.Euler(pitch, yaw, 0f);
         }
 
+        UpdateRush();
+
         float t = 1f - Mathf.Exp(-rotationSharpness * Time.deltaTime);
         shown = Quaternion.Slerp(shown, look, t);
         pivot = Vector3.SmoothDamp(pivot, target.position, ref pivotVelocity, followTime);
-        transform.SetPositionAndRotation(pivot + shown * new Vector3(0f, height, -distance), shown);
+        pivot = target.position + Vector3.ClampMagnitude(pivot - target.position, Mathf.Lerp(normalMaxLag, cruiseMaxLag, Rush));
+        var offset = new Vector3(0f, Mathf.Lerp(height, cruiseHeight, Rush), -Mathf.Lerp(distance, cruiseDistance, Rush));
+        transform.SetPositionAndRotation(pivot + shown * offset, shown);
+
+        if (cam != null) cam.fieldOfView = Mathf.Lerp(baseFov, cruiseFov, Rush);
+        if (speedLines != null)
+        {
+            speedLines.SetFloat("_Intensity", Rush * speedLinesStrength);
+            speedLinesQuad.SetActive(Rush * speedLinesStrength > 0.001f);
+        }
+    }
+
+    // Сила эффекта — доля маршевой скорости от предела (как в FlightHud), сглаженная.
+    void UpdateRush()
+    {
+        float goal = 0f;
+        if (car != null && car.Cruising && targetBody != null)
+        {
+            float top = car.cruiseThrust * car.cruiseScale / Mathf.Max(car.cruiseDamping, 0.01f);
+            goal = Mathf.SmoothStep(0f, 1f, targetBody.linearVelocity.magnitude / (top * 0.85f));
+        }
+        Rush = Mathf.Lerp(Rush, goal, 1f - Mathf.Exp(-rushSharpness * Time.deltaTime));
+    }
+
+    // Полосы ветра — квад перед камерой; шейдер сам растягивает его на весь экран.
+    void CreateSpeedLines()
+    {
+        Shader shader = Shader.Find("CatWalk/Speed Lines");
+        if (shader == null || cam == null) return;
+        speedLines = new Material(shader);
+        speedLinesQuad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        speedLinesQuad.name = "Speed lines";
+        Destroy(speedLinesQuad.GetComponent<Collider>());
+        speedLinesQuad.layer = gameObject.layer;
+        speedLinesQuad.transform.SetParent(transform, false);
+        speedLinesQuad.transform.localPosition = Vector3.forward * (cam.nearClipPlane + 1f);
+        var quadRenderer = speedLinesQuad.GetComponent<MeshRenderer>();
+        quadRenderer.sharedMaterial = speedLines;
+        quadRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        quadRenderer.receiveShadows = false;
+        speedLinesQuad.SetActive(false);
     }
 
     // Сразу встать за машиной — после телепорта (CosmoCarController.Teleport), без пролёта через всё пространство.
