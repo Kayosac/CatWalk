@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 // Esc — отпустить курсор, ЛКМ — захватить снова.
 public class CosmoCarCamera : MonoBehaviour
 {
-    public Transform target;
+    public Transform target;              // по умолчанию — космокар в сцене
     public float distance = 12f;
     public float height = 2.5f;
     public float sensitivity = 0.1f;
@@ -39,6 +39,11 @@ public class CosmoCarCamera : MonoBehaviour
     void Start()
     {
         pitch = restPitch;
+        if (target == null)
+        {
+            var found = FindFirstObjectByType<CosmoCarController>();
+            if (found != null) target = found.transform;
+        }
         if (target != null)
         {
             car = target.GetComponent<CosmoCarController>();
@@ -62,6 +67,14 @@ public class CosmoCarCamera : MonoBehaviour
         idleTime = d != Vector2.zero ? 0f : idleTime + Time.deltaTime;
 
         if (target == null) return;
+
+        // Над планетой машина облетает её — взгляд поворачивается вместе с ней.
+        if (car != null)
+        {
+            Quaternion around = car.TakeTransport();
+            look = around * look;
+            shown = around * shown;
+        }
 
         bool steerNow = m != null && m.rightButton.isPressed;
         if (steering && !steerNow) SyncAnglesFromLook();
