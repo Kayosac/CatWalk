@@ -3,9 +3,11 @@ using UnityEngine.Events;
 
 // Меню паузы: игра стоит. Открывает SaveGame по Esc, когда не открыто другое меню; Esc же закрывает.
 // «Загрузить последнее» перезапускает сцену с файла, «Новая игра» стирает его — со второго нажатия.
+// «Настройки» — SettingsMenu (вернёт сюда), «В главное меню» — сцена MainMenu (Menu/Session).
 public class PauseMenu : MenuScreen
 {
     public UnityEvent towAction;          // вызов буксира (Workshop); пункт виден, только если событие подписано
+    public SettingsMenu settings;         // настройки (Menu/); пункт виден, если задано
 
     static readonly string[] Controls =
     {
@@ -43,12 +45,15 @@ public class PauseMenu : MenuScreen
         if (showControls)
             foreach (string line in Controls) AddRow(line);
 
+        if (settings != null) AddRow("Настройки", () => { Close(); settings.Open(Open); return null; });
+
         AddRow(confirmNew ? "Новая игра — точно? Сохранение сотрётся" : "Новая игра", () =>
         {
             if (confirmNew) SaveGame.Current.NewGame();
             confirmNew = true;
             return null;
         });
+        AddRow("В главное меню — несохранённое пропадёт", () => { Session.ToMainMenu(); return null; });
         AddRow("Выйти — несохранённое пропадёт", () =>
         {
             Application.Quit();

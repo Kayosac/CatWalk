@@ -60,7 +60,7 @@ public class CosmoCarCamera : MonoBehaviour
         if (m != null && m.leftButton.wasPressedThisFrame) SetCursorLocked(true);
 
         Vector2 d = m != null && Cursor.lockState == CursorLockMode.Locked
-            ? m.delta.ReadValue() * sensitivity
+            ? GameSettings.Look(m.delta.ReadValue()) * sensitivity // множитель и инверсия из настроек
             : Vector2.zero;
         idleTime = d != Vector2.zero ? 0f : idleTime + Time.deltaTime;
 

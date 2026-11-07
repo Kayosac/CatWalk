@@ -1,0 +1,63 @@
+using UnityEngine;
+
+// Настройки игрока в PlayerPrefs: мышь (множитель чувствительности, инверсия Y), VSync и предел FPS.
+// Режим экрана и разрешение Unity запоминает в PlayerPrefs сама. Читаются и применяются при запуске игры.
+public static class GameSettings
+{
+    public static readonly float[] Sensitivities = { 0.25f, 0.5f, 0.75f, 1f, 1.25f, 1.5f, 2f, 2.5f, 3f };
+    public static readonly int[] FpsLimits = { 0, 30, 60, 120, 144 }; // 0 — без ограничения
+
+    public static float Sensitivity { get; private set; } = 1f; // множитель к sensitivity камер
+    public static bool InvertY { get; private set; }
+    public static bool VSync { get; private set; }
+    public static int FpsLimit { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Init()
+    {
+        Sensitivity = PlayerPrefs.GetFloat("settings.mouse", 1f);
+        InvertY = PlayerPrefs.GetInt("settings.invertY", 0) == 1;
+        VSync = PlayerPrefs.GetInt("settings.vsync", QualitySettings.vSyncCount > 0 ? 1 : 0) == 1;
+        FpsLimit = PlayerPrefs.GetInt("settings.fps", 0);
+        ApplyFrameRate();
+    }
+
+    // Сдвиг мыши для камер: с множителем и инверсией.
+    public static Vector2 Look(Vector2 delta) => new(delta.x * Sensitivity, (InvertY ? -delta.y : delta.y) * Sensitivity);
+
+    public static void SetSensitivity(float value)
+    {
+        Sensitivity = value;
+        PlayerPrefs.SetFloat("settings.mouse", value);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetInvertY(bool value)
+    {
+        InvertY = value;
+        PlayerPrefs.SetInt("settings.invertY", value ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetVSync(bool value)
+    {
+        VSync = value;
+        PlayerPrefs.SetInt("settings.vsync", value ? 1 : 0);
+        PlayerPrefs.Save();
+        ApplyFrameRate();
+    }
+
+    public static void SetFpsLimit(int value)
+    {
+        FpsLimit = value;
+        PlayerPrefs.SetInt("settings.fps", value);
+        PlayerPrefs.Save();
+        ApplyFrameRate();
+    }
+
+    static void ApplyFrameRate()
+    {
+        QualitySettings.vSyncCount = VSync ? 1 : 0;
+        Application.targetFrameRate = FpsLimit > 0 ? FpsLimit : -1;
+    }
+}

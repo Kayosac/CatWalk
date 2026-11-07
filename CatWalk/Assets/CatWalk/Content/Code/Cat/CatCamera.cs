@@ -39,7 +39,7 @@ public class CatCamera : MonoBehaviour
 
         if (m != null && Cursor.lockState == CursorLockMode.Locked)
         {
-            Vector2 d = m.delta.ReadValue() * sensitivity;
+            Vector2 d = GameSettings.Look(m.delta.ReadValue()) * sensitivity; // множитель и инверсия из настроек
             yaw += d.x;
             pitch = Mathf.Clamp(pitch - d.y, minPitch, maxPitch);
         }
