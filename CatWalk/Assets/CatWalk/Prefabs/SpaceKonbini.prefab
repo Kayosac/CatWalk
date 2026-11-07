@@ -1443,7 +1443,6 @@ Transform:
   - {fileID: 6198582822558311776}
   - {fileID: 4658703801835321390}
   - {fileID: 2622610092516991049}
-  - {fileID: 4652837199163733618}
   m_Father: {fileID: 5914388883603138880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &101630093837198523
@@ -6563,68 +6562,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6986997542995614743, guid: 29fd9a343957a4995beed337fd28ad35, type: 3}
   m_PrefabInstance: {fileID: 3615895013872044022}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3628622778900156454
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2585520361582400521}
-    m_Modifications:
-    - target: {fileID: 404832669533161821, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_Name
-      value: Fuel pump
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.100000024
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
---- !u!4 &4652837199163733618 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8271221316118160980, guid: 39e7bbf1c5954f159d08e4a0aa42f923, type: 3}
-  m_PrefabInstance: {fileID: 3628622778900156454}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3643429358186295171
 PrefabInstance:
