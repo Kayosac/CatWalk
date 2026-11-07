@@ -24,4 +24,4 @@ To update the bridge, create a new UPM archive from the desired upstream commit 
 
 The assembled station is [FuelStop04.prefab](CatWalk/Assets/SpaceCourier/Prefabs/FuelStop04.prefab). Search for `t:Prefab FuelStop04` in Unity's Project window. The kit contains 35 reusable models, 182 module instances and one shared texture atlas, including the corrected cabin interior, supports and surface joins.
 
-Blender sources, previews, the asset catalog and rebuilding instructions are in [ArtSource/FuelStop04](ArtSource/FuelStop04/README.md). The kit is self-contained and does not require the old courier gameplay prototype.
+Blender sources, previews and the asset catalog are in [ArtSource/FuelStop04](ArtSource/FuelStop04/README.md). The kit consists of finished art assets; no baking scripts or generation step are required.
