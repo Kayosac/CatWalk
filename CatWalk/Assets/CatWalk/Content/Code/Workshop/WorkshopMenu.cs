@@ -55,15 +55,15 @@ public class WorkshopMenu : MenuScreen
         switch (kind)
         {
             case CarUpgrades.Kind.Engine:
-                return $"маршевый {car.CruiseRange:0} → {car.CruiseRange + car.rangePerLevel:0} м";
+                return $"маршевый {car.CruiseRange:0} -> {car.CruiseRange + car.rangePerLevel:0} м";
             case CarUpgrades.Kind.Tank:
                 float capacity = car.baseCapacity + car.capacityPerLevel * level;
-                return $"бак {capacity:0} → {capacity + car.capacityPerLevel:0} л";
+                return $"бак {capacity:0} -> {capacity + car.capacityPerLevel:0} л";
             case CarUpgrades.Kind.Cargo:
                 return $"мест на полке +{car.extraSlots[level].GetComponentsInChildren<ParcelSlot>(true).Length}";
             default:
                 float saving = 1f - (1f + car.efficiencyPerLevel * level) / (1f + car.efficiencyPerLevel * (level + 1));
-                return $"расход −{Mathf.RoundToInt(saving * 100f)} %";
+                return $"расход -{Mathf.RoundToInt(saving * 100f)} %";
         }
     }
 }

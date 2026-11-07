@@ -20,7 +20,7 @@ public class PostTerminalMenu : MenuScreen
         foreach (DeliveryOrder order in terminal.orders)
         {
             PostTerminal to = PostTerminal.Find(order.to);
-            string line = $"{order.cargo} → {(to != null ? to.title : order.to)} | {Wallet.Format(order.reward)}{(order.fragile ? " | хрупкое" : "")}";
+            string line = $"{order.cargo} -> {(to != null ? to.title : order.to)} | {Wallet.Format(order.reward)}{(order.fragile ? " | хрупкое" : "")}";
             if (terminal.IsTaken(order)) AddRow(line + " | в пути");
             else AddRow("Взять: " + line, terminal.HasFreeIssueSlot ? () =>
             {

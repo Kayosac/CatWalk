@@ -153,6 +153,6 @@ public class CruiseDrive : MonoBehaviour
 
         Hud.Toast(blocked < length
             ? $"Маршевый: препятствие на пути — до цели {Navigator.FormatDistance(navigator.DistanceTo(target))}"
-            : $"Маршевый: прибыли к «{target.Label}» | −{cost:0.#} л");
+            : $"Маршевый: прибыли к «{target.Label}» | -{cost:0.#} л");
     }
 }

@@ -56,7 +56,7 @@ public class Tow : MonoBehaviour
 
         Location place = NearestLocation(pad.position);
         Hud.Toast($"Буксир доставил космокар {(place != null ? $"к «{place.title}»" : "на парковку")} | "
-                + (cost > 0 ? $"−{Wallet.Format(cost)}" : "даром"));
+                + (cost > 0 ? $"-{Wallet.Format(cost)}" : "даром"));
     }
 
     // Ближайшая парковка, на месте стоянки которой ничего нет; если заняты все — просто ближайшая.
