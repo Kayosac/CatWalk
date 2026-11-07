@@ -21,7 +21,7 @@ public class FuelTank : MonoBehaviour
     // throttle — тяга в долях полного газа без форсажа.
     public void Burn(float throttle, float dt) => Fuel = Mathf.Max(0f, Fuel - burnRate * throttle / efficiency * dt);
 
-    // Списать литры разом (маршевый перелёт); false — столько нет.
+    // Списать литры разом; false — столько нет.
     public bool TryUse(float liters)
     {
         if (liters > Fuel) return false;

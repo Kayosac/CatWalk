@@ -12,6 +12,9 @@ using UnityEngine.InputSystem.Controls;
 // Машина сама ложится крышей от планеты: у поверхности — жёстко, к краю атмосферы всё мягче.
 // F — медленно выровняться, сохранив курс: на парковке — по ней, в атмосфере — по планете, иначе по мировому верху.
 // Тяга тратит топливо (FuelTank): на резерве она слабее и без форсажа, в пустом баке двигатели молчат.
+// Маршевый — следующая ступень после форсажа: с зажатым Shift нажать Space. Держится, пока зажат Shift;
+// повторный Space или удар — выключает. W тянет намного сильнее при малом сопротивлении и жжёт втрое больше форсажа,
+// остальная тяга как обычно, Space не поднимает. На резерве и с побитым корпусом (thrustScale < 1) недоступен.
 [RequireComponent(typeof(Rigidbody), typeof(FuelTank))]
 public class CosmoCarController : MonoBehaviour
 {
@@ -24,6 +27,13 @@ public class CosmoCarController : MonoBehaviour
     public float liftThrust = 12f;
     public float boostMultiplier = 2.5f;  // Shift
     public float thrustScale = 1f;        // доля тяги, которую дают двигатели: её снижает, например, побитый корпус
+
+    [Header("Маршевый (Shift+Space)")]
+    public float cruiseThrust = 75f;      // тяга вперёд, м/с²: предел скорости — cruiseThrust / cruiseDamping
+    public float cruiseDamping = 0.33f;   // сопротивление: разгон до предела ~3 / cruiseDamping с
+    public float cruiseFuel = 3f;         // расход на тягу вперёд относительно форсажа
+    public float cruiseScale = 1f;        // множитель тяги маршевого (и его скорости): улучшение двигателя (CarUpgrades)
+    public ParticleSystem cruiseVfx;      // на машине, пока маршевый включён
 
     [Header("Инерция")]
     public float linearDamping = 1f;      // общее сопротивление: меньше — дольше катится вперёд
@@ -53,8 +63,11 @@ public class CosmoCarController : MonoBehaviour
     Quaternion transport = Quaternion.identity; // поворот вокруг планеты, ещё не забранный камерой
     Vector3 parkingUp;                    // «верх» парковки, которая разворачивает машину
     float parkingTime = -1f;
+    bool spaceLatch;                      // Space переключил маршевый: пока его не отпустят, он не поднимает машину
 
     public Quaternion HoldRotation => hold;
+    public bool Cruising { get; private set; }
+    public bool CanCruise => !fuel.OnReserve && thrustScale >= 1f;
 
     void Awake()
     {
@@ -76,7 +89,7 @@ public class CosmoCarController : MonoBehaviour
         if (k == null) return;
         float dt = Time.fixedDeltaTime;
 
-        rb.linearDamping = linearDamping;
+        rb.linearDamping = Cruising ? cruiseDamping : linearDamping;
 
         // Атмосфера: машина поворачивается на столько, на сколько сместился «верх» планеты, — без отставания,
         // иначе нос задирается над горизонтом и тяга уводит от поверхности.
@@ -95,12 +108,14 @@ public class CosmoCarController : MonoBehaviour
         float power = fuel.Power * thrustScale;
         float forwardIn = power > 0f ? Axis(k.sKey, k.wKey) : 0f;
         float strafeIn = power > 0f ? Axis(k.qKey, k.eKey) : 0f;
-        float liftIn = power > 0f ? Axis(k.cKey, k.spaceKey) : 0f;
+        float liftIn = power > 0f ? (k.spaceKey.isPressed && !Cruising && !spaceLatch ? 1f : 0f) - (k.cKey.isPressed ? 1f : 0f) : 0f;
         bool boost = k.leftShiftKey.isPressed && !fuel.OnReserve;
-        float forwardAccel = (forwardIn > 0f ? thrust * (boost ? boostMultiplier : 1f) : reverseThrust) * power;
+        bool cruise = Cruising && forwardIn > 0f;
+        float forwardAccel = (forwardIn > 0f ? cruise ? cruiseThrust * cruiseScale : thrust * (boost ? boostMultiplier : 1f) : reverseThrust) * power;
         float strafeAccel = strafeThrust * power;
         float liftAccel = liftThrust * power;
-        fuel.Burn((Mathf.Abs(forwardIn) * forwardAccel + Mathf.Abs(strafeIn) * strafeAccel + Mathf.Abs(liftIn) * liftAccel) / thrust, dt);
+        float forwardBurn = cruise ? boostMultiplier * cruiseFuel * power : forwardAccel / thrust;
+        fuel.Burn(Mathf.Abs(forwardIn) * forwardBurn + (Mathf.Abs(strafeIn) * strafeAccel + Mathf.Abs(liftIn) * liftAccel) / thrust, dt);
 
         // Скорость в осях машины: по боковой и вертикальной оси без тяги снос гасится — машина едет носом.
         Vector3 localVelocity = Quaternion.Inverse(rb.rotation) * rb.linearVelocity;
@@ -182,9 +197,10 @@ public class CosmoCarController : MonoBehaviour
         if (!steering) hold = Quaternion.RotateTowards(hold, target, maxDegrees);
     }
 
-    // Мгновенно переставить машину (маршевый перелёт, буксир): без скорости, держит новую ориентацию.
+    // Мгновенно переставить машину (буксир): без скорости, держит новую ориентацию.
     public void Teleport(Vector3 position, Quaternion rotation)
     {
+        SetCruise(false);
         rb.position = position;
         rb.rotation = rotation;
         transform.SetPositionAndRotation(position, rotation);
@@ -207,9 +223,12 @@ public class CosmoCarController : MonoBehaviour
     }
 
     // Мягкое касание (посадка, скольжение по стене) толчком не считается.
+    // Толчок выбивает и из маршевого.
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.impulse.magnitude / rb.mass > knockImpulse) knockTimer = knockTime;
+        if (collision.impulse.magnitude / rb.mass <= knockImpulse) return;
+        knockTimer = knockTime;
+        SetCruise(false);
     }
 
     // Угловая скорость, с которой нужно вращаться, чтобы довернуть к цели.
@@ -228,6 +247,33 @@ public class CosmoCarController : MonoBehaviour
         Keyboard k = Keyboard.current;
         if (k == null) return;
         if (k.fKey.wasPressedThisFrame) leveling = true;
+
+        if (!k.spaceKey.isPressed) spaceLatch = false;
+        bool shift = k.leftShiftKey.isPressed;
+        if (shift && k.spaceKey.wasPressedThisFrame && MenuScreen.Opened == null)
+        {
+            spaceLatch = true;
+            if (!Cruising && !CanCruise) Hud.Toast(fuel.OnReserve ? "Маршевый недоступен: топливо на резерве" : "Маршевый недоступен: корпус побит");
+            else SetCruise(!Cruising);
+        }
+        else if (Cruising && (!shift || !CanCruise)) SetCruise(false);
+    }
+
+    void Start()
+    {
+        if (cruiseVfx != null) cruiseVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+    }
+
+    // Вышли из машины — маршевый гаснет.
+    void OnDisable() => SetCruise(false);
+
+    void SetCruise(bool on)
+    {
+        if (Cruising == on) return;
+        Cruising = on;
+        if (cruiseVfx == null) return;
+        if (on) cruiseVfx.Play(true);
+        else cruiseVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
     static float Axis(KeyControl negative, KeyControl positive) =>

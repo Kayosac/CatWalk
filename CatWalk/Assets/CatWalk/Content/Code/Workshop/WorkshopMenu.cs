@@ -55,7 +55,7 @@ public class WorkshopMenu : MenuScreen
         switch (kind)
         {
             case CarUpgrades.Kind.Engine:
-                return $"маршевый {car.CruiseRange:0} -> {car.CruiseRange + car.rangePerLevel:0} м";
+                return $"скорость маршевого +{Mathf.RoundToInt(car.cruisePerLevel * level * 100f)} -> +{Mathf.RoundToInt(car.cruisePerLevel * (level + 1) * 100f)} %";
             case CarUpgrades.Kind.Tank:
                 float capacity = car.baseCapacity + car.capacityPerLevel * level;
                 return $"бак {capacity:0} -> {capacity + car.capacityPerLevel:0} л";

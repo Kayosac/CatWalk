@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Полётный HUD: скорость, цель и расстояние до неё, маркер цели на экране, состояние маршевого,
+// Полётный HUD: скорость, цель и расстояние до неё, маркер цели на экране, маршевый вкл/выкл (полоска — доля его предельной скорости),
 // а когда тянет парковка — расстояние до площадки, скорость и «магнит / стоит».
 // Виден только за рулём и без открытого меню. Компоновка — в префабе FlightHud, здесь только значения.
 [RequireComponent(typeof(Canvas))]
@@ -16,8 +16,6 @@ public class FlightHud : MonoBehaviour
     [Header("Маршевый (полоска)")]
     public Image cruiseFill;
     public TMP_Text cruiseLabel;
-    public Color cruiseReady = new(0.35f, 0.85f, 1f);
-    public Color cruiseCharging = new(1f, 0.75f, 0.3f);
 
     [Header("Маркер цели")]
     public RectTransform marker;          // рамка у цели, когда она на экране
@@ -32,7 +30,6 @@ public class FlightHud : MonoBehaviour
 
     Canvas canvas;
     Navigator navigator;
-    CruiseDrive cruise;
     Rigidbody body;
     ParkingZone[] zones;
 
@@ -43,7 +40,6 @@ public class FlightHud : MonoBehaviour
         if (car != null)
         {
             navigator = car.GetComponent<Navigator>();
-            cruise = car.GetComponent<CruiseDrive>();
             body = car.GetComponent<Rigidbody>();
         }
         zones = FindObjectsByType<ParkingZone>(FindObjectsSortMode.None);
@@ -60,12 +56,13 @@ public class FlightHud : MonoBehaviour
 
         Location goal = navigator.Target;
         target.text = goal != null ? $"Цель: {goal.Label} | {Navigator.FormatDistance(navigator.DistanceTo(goal))}"
-                                   : "Цель не выбрана | Tab карта, T следующая";
+                                   : "Цель не выбрана | M карта, T следующая";
 
-        string blocker = cruise.Blocker();
-        cruiseFill.rectTransform.anchorMax = new Vector2(cruise.SpinningUp ? cruise.Progress : blocker == null ? 1f : 0f, 1f);
-        cruiseFill.color = cruise.SpinningUp ? cruiseCharging : cruiseReady;
-        cruiseLabel.text = cruise.SpinningUp ? "Маршевый: разгон" : blocker == null ? "Маршевый готов | J" : "Маршевый: " + blocker;
+        float top = car.cruiseThrust * car.cruiseScale / Mathf.Max(car.cruiseDamping, 0.01f);
+        cruiseFill.rectTransform.anchorMax = new Vector2(car.Cruising ? Mathf.Clamp01(velocity / top) : 0f, 1f);
+        cruiseLabel.text = car.Cruising ? "Маршевый: ВКЛ | отпусти Shift — выкл"
+                         : car.CanCruise ? "Маршевый: выкл | Shift+Space — маршевый"
+                         : "Маршевый недоступен: " + (car.GetComponent<FuelTank>().OnReserve ? "топливо на резерве" : "корпус побит");
 
         Marker(goal);
         Parking(velocity);
