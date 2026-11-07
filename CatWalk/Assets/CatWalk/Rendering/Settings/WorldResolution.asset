@@ -15,5 +15,5 @@ MonoBehaviour:
   Enabled: 1
   Width: 640
   Height: 360
-  Upscaling: 0
+  Upscaling: 2
   BorderColor: {r: 0, g: 0, b: 0, a: 1}

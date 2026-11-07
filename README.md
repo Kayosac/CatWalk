@@ -22,6 +22,23 @@ To update the bridge, create a new UPM archive from the desired upstream commit 
 
 ## FuelStop04 station
 
-The assembled station is [FuelStop04.prefab](CatWalk/Assets/SpaceCourier/Prefabs/FuelStop04.prefab). Search for `t:Prefab FuelStop04` in Unity's Project window. The kit contains 35 reusable models, 182 module instances and one shared texture atlas, including the corrected cabin interior, supports and surface joins.
+The assembled station is [FuelStop04.prefab](CatWalk/Assets/CatWalk/Prefabs/FuelStop04.prefab). Search for `t:Prefab FuelStop04` in Unity's Project window. The kit contains 35 reusable models, 182 module instances and one shared texture atlas, including the corrected cabin interior, supports and surface joins.
 
 Blender sources, previews and the asset catalog are in [ArtSource/FuelStop04](ArtSource/FuelStop04/README.md). The kit consists of finished art assets; no baking scripts or generation step are required.
+
+## Environment art layout
+
+All environment kits share `CatWalk/Assets/CatWalk/Content/Environment/`:
+
+- `Models/<Pack>/` — models grouped by pack (`FuelStop04`, `SpaceKonbini`).
+- `Materials/` — shared materials using the built-in `Universal Render Pipeline/Lit` shader.
+- `Textures/` — color atlases and emission maps.
+- `Modules/<Pack>/` — reusable prefabs built from individual models.
+
+Complete station prefabs remain in `CatWalk/Assets/CatWalk/Prefabs/`.
+Blender sources and catalogs remain in `ArtSource/<Pack>/`.
+Every agent must follow the layout and asset migration rules in [AGENTS.md](AGENTS.md).
+
+## Code layout
+
+All game code (C# and shaders) lives in `CatWalk/Assets/CatWalk/Content/Code/`, one folder per game section. See [AGENTS.md](AGENTS.md) for the rules.
