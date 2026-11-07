@@ -153,7 +153,8 @@ public class Debt : MonoBehaviour, ISaveable
             : "Кто-то помял корпус космокара. «Это только начало».";
     }
 
-    void AddPressure(float amount) => s.pressure = Mathf.Clamp(s.pressure + amount, 0f, 100f);
+    // Сдвиг давления: просрочки, платежи, вехи, поручения, досмотры. Минус — снимает.
+    public void AddPressure(float amount) => s.pressure = Mathf.Clamp(s.pressure + amount, 0f, 100f);
 
     // Оплата из меню почты: возвращают текст статуса или null, если не хватило денег.
     public string PayScheduled()

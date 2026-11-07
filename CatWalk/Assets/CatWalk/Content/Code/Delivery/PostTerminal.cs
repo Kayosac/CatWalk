@@ -30,6 +30,14 @@ public class PostTerminal : MonoBehaviour
 
     public static PostTerminal Find(string address) => All.Find(t => t.address == address);
 
+    // Добавить заказ в список, если его там нет: поручения жителей и заказы вех.
+    public void AddOrder(DeliveryOrder order)
+    {
+        if (order == null || (orders != null && System.Array.IndexOf(orders, order) >= 0)) return;
+        System.Array.Resize(ref orders, (orders != null ? orders.Length : 0) + 1);
+        orders[^1] = order;
+    }
+
     public bool IsTaken(DeliveryOrder order) => Parcel.All.Exists(p => p.order == order);
 
     public bool HasFreeIssueSlot => System.Array.Exists(issueSlots, s => s.IsFree);
