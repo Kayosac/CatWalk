@@ -10,4 +10,5 @@ public class DeliveryOrder : ScriptableObject
     public string to;
     public int reward = 50;               // кредиты за доставку
     public bool fragile;
+    [TextArea] public string reaction;    // что скажет житель почты-адресата при сдаче; пусто — его обычная реакция
 }

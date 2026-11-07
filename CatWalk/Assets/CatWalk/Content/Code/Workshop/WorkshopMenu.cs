@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Экранное меню мастерской: починить корпус и купить следующий уровень каждого улучшения.
+// Экранное меню мастерской: починить корпус и купить следующий уровень каждого улучшения (у ремонтной платформы — только починить).
 public class WorkshopMenu : MenuScreen
 {
     WorkshopTerminal workshop;
@@ -14,7 +14,7 @@ public class WorkshopMenu : MenuScreen
     protected override void Refresh()
     {
         ClearRows();
-        title.text = $"Мастерская | на счету {Wallet.Format(Wallet.Current.Balance)}";
+        title.text = $"{(workshop.repairOnly ? "Ремонт" : "Мастерская")} | на счету {Wallet.Format(Wallet.Current.Balance)}";
 
         int missing = workshop.Missing;
         int percents = workshop.RepairPercents;
@@ -25,6 +25,7 @@ public class WorkshopMenu : MenuScreen
         else AddRow((percents >= missing ? $"Починить полностью | {Wallet.Format(cost)}" : $"Починить на {percents} % | {Wallet.Format(cost)}") + $" | {now}",
             () => $"Корпус починен на {workshop.Repair()} %.");
 
+        if (workshop.repairOnly) return;
         CarUpgrades car = workshop.Upgrades;
         foreach (CarUpgrades.Kind kind in System.Enum.GetValues(typeof(CarUpgrades.Kind)))
         {

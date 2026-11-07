@@ -134,7 +134,8 @@ public class Resident : MonoBehaviour, ISaveable
         memory.known = true;
         memory.lastCargo = parcels[^1].order.cargo;
         ResidentProfile.CargoReaction reaction = System.Array.Find(profile.reactions, r => parcels.Exists(p => p.order == r.order));
-        string line = reaction != null ? reaction.line : profile.thanks;
+        Parcel special = parcels.Find(p => !string.IsNullOrEmpty(p.order.reaction));
+        string line = reaction != null ? reaction.line : special != null ? special.order.reaction : profile.thanks;
         if (parcels.Exists(p => p.Fragile && p.condition < 0.75f) && !string.IsNullOrEmpty(profile.damagedRemark)) line += " " + profile.damagedRemark;
         Say(line);
     }
