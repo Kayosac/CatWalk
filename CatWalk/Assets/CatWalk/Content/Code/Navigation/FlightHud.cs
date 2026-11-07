@@ -59,13 +59,13 @@ public class FlightHud : MonoBehaviour
         speed.text = $"{velocity:0.0} м/с";
 
         Location goal = navigator.Target;
-        target.text = goal != null ? $"Цель: {goal.Label} · {Navigator.FormatDistance(navigator.DistanceTo(goal))}"
-                                   : "Цель не выбрана · Tab карта, T следующая";
+        target.text = goal != null ? $"Цель: {goal.Label} | {Navigator.FormatDistance(navigator.DistanceTo(goal))}"
+                                   : "Цель не выбрана | Tab карта, T следующая";
 
         string blocker = cruise.Blocker();
         cruiseFill.rectTransform.anchorMax = new Vector2(cruise.SpinningUp ? cruise.Progress : blocker == null ? 1f : 0f, 1f);
         cruiseFill.color = cruise.SpinningUp ? cruiseCharging : cruiseReady;
-        cruiseLabel.text = cruise.SpinningUp ? "Маршевый: разгон" : blocker == null ? "Маршевый готов · J" : "Маршевый: " + blocker;
+        cruiseLabel.text = cruise.SpinningUp ? "Маршевый: разгон" : blocker == null ? "Маршевый готов | J" : "Маршевый: " + blocker;
 
         Marker(goal);
         Parking(velocity);
@@ -89,7 +89,7 @@ public class FlightHud : MonoBehaviour
         {
             marker.gameObject.SetActive(true);
             marker.position = point;
-            markerLabel.text = $"{goal.Label} · {Navigator.FormatDistance(navigator.DistanceTo(goal))}";
+            markerLabel.text = $"{goal.Label} | {Navigator.FormatDistance(navigator.DistanceTo(goal))}";
             return;
         }
 
@@ -123,6 +123,6 @@ public class FlightHud : MonoBehaviour
         parking.SetActive(zone != null);
         if (zone == null) return;
         parkingFill.rectTransform.anchorMax = new Vector2(1f - Mathf.Clamp01(distance / zone.radius), 1f);
-        parkingLabel.text = $"Парковка {distance:0.0} м · {velocity:0.0} м/с · {(zone.IsDocked ? "стоит" : "магнит")}";
+        parkingLabel.text = $"Парковка {distance:0.0} м | {velocity:0.0} м/с | {(zone.IsDocked ? "стоит" : "магнит")}";
     }
 }

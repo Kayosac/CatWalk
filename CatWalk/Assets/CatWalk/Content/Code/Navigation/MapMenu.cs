@@ -28,7 +28,7 @@ public class MapMenu : MenuScreen
         ClearRows();
         CruiseDrive cruise = navigator.GetComponent<CruiseDrive>();
         FuelTank tank = navigator.GetComponent<FuelTank>();
-        title.text = $"Карта · маршевый до {Navigator.FormatDistance(cruise.Range)} · топливо {Mathf.CeilToInt(tank.Fuel)} / {tank.capacity:0} л";
+        title.text = $"Карта | маршевый до {Navigator.FormatDistance(cruise.Range)} | топливо {Mathf.CeilToInt(tank.Fuel)} / {tank.capacity:0} л";
 
         foreach (Location location in navigator.Sorted())
         {
@@ -37,7 +37,7 @@ public class MapMenu : MenuScreen
                          : distance > cruise.Range ? "далеко для двигателя"
                          : cruise.Cost(distance) > tank.Fuel ? $"мало топлива ({cruise.Cost(distance):0} л)"
                          : "можно маршевым";
-            string line = $"{location.Label} · {KindName(location.kind)} · {Navigator.FormatDistance(distance)} · {reach}";
+            string line = $"{location.Label} | {KindName(location.kind)} | {Navigator.FormatDistance(distance)} | {reach}";
             if (location == navigator.Target) line = "[цель] " + line;
             Location picked = location;
             AddRow(line, () =>

@@ -86,7 +86,7 @@ public class Resident : MonoBehaviour, ISaveable
         ResidentProfile.StoryEvent news = News();
         if (!menu && distance < talkDistance && !ParcelCarrier.Current.HasAction)
         {
-            Hud.Prompt(news != null ? "F — поговорить · есть новости" : "F — поговорить", 9);
+            Hud.Prompt(news != null ? "F — поговорить | есть новости" : "F — поговорить", 9);
             Keyboard k = Keyboard.current;
             if (k != null && k.fKey.wasPressedThisFrame) Talk();
         }

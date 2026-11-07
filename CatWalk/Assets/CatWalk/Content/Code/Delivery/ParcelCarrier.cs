@@ -38,7 +38,7 @@ public class ParcelCarrier : MonoBehaviour
         string hint = Held != null ? (NearestFreeSlot() != null ? "F — поставить посылку" : "F — положить посылку")
                     : NearestParcel() != null ? "F — взять посылку" : null;
         if (hint == null) return;
-        Hud.Prompt(Held != null ? $"{hint} · {Held.Label}" : hint, 20);
+        Hud.Prompt(Held != null ? $"{hint} | {Held.Label}" : hint, 20);
 
         Keyboard k = Keyboard.current;
         if (k == null || !k.fKey.wasPressedThisFrame) return;

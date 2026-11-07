@@ -32,7 +32,7 @@ public class Tow : MonoBehaviour
     {
         // Только пока кот за рулём.
         if (!car.enabled || !Stuck || MenuScreen.Opened != null) return;
-        Hud.Prompt($"H — вызвать буксир · {Wallet.Format(Cost)}", 10);
+        Hud.Prompt($"H — вызвать буксир | {Wallet.Format(Cost)}", 10);
         Keyboard k = Keyboard.current;
         if (k != null && k.hKey.wasPressedThisFrame) Call();
     }
@@ -55,7 +55,7 @@ public class Tow : MonoBehaviour
         if (hull.Condition < minHull) hull.Repair(minHull - hull.Condition);
 
         Location place = NearestLocation(pad.position);
-        Hud.Toast($"Буксир доставил космокар {(place != null ? $"к «{place.title}»" : "на парковку")} · "
+        Hud.Toast($"Буксир доставил космокар {(place != null ? $"к «{place.title}»" : "на парковку")} | "
                 + (cost > 0 ? $"−{Wallet.Format(cost)}" : "даром"));
     }
 

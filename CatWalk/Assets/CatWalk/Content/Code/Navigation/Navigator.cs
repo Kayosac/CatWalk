@@ -53,7 +53,7 @@ public class Navigator : MonoBehaviour, ISaveable
             return;
         }
         Target = sorted[(sorted.IndexOf(Target) + 1) % sorted.Count];
-        Hud.Toast($"Цель: {Target.Label} · {FormatDistance(DistanceTo(Target))}");
+        Hud.Toast($"Цель: {Target.Label} | {FormatDistance(DistanceTo(Target))}");
     }
 
     // «850 м», «2,4 км».

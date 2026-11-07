@@ -100,7 +100,7 @@ public class CruiseDrive : MonoBehaviour
             return;
         }
 
-        Hud.Prompt("Маршевый: разгон · J — отмена", 15);
+        Hud.Prompt("Маршевый: разгон | J — отмена", 15);
         spinUp += Time.deltaTime;
         if (spinUp >= spinUpTime) Jump();
     }
@@ -153,6 +153,6 @@ public class CruiseDrive : MonoBehaviour
 
         Hud.Toast(blocked < length
             ? $"Маршевый: препятствие на пути — до цели {Navigator.FormatDistance(navigator.DistanceTo(target))}"
-            : $"Маршевый: прибыли к «{target.Label}» · −{cost:0.#} л");
+            : $"Маршевый: прибыли к «{target.Label}» | −{cost:0.#} л");
     }
 }

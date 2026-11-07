@@ -44,7 +44,7 @@ public class Debt : MonoBehaviour, ISaveable
     public float DemandTimer => s.demandTimer;
     public int ExtraPayment => Mathf.Min(settings.extraPayment, s.left);
 
-    public string Summary => s.left <= 0 ? "долг выплачен" : $"долг {Wallet.Format(s.left)} · давление кредиторов {s.pressure:0}/100";
+    public string Summary => s.left <= 0 ? "долг выплачен" : $"долг {Wallet.Format(s.left)} | давление кредиторов {s.pressure:0}/100";
 
     public static string Clock(float seconds)
     {
