@@ -56,12 +56,12 @@ public class FlightHud : MonoBehaviour
 
         Location goal = navigator.Target;
         target.text = goal != null ? $"Цель: {goal.Label} | {Navigator.FormatDistance(navigator.DistanceTo(goal))}"
-                                   : "Цель не выбрана | M карта, T следующая";
+                                   : $"Цель не выбрана | {Controls.Key(Controls.Map)} карта, {Controls.Key(Controls.Target)} следующая";
 
         float top = car.cruiseThrust * car.cruiseScale / Mathf.Max(car.cruiseDamping, 0.01f);
         cruiseFill.rectTransform.anchorMax = new Vector2(car.Cruising ? Mathf.Clamp01(velocity / top) : 0f, 1f);
-        cruiseLabel.text = car.Cruising ? "Маршевый: ВКЛ | отпусти Shift — выкл"
-                         : car.CanCruise ? "Маршевый: выкл | Shift+Space — маршевый"
+        cruiseLabel.text = car.Cruising ? $"Маршевый: ВКЛ | отпусти {Controls.Key(Controls.Boost)} — выкл"
+                         : car.CanCruise ? $"Маршевый: выкл | {Controls.Cruise} — маршевый"
                          : "Маршевый недоступен: " + (car.GetComponent<FuelTank>().OnReserve ? "топливо на резерве" : "корпус побит");
 
         Marker(goal);

@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Экран звонка домой, время на паузе. Реплики по одной, печатаются посимвольно (Text Animator по неигровому времени).
-// E, пробел или клик — допечатать реплику, потом следующая; после последней звонок засчитан.
-// Esc — повесить трубку: недослушанный звонок не засчитывается и подождёт следующего раза.
+// E, пробел или клик (A, RT) — допечатать реплику, потом следующая; после последней звонок засчитан.
+// Esc (B, Start) — повесить трубку: недослушанный звонок не засчитывается и подождёт следующего раза.
 // В обоих случаях снова открывается меню будки.
 public class PhoneCallScreen : MenuScreen
 {
@@ -36,15 +36,14 @@ public class PhoneCallScreen : MenuScreen
 
     protected override void Update()
     {
-        Keyboard k = Keyboard.current;
         Mouse m = Mouse.current;
         if (Opened != this || call == null || Time.frameCount == openFrame) return;
-        if (k != null && k.escapeKey.wasPressedThisFrame)
+        if (Controls.Back.WasPressedThisFrame())
         {
             End(false);
             return;
         }
-        bool next = (k != null && (k.eKey.wasPressedThisFrame || k.spaceKey.wasPressedThisFrame))
+        bool next = Controls.Interact.WasPressedThisFrame() || Controls.Up.WasPressedThisFrame()
                  || (m != null && m.leftButton.wasPressedThisFrame);
         if (!next) return;
         if (typewriter.IsShowingText) typewriter.SkipTypewriter();

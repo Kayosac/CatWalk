@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 // Горизонта нет: без ПКМ камера осматривается относительно машины и вращается вместе с ней,
 // на ходу без движения мыши сама возвращается за спину.
 // С ПКМ мышь вращает прицел без ограничений, машина доворачивает за ним.
-// Курсор отпускают меню (MenuScreen), ЛКМ — захватить снова.
+// Курсор отпускают меню (MenuScreen), ЛКМ — захватить снова. Правый стик геймпада осматривает так же, LB — как ПКМ (Controls).
 public class CosmoCarCamera : MonoBehaviour
 {
     public Transform target;              // по умолчанию — космокар в сцене
@@ -59,9 +59,7 @@ public class CosmoCarCamera : MonoBehaviour
         Mouse m = Mouse.current;
         if (m != null && m.leftButton.wasPressedThisFrame) SetCursorLocked(true);
 
-        Vector2 d = m != null && Cursor.lockState == CursorLockMode.Locked
-            ? GameSettings.Look(m.delta.ReadValue()) * sensitivity // множитель и инверсия из настроек
-            : Vector2.zero;
+        Vector2 d = Controls.Look(sensitivity); // множитель и инверсия из настроек
         idleTime = d != Vector2.zero ? 0f : idleTime + Time.deltaTime;
 
         if (target == null) return;
@@ -74,7 +72,7 @@ public class CosmoCarCamera : MonoBehaviour
             shown = around * shown;
         }
 
-        bool steerNow = m != null && m.rightButton.isPressed;
+        bool steerNow = Controls.Steer.IsPressed();
         if (steering && !steerNow) SyncAnglesFromLook();
         steering = steerNow;
 

@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Персонаж от третьего лица без анимаций на Rigidbody. Ходит относительно камеры по любой поверхности:
 // «верх» — против гравитации (GravitySource), тело плавно разворачивается за ней.
-// WASD — ходьба, Shift — бег, Space — прыжок.
+// WASD — ходьба, Shift — бег, Space — прыжок (действия Controls: на геймпаде левый стик, RB, RT).
 // Вне всех зон гравитации беспомощно дрейфует по инерции и медленно кувыркается.
 // Вместо анимации шага модель «баунсит» скейлом: вверх — вытягивается и сужается,
 // вниз — сплющивается и расширяется. Объём сохраняется: ширина = 1 / √высоты.
@@ -81,8 +80,7 @@ public class CatController : MonoBehaviour
 
     void Update()
     {
-        Keyboard k = Keyboard.current;
-        if (k != null && k.spaceKey.wasPressedThisFrame) jumpQueued = true;
+        if (Controls.Pressed(Controls.Up)) jumpQueued = true;
         float dt = Time.deltaTime;
 
         squashVelocity += (-squashStiffness * squash - squashDamping * squashVelocity) * dt;
@@ -133,16 +131,13 @@ public class CatController : MonoBehaviour
             && Vector3.Angle(hit.normal, up) < maxSlope;
 
         // Ввод — по курсу камеры в плоскости, перпендикулярной «верху».
-        Keyboard k = Keyboard.current;
-        Vector2 input = k == null ? Vector2.zero : Vector2.ClampMagnitude(new Vector2(
-            (k.dKey.isPressed ? 1f : 0f) - (k.aKey.isPressed ? 1f : 0f),
-            (k.wKey.isPressed ? 1f : 0f) - (k.sKey.isPressed ? 1f : 0f)), 1f);
+        Vector2 input = Controls.Move;
         Transform view = cam != null ? cam : transform;
         Vector3 forward = Vector3.ProjectOnPlane(view.forward, up);
         if (forward.sqrMagnitude < 1e-4f) forward = Vector3.ProjectOnPlane(view.up, up);
         forward.Normalize();
         Vector3 right = Vector3.Cross(up, forward);
-        bool run = k != null && k.leftShiftKey.isPressed;
+        bool run = Controls.Boost.IsPressed();
         Vector3 wish = (right * input.x + forward * input.y) * (run ? runSpeed : moveSpeed);
 
         lateral = Vector3.MoveTowards(lateral, wish, acceleration * dt);

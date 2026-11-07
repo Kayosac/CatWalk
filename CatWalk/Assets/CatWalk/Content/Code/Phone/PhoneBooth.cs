@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Телефонная будка. E рядом — меню: сохранить игру, позвонить домой, «Записи».
 // Сохраниться можно только здесь. Работает пешком, где бы будка ни стояла.
@@ -26,12 +25,11 @@ public class PhoneBooth : MonoBehaviour
 
     void Update()
     {
-        Keyboard k = Keyboard.current;
         bool news = PhoneLine.Current != null && PhoneLine.Current.News != null;
         if (newsIcon != null) newsIcon.SetActive(news);
         if (MenuScreen.Opened != null || !CatNear) return;
-        Hud.Prompt(news ? "E — телефон (звонок домой)" : "E — телефон", 10);
-        if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
+        Hud.Prompt(Controls.Hint(Controls.Interact, news ? "телефон (звонок домой)" : "телефон"), 10);
+        if (Controls.Pressed(Controls.Interact)) menu.Open(this);
     }
 
     void OnDrawGizmos()

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Находка в пустоте: обломки или сигнал. Точка на карте — Location (kind Find) на том же объекте, её id — ключ сохранения.
 // Подлететь на машине ближе range и медленнее maxSpeed — F, исследование идёт scanTime секунд; улетел дальше — прервалось.
@@ -61,9 +60,8 @@ public class Find : MonoBehaviour, ISaveable
 
         // F в машине ещё и выравнивает — это не мешает.
         if (!inRange || MenuScreen.Opened != null || carBody.linearVelocity.magnitude > maxSpeed) return;
-        Hud.Prompt("F — исследовать", 15);
-        Keyboard k = Keyboard.current;
-        if (k == null || !k.fKey.wasPressedThisFrame) return;
+        Hud.Prompt(Controls.Hint(Controls.Use, "исследовать"), 15);
+        if (!Controls.Pressed(Controls.Use)) return;
         progress = 0f;
         scanVfx.SetActive(true);
     }

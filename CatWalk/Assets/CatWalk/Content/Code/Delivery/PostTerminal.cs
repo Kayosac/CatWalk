@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Почтовый терминал. E рядом — меню почты: взять заказы и отметить доставку.
 // Взятый заказ появляется посылкой в свободном слоте зоны выдачи. Заказов можно взять несколько,
@@ -85,10 +84,9 @@ public class PostTerminal : MonoBehaviour
 
     void Update()
     {
-        Keyboard k = Keyboard.current;
         if (MenuScreen.Opened != null || !CatNear) return;
-        Hud.Prompt("E — почта", 10);
-        if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
+        Hud.Prompt(Controls.Hint(Controls.Interact, "почта"), 10);
+        if (Controls.Pressed(Controls.Interact)) menu.Open(this);
     }
 
     void OnDrawGizmos()

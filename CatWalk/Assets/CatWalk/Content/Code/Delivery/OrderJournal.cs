@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Журнал заказов: все взятые заказы, то есть посылки в мире, — груз, откуда, куда, награда (хрупкое — по сохранности),
 // где посылка сейчас и сколько от машины до адресата. Открывается по J (Navigator) в машине и пешком, время на паузе.
@@ -28,8 +27,7 @@ public class OrderJournal : MenuScreen
     protected override void Update()
     {
         base.Update();
-        Keyboard k = Keyboard.current;
-        if (Opened == this && k != null && k.jKey.wasPressedThisFrame && Time.frameCount != openFrame) Close();
+        if (Opened == this && Controls.Journal.WasPressedThisFrame() && Time.frameCount != openFrame) Close();
     }
 
     protected override void Refresh()

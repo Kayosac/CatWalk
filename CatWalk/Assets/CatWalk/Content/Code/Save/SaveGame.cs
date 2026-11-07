@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 // Сохранение игры, одно на сцену: JSON-файл в persistentDataPath.
@@ -76,9 +75,8 @@ public class SaveGame : MonoBehaviour
 
     void Update()
     {
-        // Esc, которым только что закрыли другое меню, паузу не открывает.
-        Keyboard k = Keyboard.current;
-        if (pause != null && k != null && k.escapeKey.wasPressedThisFrame && MenuScreen.Opened == null && !menuWasOpen) pause.Open();
+        // Esc (Start), которым только что закрыли другое меню, паузу не открывает.
+        if (pause != null && Controls.Pressed(Controls.Pause) && !menuWasOpen) pause.Open();
     }
 
     void LateUpdate() => menuWasOpen = MenuScreen.Opened != null;
