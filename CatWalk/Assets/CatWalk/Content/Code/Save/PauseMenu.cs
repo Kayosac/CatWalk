@@ -9,17 +9,23 @@ public class PauseMenu : MenuScreen
     public UnityEvent towAction;          // вызов буксира (Workshop); пункт виден, только если событие подписано
     public SettingsMenu settings;         // настройки (Menu/); пункт виден, если задано
 
-    static readonly string[] Controls =
+    // Справка по текущим клавишам: клавиатурным или геймпадным — смотря что трогали последним.
+    static string[] Help()
     {
-        "Полёт: W/S газ | A/D поворот | Q/E вбок | Space/C вверх/вниз | Shift форсаж",
-        "Полёт: Shift+Space — маршевый (держится, пока зажат Shift)",
-        "Полёт: ПКМ — рулить мышью | F — выровняться | E — выйти на парковке",
-        "Пешком: WASD ходьба | Shift бег | Space прыжок | E — сесть в машину",
-        "Посылки: F — взять, поставить в слот или положить",
-        "Терминалы: E — почта, колонка, мастерская",
-        "M — карта | T — следующая цель | J — журнал заказов",
-        "H — буксир | Esc — пауза | ЛКМ — снова поймать курсор",
-    };
+        string boost = Controls.Key(Controls.Boost), up = Controls.Key(Controls.Up), use = Controls.Key(Controls.Use), e = Controls.Key(Controls.Interact);
+        string walk = Controls.UsingPad ? Controls.Key(Controls.Forward) : Controls.Key(Controls.Forward) + "/" + Controls.Key(Controls.Turn);
+        return new[]
+        {
+            $"Полёт: {Controls.Key(Controls.Forward)} газ | {Controls.Key(Controls.Turn)} поворот | {Controls.Key(Controls.Strafe)} вбок | {up}/{Controls.Key(Controls.Down)} вверх/вниз | {boost} форсаж",
+            $"Полёт: {Controls.Cruise} — маршевый (держится, пока зажат {boost})",
+            $"Полёт: {Controls.Key(Controls.Steer)} — рулить за камерой | {use} — выровняться | {e} — выйти на парковке",
+            $"Пешком: {walk} ходьба | {boost} бег | {up} прыжок | {e} — сесть в машину",
+            $"Посылки: {use} — взять, поставить в слот или положить",
+            $"Терминалы: {e} — почта, колонка, мастерская",
+            $"{Controls.Key(Controls.Map)} — карта | {Controls.Key(Controls.Target)} — следующая цель | {Controls.Key(Controls.Journal)} — журнал заказов",
+            $"{Controls.Key(Controls.Tow)} — буксир | {Controls.Key(Controls.Pause)} — пауза | ЛКМ — снова поймать курсор",
+        };
+    }
 
     bool showControls, confirmNew;
 
@@ -43,7 +49,7 @@ public class PauseMenu : MenuScreen
 
         AddRow(showControls ? "Скрыть управление" : "Управление", () => { showControls = !showControls; return null; });
         if (showControls)
-            foreach (string line in Controls) AddRow(line);
+            foreach (string line in Help()) AddRow(line);
 
         if (settings != null) AddRow("Настройки", () => { Close(); settings.Open(Open); return null; });
 

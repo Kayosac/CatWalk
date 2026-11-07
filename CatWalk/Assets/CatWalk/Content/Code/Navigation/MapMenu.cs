@@ -14,6 +14,7 @@ using UnityEngine.UI;
 // Модель снимает своя камера в текстуру, а текстура лежит на весь экран под панелью меню —
 // так карта не зависит от низкого разрешения мира (WorldResolution на главной камере).
 // ЛКМ — вращать, колесо — масштаб, ПКМ — сдвиг, клик по метке — цель, F — вид к машине.
+// Геймпад: правый стик — вращать, RT/LT — масштаб, строки списка — цель, X — вид к машине, Y — закрыть.
 public class MapMenu : MenuScreen
 {
     public Camera mapCamera;              // выключена, пока карта закрыта
@@ -90,17 +91,17 @@ public class MapMenu : MenuScreen
     {
         base.Update();
         if (Opened != this) return;
-        Keyboard k = Keyboard.current;
-        if (k != null && Time.frameCount != openFrame)
+        if (Time.frameCount != openFrame && !Controls.Rebinding)
         {
-            if (k.mKey.wasPressedThisFrame)
+            if (Controls.Map.WasPressedThisFrame())
             {
                 Close();
                 return;
             }
-            if (k.fKey.wasPressedThisFrame) ResetView();
+            if (Controls.Use.WasPressedThisFrame()) ResetView();
         }
         Steer(Mouse.current);
+        Pad();
         Place();
     }
 
@@ -149,7 +150,7 @@ public class MapMenu : MenuScreen
         string target = navigator.Target != null ? navigator.Target.Label : "не выбрана";
         title.text = tank != null ? $"Карта | цель: {target} | топливо {Mathf.CeilToInt(tank.Fuel)} / {tank.capacity:0} л" : $"Карта | цель: {target}";
 
-        AddRow("Вид к машине (F)", () =>
+        AddRow($"Вид к машине ({Controls.Key(Controls.Use)})", () =>
         {
             ResetView();
             return null;
@@ -344,6 +345,18 @@ public class MapMenu : MenuScreen
 
         float scroll = mouse.scroll.ReadValue().y;
         if (scroll != 0f && !overPanel) distance = Mathf.Clamp(distance * (scroll > 0f ? 0.85f : 1f / 0.85f), modelSize * 0.03f, modelSize * 4f);
+    }
+
+    // Геймпад: правый стик вращает, триггеры приближают и отдаляют. Время стоит — по неигровому времени.
+    void Pad()
+    {
+        if (!Controls.UsingPad) return; // Space и C клавиатуры карту не трогают
+        float dt = Time.unscaledDeltaTime;
+        Vector2 stick = Controls.Stick.ReadValue<Vector2>();
+        yaw += stick.x * 120f * dt;
+        pitch = Mathf.Clamp(pitch - stick.y * 90f * dt, -89f, 89f);
+        float zoom = Controls.Up.ReadValue<float>() - Controls.Down.ReadValue<float>();
+        distance = Mathf.Clamp(distance * Mathf.Pow(0.3f, zoom * dt), modelSize * 0.03f, modelSize * 4f);
     }
 
     // Ближайшая к курсору метка на экране; планету можно взять за любую точку диска.

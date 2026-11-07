@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Косвенная улика линии трикстера: короткий текст, который игрок может найти, а может и пропустить.
 // Ничего не меняет, кроме факта trickster.clue.<id>. Срабатывает один раз, когда выполнены условия и кот пешком
@@ -38,9 +37,8 @@ public class TricksterClue : MonoBehaviour
             return;
         }
         if (cat == null || cat.HasAction) return;
-        Hud.Prompt("F — прочитать", 9);
-        Keyboard k = Keyboard.current;
-        if (k != null && k.fKey.wasPressedThisFrame) Reveal();
+        Hud.Prompt(Controls.Hint(Controls.Use, "прочитать"), 9);
+        if (Controls.Pressed(Controls.Use)) Reveal();
     }
 
     void Reveal()

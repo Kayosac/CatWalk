@@ -1,7 +1,6 @@
 using Febucci.TextAnimatorForUnity;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Авантюрист — житель-котик в шарфе, линия трикстера. Встречи идут цепочкой (TricksterProfile.meetings): очередная
 // открывается по своим условиям, и он ждёт кота на станции встречи — у точки из spots с именем её локации.
@@ -83,9 +82,8 @@ public class Trickster : MonoBehaviour
         bool menu = MenuScreen.Opened != null;
         if (!menu && distance < talkDistance && !ParcelCarrier.Current.HasAction)
         {
-            Hud.Prompt("F — поговорить", 9);
-            Keyboard k = Keyboard.current;
-            if (k != null && k.fKey.wasPressedThisFrame) Talk(here ? meeting : null);
+            Hud.Prompt(Controls.Hint(Controls.Use, "поговорить"), 9);
+            if (Controls.Pressed(Controls.Use)) Talk(here ? meeting : null);
         }
 
         if (!menu && pending != null) Show();

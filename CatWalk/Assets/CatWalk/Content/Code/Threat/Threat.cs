@@ -145,7 +145,7 @@ public class Threat : MonoBehaviour, ISaveable
         Vector3 behind = v.sqrMagnitude > 1f ? -v.normalized : -car.transform.forward;
         Steer(target + behind * (settings.catchRadius * 0.5f), v, cover ? settings.searchDistance : 0f, dt);
 
-        string state = catchTimer > 0f ? "догоняет! уходи на маршевом (Shift+Space)"
+        string state = catchTimer > 0f ? $"догоняет! уходи на маршевом ({Controls.Cruise})"
                      : cover ? "ищет тебя... не высовывайся"
                      : "уходи: маршевый, станция или облако обломков";
         label.text = $"ОХОТНИК | {Navigator.FormatDistance(distance)} | {Side()}\n{state}";

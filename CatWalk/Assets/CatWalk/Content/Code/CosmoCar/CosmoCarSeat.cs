@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Выход из космокара и посадка обратно.
 // E на парковке — выйти: слева от машины появляется игрок, камера переключается на него.
@@ -30,12 +29,11 @@ public class CosmoCarSeat : MonoBehaviour
     void Update()
     {
         // Подсказка внизу экрана, когда можно выйти или сесть.
-        string hint = player == null ? (DockedZone() != null ? "E — выйти" : null) : (CanEnter() ? "E — сесть" : null);
+        string hint = player == null ? (DockedZone() != null ? "выйти" : null) : (CanEnter() ? "сесть" : null);
         if (hint == null) return;
-        Hud.Prompt(hint, 5);
+        Hud.Prompt(Controls.Hint(Controls.Interact, hint), 5);
 
-        Keyboard k = Keyboard.current;
-        if (k == null || !k.eKey.wasPressedThisFrame) return;
+        if (!Controls.Pressed(Controls.Interact)) return;
         if (player == null) TryExit();
         else Enter();
     }

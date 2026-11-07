@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Топливная колонка. E рядом — меню: долить до полного или держать кнопку и лить, сколько нужно.
 // Льёт в бак космокара, где бы тот ни стоял. Каждый литр оплачивается из кошелька — на сколько хватает денег.
@@ -48,10 +47,9 @@ public class FuelPump : MonoBehaviour
 
     void Update()
     {
-        Keyboard k = Keyboard.current;
         if (MenuScreen.Opened != null || !CatNear) return;
-        Hud.Prompt("E — колонка", 10);
-        if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
+        Hud.Prompt(Controls.Hint(Controls.Interact, "колонка"), 10);
+        if (Controls.Pressed(Controls.Interact)) menu.Open(this);
     }
 
     void OnDrawGizmos()

@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 // Физичный космокар на Rigidbody. Тяга и сцепление — силами в осях машины, поворот — моментом.
 // Горизонта нет: машина держит ту ориентацию, в которой её оставили.
@@ -15,6 +13,7 @@ using UnityEngine.InputSystem.Controls;
 // Маршевый — следующая ступень после форсажа: с зажатым Shift нажать Space. Держится, пока зажат Shift;
 // повторный Space или удар — выключает. W тянет намного сильнее при малом сопротивлении и жжёт втрое больше форсажа,
 // остальная тяга как обычно, Space не поднимает. На резерве и с побитым корпусом (thrustScale < 1) недоступен.
+// Клавиши — действия Controls (Input/); на геймпаде стик и триггеры аналоговые. Пока открыто меню, тяги нет.
 [RequireComponent(typeof(Rigidbody), typeof(FuelTank))]
 public class CosmoCarController : MonoBehaviour
 {
@@ -85,9 +84,6 @@ public class CosmoCarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Keyboard k = Keyboard.current;
-        Mouse m = Mouse.current;
-        if (k == null) return;
         float dt = Time.fixedDeltaTime;
 
         rb.linearDamping = Cruising ? cruiseDamping : linearDamping;
@@ -106,11 +102,12 @@ public class CosmoCarController : MonoBehaviour
         planetUp = up;
 
         // Без топлива ввода тяги нет — остаётся только гашение сноса.
-        float power = fuel.Power * thrustScale;
-        float forwardIn = power > 0f ? Axis(k.sKey, k.wKey) : 0f;
-        float strafeIn = power > 0f ? Axis(k.qKey, k.eKey) : 0f;
-        float liftIn = power > 0f ? (k.spaceKey.isPressed && !Cruising && !spaceLatch ? 1f : 0f) - (k.cKey.isPressed ? 1f : 0f) : 0f;
-        bool boost = k.leftShiftKey.isPressed && !fuel.OnReserve;
+        // Пока открыто меню (колонка у парковки), стик и клавиши заняты им.
+        float power = MenuScreen.Opened == null ? fuel.Power * thrustScale : 0f;
+        float forwardIn = power > 0f ? Controls.Forward.ReadValue<float>() : 0f;
+        float strafeIn = power > 0f ? Controls.Strafe.ReadValue<float>() : 0f;
+        float liftIn = power > 0f ? (!Cruising && !spaceLatch ? Controls.Up.ReadValue<float>() : 0f) - Controls.Down.ReadValue<float>() : 0f;
+        bool boost = Controls.Boost.IsPressed() && !fuel.OnReserve;
         bool cruise = Cruising && forwardIn > 0f;
         Thrust = new Vector3(strafeIn, liftIn, forwardIn);
         Boosting = boost && forwardIn > 0f;
@@ -143,8 +140,8 @@ public class CosmoCarController : MonoBehaviour
         }
         rb.AddForce(worldForce, ForceMode.Acceleration);
 
-        steering = aim != null && m != null && m.rightButton.isPressed;
-        float yawIn = steering ? 0f : Axis(k.aKey, k.dKey);
+        steering = aim != null && Controls.Steer.IsPressed();
+        float yawIn = steering || MenuScreen.Opened != null ? 0f : Controls.Turn.ReadValue<float>();
 
         // Крен внутрь поворота по фактической скорости рыскания — смещение поверх удерживаемой ориентации.
         float yawSpeed = (Quaternion.Inverse(rb.rotation) * rb.angularVelocity).y;
@@ -247,13 +244,11 @@ public class CosmoCarController : MonoBehaviour
 
     void Update()
     {
-        Keyboard k = Keyboard.current;
-        if (k == null) return;
-        if (k.fKey.wasPressedThisFrame) leveling = true;
+        if (Controls.Pressed(Controls.Use)) leveling = true;
 
-        if (!k.spaceKey.isPressed) spaceLatch = false;
-        bool shift = k.leftShiftKey.isPressed;
-        if (shift && k.spaceKey.wasPressedThisFrame && MenuScreen.Opened == null)
+        if (!Controls.Up.IsPressed()) spaceLatch = false;
+        bool shift = Controls.Boost.IsPressed();
+        if (shift && Controls.Pressed(Controls.Up))
         {
             spaceLatch = true;
             if (!Cruising && !CanCruise) Hud.Toast(fuel.OnReserve ? "Маршевый недоступен: топливо на резерве" : "Маршевый недоступен: корпус побит");
@@ -271,7 +266,4 @@ public class CosmoCarController : MonoBehaviour
     }
 
     void SetCruise(bool on) => Cruising = on;
-
-    static float Axis(KeyControl negative, KeyControl positive) =>
-        (positive.isPressed ? 1f : 0f) - (negative.isPressed ? 1f : 0f);
 }

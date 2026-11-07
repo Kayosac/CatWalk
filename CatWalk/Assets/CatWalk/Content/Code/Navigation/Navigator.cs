@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Навигатор космокара: текущая цель на карте. Работает и в машине, и пешком.
 // T — следующая цель по кругу, от ближайшей к дальней. M — карта (MapMenu), J — журнал заказов (OrderJournal).
@@ -31,11 +30,10 @@ public class Navigator : MonoBehaviour, ISaveable
 
     void Update()
     {
-        Keyboard k = Keyboard.current;
-        if (k == null || MenuScreen.Opened != null || menuWasOpen) return;
-        if (k.mKey.wasPressedThisFrame && map != null) map.Open(this);
-        if (k.jKey.wasPressedThisFrame && journal != null) journal.Open();
-        if (k.tKey.wasPressedThisFrame) Next();
+        if (menuWasOpen) return;
+        if (Controls.Pressed(Controls.Map) && map != null) map.Open(this);
+        if (Controls.Pressed(Controls.Journal) && journal != null) journal.Open();
+        if (Controls.Pressed(Controls.Target)) Next();
     }
 
     void LateUpdate() => menuWasOpen = MenuScreen.Opened != null;

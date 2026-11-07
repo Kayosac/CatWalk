@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-// Экранное меню колонки: долить до полного или держать кнопку мышью, пока льётся.
+// Экранное меню колонки: долить до полного или держать кнопку мышью (или A геймпада на выделенной строке), пока льётся.
 public class FuelPumpMenu : MenuScreen
 {
     FuelPump pump;
@@ -26,9 +27,10 @@ public class FuelPumpMenu : MenuScreen
         if (Opened != this) return;
 
         Mouse m = Mouse.current;
-        if (holdRow.interactable && m != null && m.leftButton.isPressed
-            && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)holdRow.transform, m.position.ReadValue()))
-            pump.Flow(Time.deltaTime);
+        bool mouse = m != null && m.leftButton.isPressed
+                  && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)holdRow.transform, m.position.ReadValue());
+        bool pad = Controls.Interact.IsPressed() && EventSystem.current != null && EventSystem.current.currentSelectedGameObject == holdRow.gameObject;
+        if (holdRow.interactable && (mouse || pad)) pump.Flow(Time.deltaTime);
         Refresh();
     }
 

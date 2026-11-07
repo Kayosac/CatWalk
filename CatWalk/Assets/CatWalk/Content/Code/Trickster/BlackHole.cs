@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 // Чёрная дыра и финал «Вечная пустота». Стоит там, где авантюрист принимает находку (Trickster).
@@ -159,13 +158,12 @@ public class BlackHole : MonoBehaviour
         if (exitQueued && seat.Driving) seat.SpawnPlayer(car.transform.position - car.transform.right * seat.exitSide, car.transform.rotation);
         exitQueued = false;
 
-        Keyboard k = Keyboard.current;
-        if (k == null || MenuScreen.Opened != null) return;
+        if (MenuScreen.Opened != null) return;
         if (seat.Driving)
         {
-            Hud.Prompt("E — выйти", 5);
-            if (k.eKey.wasPressedThisFrame) exitQueued = true;
+            Hud.Prompt(Controls.Hint(Controls.Interact, "выйти"), 5);
+            if (Controls.Pressed(Controls.Interact)) exitQueued = true;
         }
-        if (k.escapeKey.wasPressedThisFrame && !menuWasOpen) menu.Open();
+        if (Controls.Pressed(Controls.Pause) && !menuWasOpen) menu.Open();
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Буксир. Когда машина застряла (бак пуст или корпус разбит), H — вызвать: её переносят на ближайшую свободную парковку,
 // доливают топливо и латают корпус до минимума. Стоит maxCost, а если денег меньше — все деньги (без денег — даром).
@@ -32,9 +31,8 @@ public class Tow : MonoBehaviour
     {
         // Только пока кот за рулём.
         if (!car.enabled || !Stuck || MenuScreen.Opened != null) return;
-        Hud.Prompt($"H — вызвать буксир | {Wallet.Format(Cost)}", 10);
-        Keyboard k = Keyboard.current;
-        if (k != null && k.hKey.wasPressedThisFrame) Call();
+        Hud.Prompt(Controls.Hint(Controls.Tow, $"вызвать буксир | {Wallet.Format(Cost)}"), 10);
+        if (Controls.Pressed(Controls.Tow)) Call();
     }
 
     // Вызвать буксир (H в тупике, меню паузы).

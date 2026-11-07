@@ -1,6 +1,5 @@
 using Febucci.TextAnimatorForUnity;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Маяк со старой записью. E у пульта — следующая открытая непрослушанная часть, а если новых нет —
 // прослушанные по кругу. Текст печатается над пультом (Text Animator), висит lineTime и не мешает ходить.
@@ -44,9 +43,8 @@ public class Lighthouse : MonoBehaviour
         screen.enabled = !menu && Time.time < hideAt;
         if (menu || !CatNear) return;
 
-        Hud.Prompt(Next() != null ? "E — прослушать запись | новая часть" : "E — прослушать запись", 10);
-        Keyboard k = Keyboard.current;
-        if (k != null && k.eKey.wasPressedThisFrame) Play();
+        Hud.Prompt(Controls.Hint(Controls.Interact, Next() != null ? "прослушать запись | новая часть" : "прослушать запись"), 10);
+        if (Controls.Pressed(Controls.Interact)) Play();
     }
 
     void LateUpdate()

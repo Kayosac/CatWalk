@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Febucci.TextAnimatorForUnity;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // Житель у почты своей станции. Поворачивается к коту, когда тот рядом; при подходе машет и здоровается.
 // Без анимаций: в покое модель «дышит» скейлом, а взмах — скейл-баунс на пружине, как приземление кота.
@@ -105,9 +104,8 @@ public class Resident : MonoBehaviour, ISaveable
         Errand offer = news == null ? Offer() : null;
         if (!menu && distance < talkDistance && !ParcelCarrier.Current.HasAction)
         {
-            Hud.Prompt(news != null ? "F — поговорить | есть новости" : offer != null ? "F — поговорить | есть дело" : "F — поговорить", 9);
-            Keyboard k = Keyboard.current;
-            if (k != null && k.fKey.wasPressedThisFrame) Talk();
+            Hud.Prompt(Controls.Hint(Controls.Use, news != null ? "поговорить | есть новости" : offer != null ? "поговорить | есть дело" : "поговорить"), 9);
+            if (Controls.Pressed(Controls.Use)) Talk();
         }
 
         if (!menu && pending != null) Show();
