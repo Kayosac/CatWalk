@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Карта: все точки с типом и расстоянием от машины. Клик — сделать целью.
+// Карта: все точки с типом, расстоянием от машины и тем, долетит ли маршевый. Клик — сделать целью.
 // Открывается по Tab в машине и пешком, время на паузе. Tab или Esc — закрыть.
 public class MapMenu : MenuScreen
 {
@@ -26,13 +26,18 @@ public class MapMenu : MenuScreen
     protected override void Refresh()
     {
         ClearRows();
+        CruiseDrive cruise = navigator.GetComponent<CruiseDrive>();
         FuelTank tank = navigator.GetComponent<FuelTank>();
-        title.text = $"Карта · топливо {Mathf.CeilToInt(tank.Fuel)} / {tank.capacity:0} л";
+        title.text = $"Карта · маршевый до {Navigator.FormatDistance(cruise.Range)} · топливо {Mathf.CeilToInt(tank.Fuel)} / {tank.capacity:0} л";
 
         foreach (Location location in navigator.Sorted())
         {
             float distance = navigator.DistanceTo(location);
-            string line = $"{location.Label} · {KindName(location.kind)} · {Navigator.FormatDistance(distance)}";
+            string reach = distance <= cruise.minDistance ? "рядом"
+                         : distance > cruise.Range ? "далеко для двигателя"
+                         : cruise.Cost(distance) > tank.Fuel ? $"мало топлива ({cruise.Cost(distance):0} л)"
+                         : "можно маршевым";
+            string line = $"{location.Label} · {KindName(location.kind)} · {Navigator.FormatDistance(distance)} · {reach}";
             if (location == navigator.Target) line = "[цель] " + line;
             Location picked = location;
             AddRow(line, () =>
