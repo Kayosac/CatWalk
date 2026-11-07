@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5425261226168692893}
   - component: {fileID: 8234342730060049135}
   - component: {fileID: 3901004325831797004}
-  - component: {fileID: 6118666194414161372}
   - component: {fileID: 3457697247108982284}
   - component: {fileID: 6203328561421253644}
   m_Layer: 0
@@ -44,7 +43,6 @@ Transform:
   - {fileID: 1539825966458783081}
   - {fileID: 1554344651035919392}
   - {fileID: 53500392766973794}
-  - {fileID: 826120525898996882}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1000012
@@ -93,6 +91,11 @@ MonoBehaviour:
   liftThrust: 12
   boostMultiplier: 2.5
   thrustScale: 1
+  cruiseThrust: 75
+  cruiseDamping: 0.33
+  cruiseFuel: 3
+  cruiseScale: 1
+  cruiseVfx: {fileID: 4267535864047310874}
   linearDamping: 1
   sideGrip: 4
   yawRate: 1.5
@@ -149,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 0}
+  journal: {fileID: 0}
 --- !u!114 &3901004325831797004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,8 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLevel: 4
-  baseRange: 1650
-  rangePerLevel: 1900
+  cruisePerLevel: 0.15
   baseCapacity: 100
   capacityPerLevel: 55
   extraSlots:
@@ -176,28 +179,6 @@ MonoBehaviour:
   tankCost: 420
   cargoCost: 380
   economyCost: 480
---- !u!114 &6118666194414161372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 574085a975ffe49bc9e39ffab0319877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDistance: 500
-  spinUpTime: 1.5
-  arrivalDistance: 200
-  pathRadius: 3
-  obstacleMargin: 30
-  baseCost: 6
-  costPerMeter: 0.018
-  costScale: 0.65
-  spinUpVfx: {fileID: 4267535864047310874}
-  arrivalVfx: {fileID: 826120525898996880}
 --- !u!114 &3457697247108982284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,93 +2195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &4496689800770435871
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1000011}
-    m_Modifications:
-    - target: {fileID: 1578091902464026796, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772940, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_Name
-      value: Cruise arrival VFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3823991152681772943, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
---- !u!198 &826120525898996880 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3823991152681772943, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-  m_PrefabInstance: {fileID: 4496689800770435871}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &826120525898996882 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3823991152681772941, guid: 86a5dc3ffbff84441a1c5867e587719f, type: 3}
-  m_PrefabInstance: {fileID: 4496689800770435871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4551208246824202449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2379,7 +2273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7691833635002725823, guid: f4d89e9329bd57b49bd2a2c13094b7d0, type: 3}
       propertyPath: m_Name
-      value: Cruise spin-up VFX
+      value: Cruise VFX
       objectReference: {fileID: 0}
     - target: {fileID: 8671264072476697435, guid: f4d89e9329bd57b49bd2a2c13094b7d0, type: 3}
       propertyPath: playOnAwake
