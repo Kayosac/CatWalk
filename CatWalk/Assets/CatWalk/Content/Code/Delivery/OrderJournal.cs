@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 // Клик по строке — цель навигатора на почту-адресата. J или Esc — закрыть.
 public class OrderJournal : MenuScreen
 {
-    int openedFrame;
+    int openFrame;
 
     // Взятые заказы: посылка, почта, которая её выдала, и почта-адресат (null, если такой почты нет в сцене).
     public static IEnumerable<(Parcel parcel, PostTerminal from, PostTerminal to)> Active()
@@ -21,7 +21,7 @@ public class OrderJournal : MenuScreen
     public void Open()
     {
         if (!Show()) return;
-        openedFrame = Time.frameCount;
+        openFrame = Time.frameCount;
         Refresh();
     }
 
@@ -29,7 +29,7 @@ public class OrderJournal : MenuScreen
     {
         base.Update();
         Keyboard k = Keyboard.current;
-        if (Opened == this && k != null && k.jKey.wasPressedThisFrame && Time.frameCount != openedFrame) Close();
+        if (Opened == this && k != null && k.jKey.wasPressedThisFrame && Time.frameCount != openFrame) Close();
     }
 
     protected override void Refresh()
