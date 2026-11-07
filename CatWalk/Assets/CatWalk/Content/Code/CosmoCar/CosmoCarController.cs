@@ -42,20 +42,12 @@ public class CosmoCarController : MonoBehaviour
     [Header("Атмосфера планет")]
     public float atmosphereAlignSpeed = 360f; // разворот крышей от планеты у поверхности, °/с; к краю атмосферы — до нуля
 
-    const string Help =
-        "W/S газ · A/D поворот · Q/E вбок\n" +
-        "Space/C вверх/вниз · Shift форсаж\n" +
-        "F выровнять · ПКМ рулить мышью\n" +
-        "Esc — курсор · F1 — подсказка";
-
     Rigidbody rb;
     FuelTank fuel;
     Quaternion hold;                      // ориентация, которую машина держит (без крена)
     float knockTimer;
     bool leveling;
     bool steering;
-    bool showHelp;
-    GUIStyle helpStyle;
     SphereGravity planet;                 // в чьей атмосфере были на прошлом шаге
     Vector3 planetUp;
     Quaternion transport = Quaternion.identity; // поворот вокруг планеты, ещё не забранный камерой
@@ -235,15 +227,7 @@ public class CosmoCarController : MonoBehaviour
     {
         Keyboard k = Keyboard.current;
         if (k == null) return;
-        if (k.f1Key.wasPressedThisFrame) showHelp = !showHelp;
         if (k.fKey.wasPressedThisFrame) leveling = true;
-    }
-
-    void OnGUI()
-    {
-        if (!showHelp) return;
-        helpStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 10, alignment = TextAnchor.UpperRight };
-        GUI.Label(new Rect(Screen.width - 266f, 6f, 260f, 60f), Help, helpStyle);
     }
 
     static float Axis(KeyControl negative, KeyControl positive) =>

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 // Горизонта нет: без ПКМ камера осматривается относительно машины и вращается вместе с ней,
 // на ходу без движения мыши сама возвращается за спину.
 // С ПКМ мышь вращает прицел без ограничений, машина доворачивает за ним.
-// Esc — отпустить курсор, ЛКМ — захватить снова.
+// Курсор отпускают меню (MenuScreen), ЛКМ — захватить снова.
 public class CosmoCarCamera : MonoBehaviour
 {
     public Transform target;              // по умолчанию — космокар в сцене
@@ -56,9 +56,7 @@ public class CosmoCarCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        Keyboard k = Keyboard.current;
         Mouse m = Mouse.current;
-        if (k != null && k.escapeKey.wasPressedThisFrame) SetCursorLocked(false);
         if (m != null && m.leftButton.wasPressedThisFrame) SetCursorLocked(true);
 
         Vector2 d = m != null && Cursor.lockState == CursorLockMode.Locked
