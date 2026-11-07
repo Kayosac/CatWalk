@@ -7,6 +7,7 @@ using UnityEngine;
 // Гравитация планет и станций на машину не действует — магнитят её только парковки (ParkingZone).
 // В атмосфере планеты машина летит вдоль неё: тяга не уводит от поверхности, а движение загибается
 // по её изгибу, так что W ведёт по кругу на той же высоте. Высоту меняют только Space/C.
+// Тяга маршевого атмосферу пересиливает: пока он тянет, машина летит прямо и легко уходит от планеты.
 // Машина сама ложится крышей от планеты: у поверхности — жёстко, к краю атмосферы всё мягче.
 // F — медленно выровняться, сохранив курс: на парковке — по ней, в атмосфере — по планете, иначе по мировому верху.
 // Тяга тратит топливо (FuelTank): на резерве она слабее и без форсажа, в пустом баке двигатели молчат.
@@ -88,19 +89,6 @@ public class CosmoCarController : MonoBehaviour
 
         rb.linearDamping = Cruising ? cruiseDamping : linearDamping;
 
-        // Атмосфера: машина поворачивается на столько, на сколько сместился «верх» планеты, — без отставания,
-        // иначе нос задирается над горизонтом и тяга уводит от поверхности.
-        SphereGravity air = SphereGravity.AtmosphereAt(rb.worldCenterOfMass, out Vector3 up, out float airWeight);
-        if (air != null && air == planet)
-        {
-            Quaternion delta = Quaternion.FromToRotation(planetUp, up);
-            rb.rotation = delta * rb.rotation;
-            hold = delta * hold;
-            transport = delta * transport;
-        }
-        planet = air;
-        planetUp = up;
-
         // Без топлива ввода тяги нет — остаётся только гашение сноса.
         // Пока открыто меню (колонка у парковки), стик и клавиши заняты им.
         float power = MenuScreen.Opened == null ? fuel.Power * thrustScale : 0f;
@@ -116,6 +104,21 @@ public class CosmoCarController : MonoBehaviour
         float liftAccel = liftThrust * power;
         float forwardBurn = cruise ? boostMultiplier * cruiseFuel * power : forwardAccel / thrust;
         fuel.Burn(Mathf.Abs(forwardIn) * forwardBurn + (Mathf.Abs(strafeIn) * strafeAccel + Mathf.Abs(liftIn) * liftAccel) / thrust, dt);
+
+        // Атмосфера: машина поворачивается на столько, на сколько сместился «верх» планеты, — без отставания,
+        // иначе нос задирается над горизонтом и тяга уводит от поверхности.
+        // Маршевый тянет сильнее атмосферы: под его тягой машина летит как в открытом космосе и легко уходит от планеты.
+        SphereGravity air = SphereGravity.AtmosphereAt(rb.worldCenterOfMass, out Vector3 up, out float airWeight);
+        if (cruise) air = null;
+        if (air != null && air == planet)
+        {
+            Quaternion delta = Quaternion.FromToRotation(planetUp, up);
+            rb.rotation = delta * rb.rotation;
+            hold = delta * hold;
+            transport = delta * transport;
+        }
+        planet = air;
+        planetUp = up;
 
         // Скорость в осях машины: по боковой и вертикальной оси без тяги снос гасится — машина едет носом.
         Vector3 localVelocity = Quaternion.Inverse(rb.rotation) * rb.linearVelocity;
