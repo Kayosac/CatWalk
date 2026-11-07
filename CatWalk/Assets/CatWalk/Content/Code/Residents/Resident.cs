@@ -62,7 +62,8 @@ public class Resident : MonoBehaviour, ISaveable
     void OnEnable() => PostTerminal.Delivered += OnDelivered;
     void OnDisable() => PostTerminal.Delivered -= OnDelivered;
 
-    Transform Cat => ParcelCarrier.Current != null && ParcelCarrier.Current.isActiveAndEnabled ? ParcelCarrier.Current.transform : null;
+    // Кот пешком; в машине его нет. Пока открыто меню, кот на месте (его скрипты лишь выключены) — житель его видит.
+    Transform Cat => ParcelCarrier.Current != null ? ParcelCarrier.Current.transform : null;
 
     void Update()
     {
