@@ -33,7 +33,6 @@ public class CosmoCarController : MonoBehaviour
     public float cruiseDamping = 0.33f;   // сопротивление: разгон до предела ~3 / cruiseDamping с
     public float cruiseFuel = 3f;         // расход на тягу вперёд относительно форсажа
     public float cruiseScale = 1f;        // множитель тяги маршевого (и его скорости): улучшение двигателя (CarUpgrades)
-    public ParticleSystem cruiseVfx;      // на машине, пока маршевый включён
 
     [Header("Инерция")]
     public float linearDamping = 1f;      // общее сопротивление: меньше — дольше катится вперёд
@@ -67,6 +66,8 @@ public class CosmoCarController : MonoBehaviour
 
     public Quaternion HoldRotation => hold;
     public bool Cruising { get; private set; }
+    public Vector3 Thrust { get; private set; } // ввод тяги на этом шаге: x — вбок, y — вверх, z — вперёд (−1..1); для огней и VFX (CosmoCarVisuals)
+    public bool Boosting { get; private set; }
     public bool CanCruise => !fuel.OnReserve && thrustScale >= 1f;
 
     void Awake()
@@ -111,6 +112,8 @@ public class CosmoCarController : MonoBehaviour
         float liftIn = power > 0f ? (k.spaceKey.isPressed && !Cruising && !spaceLatch ? 1f : 0f) - (k.cKey.isPressed ? 1f : 0f) : 0f;
         bool boost = k.leftShiftKey.isPressed && !fuel.OnReserve;
         bool cruise = Cruising && forwardIn > 0f;
+        Thrust = new Vector3(strafeIn, liftIn, forwardIn);
+        Boosting = boost && forwardIn > 0f;
         float forwardAccel = (forwardIn > 0f ? cruise ? cruiseThrust * cruiseScale : thrust * (boost ? boostMultiplier : 1f) : reverseThrust) * power;
         float strafeAccel = strafeThrust * power;
         float liftAccel = liftThrust * power;
@@ -259,22 +262,15 @@ public class CosmoCarController : MonoBehaviour
         else if (Cruising && (!shift || !CanCruise)) SetCruise(false);
     }
 
-    void Start()
+    // Вышли из машины — маршевый гаснет, тяги нет.
+    void OnDisable()
     {
-        if (cruiseVfx != null) cruiseVfx.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        SetCruise(false);
+        Thrust = Vector3.zero;
+        Boosting = false;
     }
 
-    // Вышли из машины — маршевый гаснет.
-    void OnDisable() => SetCruise(false);
-
-    void SetCruise(bool on)
-    {
-        if (Cruising == on) return;
-        Cruising = on;
-        if (cruiseVfx == null) return;
-        if (on) cruiseVfx.Play(true);
-        else cruiseVfx.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-    }
+    void SetCruise(bool on) => Cruising = on;
 
     static float Axis(KeyControl negative, KeyControl positive) =>
         (positive.isPressed ? 1f : 0f) - (negative.isPressed ? 1f : 0f);
