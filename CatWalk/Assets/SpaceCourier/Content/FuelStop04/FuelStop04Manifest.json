@@ -1,0 +1,4204 @@
+{
+  "version": 2,
+  "title": "Fuel stop 04",
+  "units": "metres",
+  "atlas": "FuelStop04_Atlas.png",
+  "textureCount": 1,
+  "materialCount": 1,
+  "approval": "User approved plan and concept, 2026-11-06. Vehicle and character excluded.",
+  "deckSize": [
+    32,
+    25
+  ],
+  "parkingSize": [
+    10,
+    12
+  ],
+  "modelBudgetMinutes": 15,
+  "assets": [
+    {
+      "name": "DeckTile4x5",
+      "vertices": 24,
+      "triangles": 12,
+      "buildSeconds": 0.005,
+      "size": [
+        4.0,
+        0.32,
+        5.0
+      ],
+      "collider": true
+    },
+    {
+      "name": "DeckCornerLeft",
+      "vertices": 30,
+      "triangles": 16,
+      "buildSeconds": 0.004,
+      "size": [
+        4.0,
+        0.32,
+        5.0
+      ],
+      "collider": true
+    },
+    {
+      "name": "DeckCornerRight",
+      "vertices": 30,
+      "triangles": 16,
+      "buildSeconds": 0.004,
+      "size": [
+        4.0,
+        0.32,
+        5.0
+      ],
+      "collider": true
+    },
+    {
+      "name": "RimBeam4m",
+      "vertices": 88,
+      "triangles": 44,
+      "buildSeconds": 0.004,
+      "size": [
+        4.0,
+        1.17,
+        0.64
+      ],
+      "collider": true
+    },
+    {
+      "name": "UnderDeckBrace",
+      "vertices": 180,
+      "triangles": 88,
+      "buildSeconds": 0.004,
+      "size": [
+        3.0,
+        2.855,
+        0.6
+      ],
+      "collider": true
+    },
+    {
+      "name": "CabinShell",
+      "vertices": 568,
+      "triangles": 284,
+      "buildSeconds": 0.004,
+      "size": [
+        8.24,
+        4.0,
+        6.05
+      ],
+      "collider": true
+    },
+    {
+      "name": "CabinRoof",
+      "vertices": 400,
+      "triangles": 200,
+      "buildSeconds": 0.004,
+      "size": [
+        8.6,
+        0.32,
+        6.62
+      ],
+      "collider": true
+    },
+    {
+      "name": "CounterAwning",
+      "vertices": 716,
+      "triangles": 358,
+      "buildSeconds": 0.039,
+      "size": [
+        9.0075,
+        3.5124,
+        3.04
+      ],
+      "collider": true
+    },
+    {
+      "name": "ServiceCounter",
+      "vertices": 160,
+      "triangles": 80,
+      "buildSeconds": 0.005,
+      "size": [
+        3.5,
+        1.08,
+        1.9
+      ],
+      "collider": true
+    },
+    {
+      "name": "FuelTank",
+      "vertices": 992,
+      "triangles": 588,
+      "buildSeconds": 0.004,
+      "size": [
+        5.14,
+        7.5,
+        5.26
+      ],
+      "collider": true
+    },
+    {
+      "name": "FuelPump",
+      "vertices": 272,
+      "triangles": 140,
+      "buildSeconds": 0.005,
+      "size": [
+        1.75,
+        1.805,
+        2.2
+      ],
+      "collider": true
+    },
+    {
+      "name": "HoseReel",
+      "vertices": 928,
+      "triangles": 548,
+      "buildSeconds": 0.004,
+      "size": [
+        1.45,
+        1.29,
+        1.18
+      ],
+      "collider": true
+    },
+    {
+      "name": "PipeStraight2m",
+      "vertices": 144,
+      "triangles": 84,
+      "buildSeconds": 0.004,
+      "size": [
+        0.5,
+        0.5,
+        2.0
+      ],
+      "collider": true
+    },
+    {
+      "name": "PipeElbow90",
+      "vertices": 208,
+      "triangles": 108,
+      "buildSeconds": 0.004,
+      "size": [
+        0.552,
+        0.36,
+        0.552
+      ],
+      "collider": true
+    },
+    {
+      "name": "PipeTee",
+      "vertices": 96,
+      "triangles": 56,
+      "buildSeconds": 0.005,
+      "size": [
+        0.7,
+        0.38,
+        0.54
+      ],
+      "collider": true
+    },
+    {
+      "name": "RailSection4m",
+      "vertices": 48,
+      "triangles": 24,
+      "buildSeconds": 0.004,
+      "size": [
+        4.0,
+        0.65,
+        0.12
+      ],
+      "collider": true
+    },
+    {
+      "name": "RailPost",
+      "vertices": 68,
+      "triangles": 34,
+      "buildSeconds": 0.004,
+      "size": [
+        0.4,
+        1.26,
+        0.4
+      ],
+      "collider": true
+    },
+    {
+      "name": "DockBeacon",
+      "vertices": 72,
+      "triangles": 36,
+      "buildSeconds": 0.004,
+      "size": [
+        0.54,
+        0.755,
+        0.54
+      ],
+      "collider": true
+    },
+    {
+      "name": "WorkLamp",
+      "vertices": 128,
+      "triangles": 64,
+      "buildSeconds": 0.004,
+      "size": [
+        0.65,
+        2.975,
+        1.185
+      ],
+      "collider": true
+    },
+    {
+      "name": "Sign04",
+      "vertices": 124,
+      "triangles": 62,
+      "buildSeconds": 0.004,
+      "size": [
+        2.7,
+        5.995,
+        0.7
+      ],
+      "collider": true
+    },
+    {
+      "name": "PostTerminal",
+      "vertices": 160,
+      "triangles": 80,
+      "buildSeconds": 0.004,
+      "size": [
+        1.05,
+        1.64,
+        0.955
+      ],
+      "collider": true
+    },
+    {
+      "name": "RepairTerminal",
+      "vertices": 160,
+      "triangles": 80,
+      "buildSeconds": 0.004,
+      "size": [
+        1.05,
+        1.64,
+        0.955
+      ],
+      "collider": true
+    },
+    {
+      "name": "Workbench",
+      "vertices": 144,
+      "triangles": 72,
+      "buildSeconds": 0.004,
+      "size": [
+        2.1,
+        1.02,
+        0.8
+      ],
+      "collider": true
+    },
+    {
+      "name": "ToolCase",
+      "vertices": 176,
+      "triangles": 88,
+      "buildSeconds": 0.004,
+      "size": [
+        0.94,
+        0.68,
+        0.56
+      ],
+      "collider": true
+    },
+    {
+      "name": "Canister",
+      "vertices": 192,
+      "triangles": 104,
+      "buildSeconds": 0.004,
+      "size": [
+        0.6,
+        0.79,
+        0.36
+      ],
+      "collider": true
+    },
+    {
+      "name": "Radio",
+      "vertices": 196,
+      "triangles": 108,
+      "buildSeconds": 0.004,
+      "size": [
+        0.62,
+        0.9514,
+        0.315
+      ],
+      "collider": true
+    },
+    {
+      "name": "SpareSeal",
+      "vertices": 256,
+      "triangles": 128,
+      "buildSeconds": 0.004,
+      "size": [
+        0.64,
+        0.06,
+        0.64
+      ],
+      "collider": true
+    },
+    {
+      "name": "VentPanel",
+      "vertices": 40,
+      "triangles": 20,
+      "buildSeconds": 0.004,
+      "size": [
+        1.1,
+        0.75,
+        0.12
+      ],
+      "collider": true
+    },
+    {
+      "name": "Spanner",
+      "vertices": 108,
+      "triangles": 54,
+      "buildSeconds": 0.004,
+      "size": [
+        0.23,
+        0.05,
+        0.555
+      ],
+      "collider": true
+    },
+    {
+      "name": "ParkingDecal",
+      "vertices": 4,
+      "triangles": 2,
+      "buildSeconds": 0.004,
+      "size": [
+        10.0,
+        0.0,
+        12.0
+      ],
+      "collider": false
+    },
+    {
+      "name": "RimJoint",
+      "vertices": 96,
+      "triangles": 56,
+      "buildSeconds": 0.004,
+      "size": [
+        0.84,
+        1.19,
+        0.84
+      ],
+      "collider": true
+    },
+    {
+      "name": "PipeSupport",
+      "vertices": 96,
+      "triangles": 52,
+      "buildSeconds": 0.004,
+      "size": [
+        0.55,
+        1.01,
+        0.5
+      ],
+      "collider": true
+    },
+    {
+      "name": "CabinDoor",
+      "vertices": 160,
+      "triangles": 88,
+      "buildSeconds": 0.004,
+      "size": [
+        1.37,
+        2.5,
+        0.23
+      ],
+      "collider": true
+    },
+    {
+      "name": "CabinShelf",
+      "vertices": 288,
+      "triangles": 144,
+      "buildSeconds": 0.004,
+      "size": [
+        2.8,
+        2.28,
+        0.68
+      ],
+      "collider": true
+    },
+    {
+      "name": "CabinCabinet",
+      "vertices": 144,
+      "triangles": 72,
+      "buildSeconds": 0.005,
+      "size": [
+        1.7,
+        1.02,
+        0.85
+      ],
+      "collider": true
+    }
+  ],
+  "instances": [
+    {
+      "asset": "DeckCornerLeft",
+      "name": "Deck 01-01",
+      "group": "Structure",
+      "position": [
+        -14,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 01-02",
+      "group": "Structure",
+      "position": [
+        -14,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 01-03",
+      "group": "Structure",
+      "position": [
+        -14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 01-04",
+      "group": "Structure",
+      "position": [
+        -14,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckCornerRight",
+      "name": "Deck 01-05",
+      "group": "Structure",
+      "position": [
+        -14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 02-01",
+      "group": "Structure",
+      "position": [
+        -10,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 02-02",
+      "group": "Structure",
+      "position": [
+        -10,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 02-03",
+      "group": "Structure",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 02-04",
+      "group": "Structure",
+      "position": [
+        -10,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 02-05",
+      "group": "Structure",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 03-01",
+      "group": "Structure",
+      "position": [
+        -6,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 03-02",
+      "group": "Structure",
+      "position": [
+        -6,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 03-03",
+      "group": "Structure",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 03-04",
+      "group": "Structure",
+      "position": [
+        -6,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 03-05",
+      "group": "Structure",
+      "position": [
+        -6,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 04-01",
+      "group": "Structure",
+      "position": [
+        -2,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 04-02",
+      "group": "Structure",
+      "position": [
+        -2,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 04-03",
+      "group": "Structure",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 04-04",
+      "group": "Structure",
+      "position": [
+        -2,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 04-05",
+      "group": "Structure",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 05-01",
+      "group": "Structure",
+      "position": [
+        2,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 05-02",
+      "group": "Structure",
+      "position": [
+        2,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 05-03",
+      "group": "Structure",
+      "position": [
+        2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 05-04",
+      "group": "Structure",
+      "position": [
+        2,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 05-05",
+      "group": "Structure",
+      "position": [
+        2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 06-01",
+      "group": "Structure",
+      "position": [
+        6,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 06-02",
+      "group": "Structure",
+      "position": [
+        6,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 06-03",
+      "group": "Structure",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 06-04",
+      "group": "Structure",
+      "position": [
+        6,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 06-05",
+      "group": "Structure",
+      "position": [
+        6,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 07-01",
+      "group": "Structure",
+      "position": [
+        10,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 07-02",
+      "group": "Structure",
+      "position": [
+        10,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 07-03",
+      "group": "Structure",
+      "position": [
+        10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 07-04",
+      "group": "Structure",
+      "position": [
+        10,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 07-05",
+      "group": "Structure",
+      "position": [
+        10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckCornerRight",
+      "name": "Deck 08-01",
+      "group": "Structure",
+      "position": [
+        14,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 08-02",
+      "group": "Structure",
+      "position": [
+        14,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 08-03",
+      "group": "Structure",
+      "position": [
+        14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckTile4x5",
+      "name": "Deck 08-04",
+      "group": "Structure",
+      "position": [
+        14,
+        0,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DeckCornerLeft",
+      "name": "Deck 08-05",
+      "group": "Structure",
+      "position": [
+        14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -12.772499999999999,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.8737499999999999,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -9.1875,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.91875,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -5.512499999999999,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.9187499999999997,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -1.8375000000000004,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.9187500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        1.8375000000000021,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.9187500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        5.512499999999999,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.9187499999999993,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        9.187499999999996,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.9187500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        12.772499999999997,
+        -0.24,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        0.8737500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        12.772499999999999,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.8737499999999999,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        9.1875,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.91875,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        5.512499999999999,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.9187499999999997,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        1.8375000000000004,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.9187500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -1.8375000000000021,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.9187500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -5.512499999999999,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.9187499999999993,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -9.187499999999996,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.9187500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -12.772499999999997,
+        -0.24,
+        12.25
+      ],
+      "rotation": [
+        0,
+        -180.0,
+        0
+      ],
+      "scale": [
+        0.8737500000000002,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        -0.24,
+        9.243333333333332
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        0.8883333333333332,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        -0.24,
+        5.6
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        0.9333333333333332,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        -0.24,
+        1.8666666666666671
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        0.9333333333333329,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        -0.24,
+        -1.8666666666666654
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        0.9333333333333336,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        -0.24,
+        -5.600000000000001
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        0.933333333333334,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        -0.24,
+        -9.243333333333332
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        0.8883333333333319,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.75,
+        -0.24,
+        -9.243333333333332
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        0.8883333333333332,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.75,
+        -0.24,
+        -5.6
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        0.9333333333333332,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.75,
+        -0.24,
+        -1.8666666666666671
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        0.9333333333333329,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.75,
+        -0.24,
+        1.8666666666666654
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        0.9333333333333336,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.75,
+        -0.24,
+        5.600000000000001
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        0.933333333333334,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.75,
+        -0.24,
+        9.243333333333332
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        0.8883333333333319,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.225,
+        -0.24,
+        -11.725
+      ],
+      "rotation": [
+        0,
+        45.0,
+        0
+      ],
+      "scale": [
+        0.28123106012293775,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.225,
+        -0.24,
+        -11.725
+      ],
+      "rotation": [
+        0,
+        -45.0,
+        0
+      ],
+      "scale": [
+        0.28123106012293775,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        15.225,
+        -0.24,
+        11.725
+      ],
+      "rotation": [
+        0,
+        -135.0,
+        0
+      ],
+      "scale": [
+        0.28123106012293775,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimBeam4m",
+      "name": "RimBeam4m",
+      "group": "Structure",
+      "position": [
+        -15.225,
+        -0.24,
+        11.725
+      ],
+      "rotation": [
+        0,
+        135.0,
+        0
+      ],
+      "scale": [
+        0.28123106012293775,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 1",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        0,
+        -11.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 2",
+      "group": "Structure",
+      "position": [
+        -15.75,
+        0,
+        11.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 3",
+      "group": "Structure",
+      "position": [
+        -14.7,
+        0,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 4",
+      "group": "Structure",
+      "position": [
+        -14.7,
+        0,
+        12.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 5",
+      "group": "Structure",
+      "position": [
+        14.7,
+        0,
+        -12.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 6",
+      "group": "Structure",
+      "position": [
+        14.7,
+        0,
+        12.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 7",
+      "group": "Structure",
+      "position": [
+        15.75,
+        0,
+        -11.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RimJoint",
+      "name": "Corner sleeve 8",
+      "group": "Structure",
+      "position": [
+        15.75,
+        0,
+        11.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        -12,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        -12,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        -4,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        -4,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        4,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        4,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        12,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "UnderDeckBrace",
+      "name": "UnderDeckBrace",
+      "group": "Structure",
+      "position": [
+        12,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "CabinShell",
+      "name": "CabinShell",
+      "group": "Service",
+      "position": [
+        -9,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "CabinRoof",
+      "name": "CabinRoof",
+      "group": "Service",
+      "position": [
+        -9,
+        4,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "CounterAwning",
+      "name": "CounterAwning",
+      "group": "Service",
+      "position": [
+        -8.5,
+        0,
+        3.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "ServiceCounter",
+      "name": "ServiceCounter",
+      "group": "Service",
+      "position": [
+        -9,
+        0,
+        4.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "CabinDoor",
+      "name": "Open cabin door",
+      "group": "Interior",
+      "position": [
+        -4.96,
+        0.1,
+        10.05
+      ],
+      "rotation": [
+        0,
+        -10,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "CabinShelf",
+      "name": "Mail shelves",
+      "group": "Interior",
+      "position": [
+        -10.65,
+        0.08,
+        10.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "CabinCabinet",
+      "name": "Storage cabinet",
+      "group": "Interior",
+      "position": [
+        -7.4,
+        0.08,
+        10.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "Workbench",
+      "name": "Interior workbench",
+      "group": "Interior",
+      "position": [
+        -11.6,
+        0.08,
+        7.6
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "FuelTank",
+      "name": "Tank 1",
+      "group": "Fuel",
+      "position": [
+        4,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "FuelTank",
+      "name": "Tank 2",
+      "group": "Fuel",
+      "position": [
+        11,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "FuelPump",
+      "name": "FuelPump",
+      "group": "Fuel",
+      "position": [
+        8.55,
+        0,
+        -4.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "HoseReel",
+      "name": "HoseReel",
+      "group": "Fuel",
+      "position": [
+        10.05,
+        0,
+        -4.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeElbow90",
+      "name": "PipeElbow90",
+      "group": "Pipes",
+      "position": [
+        4.0,
+        0.77,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        270,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeElbow90",
+      "name": "PipeElbow90",
+      "group": "Pipes",
+      "position": [
+        14.300000190734863,
+        0.77,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeElbow90",
+      "name": "PipeElbow90",
+      "group": "Pipes",
+      "position": [
+        14.300000190734863,
+        0.77,
+        -4.0
+      ],
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeStraight2m",
+      "name": "Fuel line 1",
+      "group": "Pipes",
+      "position": [
+        4.0,
+        0.77,
+        4.175000190734863
+      ],
+      "rotation": [
+        0,
+        180.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        0.22500014106428176
+      ]
+    },
+    {
+      "asset": "PipeStraight2m",
+      "name": "Tank manifold left",
+      "group": "Pipes",
+      "position": [
+        7.5,
+        0.77,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        3.1499997941274422
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Tank manifold left support 1",
+      "group": "Pipes",
+      "position": [
+        5.399999618530273,
+        0,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Tank manifold left support 2",
+      "group": "Pipes",
+      "position": [
+        7.5,
+        0,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Tank manifold left support 3",
+      "group": "Pipes",
+      "position": [
+        9.600000381469727,
+        0,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeStraight2m",
+      "name": "Tank manifold right",
+      "group": "Pipes",
+      "position": [
+        12.649999618530273,
+        0.77,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1.2999997010597473
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Tank manifold right support 1",
+      "group": "Pipes",
+      "position": [
+        12.649999618530273,
+        0,
+        3.5999999046325684
+      ],
+      "rotation": [
+        0,
+        90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeStraight2m",
+      "name": "Fuel line 3",
+      "group": "Pipes",
+      "position": [
+        14.300000190734863,
+        0.77,
+        -0.20000004768371582
+      ],
+      "rotation": [
+        0,
+        180.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        3.450000022114187
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Fuel line 3 support 1",
+      "group": "Pipes",
+      "position": [
+        14.300000190734863,
+        0,
+        2.0999999046325684
+      ],
+      "rotation": [
+        0,
+        180.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Fuel line 3 support 2",
+      "group": "Pipes",
+      "position": [
+        14.300000190734863,
+        0,
+        -0.20000028610229492
+      ],
+      "rotation": [
+        0,
+        180.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Fuel line 3 support 3",
+      "group": "Pipes",
+      "position": [
+        14.300000190734863,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        180.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeStraight2m",
+      "name": "Fuel line 4",
+      "group": "Pipes",
+      "position": [
+        11.574999809265137,
+        0.77,
+        -4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        2.375
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Fuel line 4 support 1",
+      "group": "Pipes",
+      "position": [
+        12.762499809265137,
+        0,
+        -4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeSupport",
+      "name": "Fuel line 4 support 2",
+      "group": "Pipes",
+      "position": [
+        11.149999618530273,
+        0,
+        -4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PipeStraight2m",
+      "name": "Tank 2 outlet",
+      "group": "Pipes",
+      "position": [
+        11.0,
+        0.77,
+        4.175000190734863
+      ],
+      "rotation": [
+        0,
+        0.0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        0.22500002516640416
+      ]
+    },
+    {
+      "asset": "PipeTee",
+      "name": "PipeTee",
+      "group": "Pipes",
+      "position": [
+        11,
+        0.77,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        -8.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        -4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        8.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        -10.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        -6.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        -2.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        2.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        6.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -15.4,
+        0,
+        10.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        -8.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        -4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        0.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        4.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        8.0
+      ],
+      "rotation": [
+        0,
+        -90.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        -10.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        -6.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        -2.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        2.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        6.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        15.4,
+        0,
+        10.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -12.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -8.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -4.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        0.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        4.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        8.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        12.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -14.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -10.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -6.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -2.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        2.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        6.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        10.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        14.0,
+        0,
+        11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -12.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        -8.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -14.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -10.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        -6.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        8.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailSection4m",
+      "name": "RailSection4m",
+      "group": "Safety",
+      "position": [
+        12.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        -0.0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        6.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        10.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RailPost",
+      "name": "RailPost",
+      "group": "Safety",
+      "position": [
+        14.0,
+        0,
+        -11.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DockBeacon",
+      "name": "DockBeacon",
+      "group": "Lights",
+      "position": [
+        -5.4,
+        0,
+        -11.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DockBeacon",
+      "name": "DockBeacon",
+      "group": "Lights",
+      "position": [
+        5.4,
+        0,
+        -11.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DockBeacon",
+      "name": "DockBeacon",
+      "group": "Lights",
+      "position": [
+        -15.4,
+        0,
+        10.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "DockBeacon",
+      "name": "DockBeacon",
+      "group": "Lights",
+      "position": [
+        15.4,
+        0,
+        10.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "WorkLamp",
+      "name": "WorkLamp",
+      "group": "Lights",
+      "position": [
+        10.5,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "Sign04",
+      "name": "Sign04",
+      "group": "Lights",
+      "position": [
+        -4.15,
+        0,
+        6.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "PostTerminal",
+      "name": "PostTerminal",
+      "group": "Service",
+      "position": [
+        -12,
+        0,
+        3.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "RepairTerminal",
+      "name": "RepairTerminal",
+      "group": "Service",
+      "position": [
+        -5.6,
+        0,
+        3.05
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "Workbench",
+      "name": "Workbench",
+      "group": "Props",
+      "position": [
+        -14.25,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "ToolCase",
+      "name": "ToolCase",
+      "group": "Interior",
+      "position": [
+        -11.6,
+        1.1,
+        7.5
+      ],
+      "rotation": [
+        0,
+        90,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "Canister",
+      "name": "Canister",
+      "group": "Props",
+      "position": [
+        -12.9,
+        0,
+        3.4
+      ],
+      "rotation": [
+        0,
+        25,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "Radio",
+      "name": "Radio",
+      "group": "Props",
+      "position": [
+        -10.05,
+        1.08,
+        4.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "SpareSeal",
+      "name": "SpareSeal",
+      "group": "Props",
+      "position": [
+        -8.15,
+        1.08,
+        4.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "Spanner",
+      "name": "Spanner",
+      "group": "Props",
+      "position": [
+        -14.22,
+        1.02,
+        7.5
+      ],
+      "rotation": [
+        0,
+        30,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "VentPanel",
+      "name": "VentPanel",
+      "group": "Service",
+      "position": [
+        -12.7,
+        2.05,
+        4.98
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "asset": "ParkingDecal",
+      "name": "ParkingDecal",
+      "group": "Decals",
+      "position": [
+        0,
+        0.018,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Parking centre +Z forward",
+      "position": [
+        0,
+        1.04,
+        -5
+      ]
+    },
+    {
+      "name": "Courier exit",
+      "position": [
+        -3.4,
+        0.08,
+        -5
+      ]
+    },
+    {
+      "name": "Deck level",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Parcel handover",
+      "position": [
+        -9,
+        1.08,
+        4.55
+      ]
+    },
+    {
+      "name": "Resident reference only",
+      "position": [
+        -9,
+        0.08,
+        6.6
+      ]
+    },
+    {
+      "name": "Post interaction",
+      "position": [
+        -12,
+        0,
+        3.05
+      ]
+    },
+    {
+      "name": "Cabin entrance",
+      "position": [
+        -4.5,
+        0.08,
+        9.35
+      ]
+    },
+    {
+      "name": "Fuel interaction",
+      "position": [
+        8.55,
+        0,
+        -4.1
+      ]
+    },
+    {
+      "name": "Repair interaction",
+      "position": [
+        -5.6,
+        0,
+        3.05
+      ]
+    },
+    {
+      "name": "Cruise arrival",
+      "position": [
+        0,
+        35,
+        -210
+      ]
+    }
+  ],
+  "parcelRoute": [
+    [
+      0,
+      -9.4
+    ],
+    [
+      -7,
+      -9.4
+    ],
+    [
+      -7,
+      1.4
+    ],
+    [
+      -9,
+      1.4
+    ],
+    [
+      -9,
+      3.3
+    ]
+  ],
+  "fuelRoute": [
+    [
+      -3.4,
+      -5
+    ],
+    [
+      -3.4,
+      2
+    ],
+    [
+      7.2,
+      2
+    ],
+    [
+      7.2,
+      -3.2
+    ]
+  ]
+}

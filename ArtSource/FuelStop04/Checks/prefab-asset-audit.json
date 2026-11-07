@@ -1,0 +1,15 @@
+{
+    "path": "Assets/SpaceCourier/Prefabs/FuelStop04.prefab",
+    "guid": "17284ae6d0cf64aacb39ee2a6bd391fb",
+    "name": "FuelStop04",
+    "mainAssetType": "GameObject",
+    "prefabAssetType": "Regular",
+    "instanceStatus": "Connected",
+    "renderers": 182,
+    "nestedModules": 182,
+    "missingMeshes": 0,
+    "missingMaterials": 0,
+    "missingScripts": 0,
+    "isPrefabAsset": true,
+    "success": true
+}
