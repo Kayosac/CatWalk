@@ -82,7 +82,6 @@ public class MetaEndingScreen : MenuScreen
         frame.texture = ScreenCapture.CaptureScreenshotAsTexture();
         frame.gameObject.SetActive(true);
         Time.timeScale = 0f;
-        AudioListener.pause = true;
         yield return new WaitForSecondsRealtime(settings.freezeSeconds);
 
 #if UNITY_EDITOR
