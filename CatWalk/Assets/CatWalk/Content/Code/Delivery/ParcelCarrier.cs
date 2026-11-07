@@ -44,8 +44,8 @@ public class ParcelCarrier : MonoBehaviour
 
         if (Held == null)
         {
-            Held = NearestParcel();
-            if (Held != null) Held.Attach(holdPoint);
+            Parcel nearest = NearestParcel();
+            if (nearest != null) Hold(nearest);
             return;
         }
 
@@ -53,6 +53,13 @@ public class ParcelCarrier : MonoBehaviour
         if (slot != null) Held.Attach(slot.transform, slot);
         else Held.Drop(transform.position + transform.forward * dropDistance + transform.up * 0.05f, transform.rotation, rb.linearVelocity);
         Held = null;
+    }
+
+    // Взять в руки сразу, без поиска рядом (и при загрузке сохранения).
+    public void Hold(Parcel parcel)
+    {
+        Held = parcel;
+        parcel.Attach(holdPoint);
     }
 
     Parcel NearestParcel()

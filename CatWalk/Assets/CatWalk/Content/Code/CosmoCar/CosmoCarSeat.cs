@@ -17,6 +17,9 @@ public class CosmoCarSeat : MonoBehaviour
     GameObject player;
     Transform playerBody;
 
+    public bool Driving => player == null;
+    public Transform PlayerBody => playerBody; // кот пешком, иначе null
+
     void Start()
     {
         car = GetComponent<CosmoCarController>();
@@ -56,8 +59,15 @@ public class CosmoCarSeat : MonoBehaviour
         Vector3 spot = zone.transform.position + lateral + up * 0.05f;
         Vector3 forward = Vector3.ProjectOnPlane(transform.forward, up);
 
-        player = Instantiate(playerPrefab, spot, Quaternion.LookRotation(forward, up));
+        SpawnPlayer(spot, Quaternion.LookRotation(forward, up));
+    }
+
+    // Высадить кота в эту позу, где бы ни стояла машина (выход на парковке, загрузка сохранения).
+    public void SpawnPlayer(Vector3 position, Quaternion rotation)
+    {
+        if (player == null) player = Instantiate(playerPrefab, position, rotation);
         playerBody = player.GetComponentInChildren<CatController>().transform;
+        playerBody.SetPositionAndRotation(position, rotation);
         SetDriving(false);
     }
 
