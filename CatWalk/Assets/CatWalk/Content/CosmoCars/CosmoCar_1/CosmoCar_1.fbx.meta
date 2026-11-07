@@ -3,7 +3,12 @@ guid: 63b5399ac3ab94494a6aba6ca9569226
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CosmoCar_1
+    second: {fileID: 2100000, guid: 94cc87f7c018541b888073a4ab2208e5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
