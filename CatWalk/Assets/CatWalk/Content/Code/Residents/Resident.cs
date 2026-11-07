@@ -118,6 +118,7 @@ public class Resident : MonoBehaviour, ISaveable
         if (news != null)
         {
             memory.heard.Add(news.id);
+            StoryFacts.Add("heard." + news.id);
             Say(news.line);
             return;
         }

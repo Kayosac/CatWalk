@@ -88,6 +88,7 @@ public class Find : MonoBehaviour, ISaveable
         }
         else Hud.Toast($"{title}: {record}\n+{Wallet.Format(credits)}");
         SetExplored(true);
+        StoryFacts.Set("found." + GetComponent<Location>().id, 1);
     }
 
     void SetExplored(bool explored)

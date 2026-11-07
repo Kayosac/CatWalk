@@ -15,6 +15,7 @@ public class Debt : MonoBehaviour, ISaveable
 
     // Кредиторы напакостили. Топливо сливает сам долг; корпус — забота того, кто подпишется.
     public static event Action<MischiefKind> Mischief;
+    public static event Action Missed;    // любая просрочка — для фактов истории
 
     public DebtSettings settings;
     public DebtEnding ending;
@@ -36,6 +37,7 @@ public class Debt : MonoBehaviour, ISaveable
     State s;
 
     public int Left => s.left;
+    public float Pressure => s.pressure;
     public bool Active => s.left > 0 && s.pressure < 100f;
     public int Payment => Mathf.Min(settings.payment, s.left);
     public bool Paid => s.paid;
@@ -130,6 +132,7 @@ public class Debt : MonoBehaviour, ISaveable
     void Miss(float pressure, string message)
     {
         AddPressure(pressure);
+        Missed?.Invoke();
         message += $" Давление: {s.pressure:0}/100.";
         if (s.pressure >= settings.mischiefPressure && s.pressure < 100f) message += " " + DoMischief();
         Hud.Toast(message);
