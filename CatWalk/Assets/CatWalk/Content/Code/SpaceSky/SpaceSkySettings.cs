@@ -60,6 +60,10 @@ namespace CatWalk.Rendering
         public Color VoidColor = new Color(.004f, .007f, .016f);
         public Color NebulaCool = new Color(.075f, .28f, .32f);
         public Color NebulaWarm = new Color(.28f, .085f, .19f);
+        [Header("Sun (scene directional light)")]
+        [Tooltip("Angular radius in degrees. Direction, color and intensity follow the scene's main Directional Light.")]
+        [Range(.2f, 15)] public float SunRadius = 5;
+        [Range(0, 2)] public float SunCorona = .9f;
         [Header("Up to three independent spiral galaxies")]
         public SkyGalaxy[] Galaxies = {
             new SkyGalaxy { Direction = new Vector2(-18, 14) },

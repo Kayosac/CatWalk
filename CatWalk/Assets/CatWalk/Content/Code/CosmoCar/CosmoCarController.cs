@@ -172,7 +172,7 @@ public class CosmoCarController : MonoBehaviour
         return Quaternion.LookRotation(heading, up);
     }
 
-    // Внешний разворот удерживаемой ориентации (например, гравитацией парковки). Не действует, пока игрок рулит мышью.
+    // Внешний разворот удерживаемой ориентации (например, парковкой). Не действует, пока игрок рулит мышью.
     public void AlignHold(Quaternion target, float maxDegrees)
     {
         parkingUp = target * Vector3.up;

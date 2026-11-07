@@ -15,6 +15,8 @@ Shader "CatWalk/Space Sky"
         _Warmth("Warmth", Range(0,1)) = 0.35
         _Exposure("Exposure", Range(0,3)) = 1
         _SkyTime("Visual clock", Float) = 0
+        _SunRadius("Sun angular radius", Range(0.2,15)) = 5
+        _SunCorona("Sun corona", Range(0,2)) = 0.9
         [HideInInspector] _GalaxyDirection0("Galaxy 1 direction", Vector) = (0,0,1,0)
         [HideInInspector] _GalaxyDirection1("Galaxy 2 direction", Vector) = (0,0,1,0)
         [HideInInspector] _GalaxyDirection2("Galaxy 3 direction", Vector) = (0,0,1,0)
@@ -43,6 +45,7 @@ Shader "CatWalk/Space Sky"
                 float4 _VoidColor, _NebulaCool, _NebulaWarm;
                 float _PixelResolution, _ColorSteps, _Seed, _StarDensity;
                 float _GalaxyVisibility, _NebulaDensity, _Activity, _Warmth, _Exposure, _SkyTime;
+                float _SunRadius, _SunCorona;
                 float4 _GalaxyDirection0, _GalaxyDirection1, _GalaxyDirection2;
                 float4 _GalaxyShape0, _GalaxyShape1, _GalaxyShape2;
                 float4 _GalaxyColor0, _GalaxyColor1, _GalaxyColor2;
@@ -212,6 +215,57 @@ Shader "CatWalk/Space Sky"
                 return stars;
             }
 
+            float3 NearbySun(float3 d, float3 background, float2 pixel)
+            {
+                // URP supplies -light.forward and the light's color * intensity, including temperature.
+                // These globals update per camera in both Edit and Play modes; no material copy is needed.
+                float3 sunColor = max(_MainLightColor.rgb, 0.0);
+                if (max(sunColor.r, max(sunColor.g, sunColor.b)) <= 0.0) return background;
+                float3 sunDirection = normalize(_MainLightPosition.xyz);
+                float front = dot(d, sunDirection);
+                if (front <= 0.0) return background;
+                float3 right = normalize(cross(abs(sunDirection.y) < 0.95 ? float3(0,1,0) : float3(1,0,0), sunDirection));
+                float3 up = cross(sunDirection, right);
+                float2 q = float2(dot(d, right), dot(d, up)) / (front * tan(radians(clamp(_SunRadius, 0.2, 15.0))));
+                float radius = length(q);
+                if (radius >= 3.4) return background;
+
+                // Use the same pixel ray and visual clock as the sky: no billboard, UV seam or texture.
+                float time = _SkyTime * 0.05;
+                float light;
+                if (radius < 1.0)
+                {
+                    float limb = sqrt(saturate(1.0 - radius * radius));
+                    float3 surface = float3(q, limb);
+                    float s, c; sincos(time * 0.3, s, c);
+                    surface.xz = float2(c * surface.x + s * surface.z, -s * surface.x + c * surface.z);
+                    float3 flow = float3(0, time * 0.35, time * 0.12) + _Seed * 0.17;
+                    float plasma = Fractal(surface * 5.5 + flow);
+                    float grain = Noise(surface * 34.0 + flow * 1.7);
+                    float heat = smoothstep(0.25, 0.78, plasma * 0.75 + grain * 0.25);
+                    light = lerp(0.55, 1.0, heat) * (0.65 + 0.35 * pow(limb, 0.4));
+                }
+                else
+                {
+                    float edge = radius - 1.0;
+                    float2 rim = q / radius;
+                    float angle = atan2(rim.y, rim.x);
+                    // Sampling a circle and integer angular frequencies keeps the corona closed.
+                    float flow = Noise(float3(rim * 4.0, time * 0.2)) * 4.0;
+                    float streamers = pow(saturate(0.5 + 0.5 * sin(angle * 11.0 + flow + time * 0.45)), 4.0);
+                    float wisps = pow(saturate(0.5 + 0.5 * sin(angle * 31.0 - time * 0.9 + edge * 3.0)), 6.0);
+                    float reach = 0.18 + streamers * 0.7 + wisps * 0.15;
+                    float corona = exp(-edge * 3.0 / reach) * (0.35 + streamers * 0.45);
+                    corona += exp(-edge * 2.6) * 0.1;
+                    corona *= (1.0 - smoothstep(2.5, 3.4, radius)) * _SunCorona;
+                    light = corona;
+                }
+                float levels = max(4.0, _ColorSteps);
+                light = pow(floor(sqrt(max(light, 0.0)) * levels + Dither(pixel)) / levels, 2.0);
+                // The opaque disc hides distant stars; its corona adds light around the limb.
+                return light * sunColor + (radius < 1.0 ? float3(0,0,0) : background);
+            }
+
             half4 frag(Varyings input) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
@@ -225,7 +279,8 @@ Shader "CatWalk/Space Sky"
                 cloud = pow(floor(sqrt(max(cloud, 0.0)) * levels + Dither(pixel)) / levels, 2.0);
 
                 float3 stars = Stars(d, mass, galaxyTint);
-                return half4((_VoidColor.rgb + cloud + stars) * _Exposure, 1);
+                float3 color = NearbySun(d, _VoidColor.rgb + cloud + stars, pixel);
+                return half4(color * _Exposure, 1);
             }
             ENDHLSL
         }

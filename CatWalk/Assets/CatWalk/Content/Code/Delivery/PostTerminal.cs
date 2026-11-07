@@ -1,0 +1,95 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+// Почтовый терминал. E рядом — меню почты: взять заказы и отметить доставку.
+// Взятый заказ появляется посылкой в свободном слоте зоны выдачи. Заказов можно взять несколько,
+// пока есть свободные слоты; один и тот же заказ — только пока его посылки нет в мире.
+// Сдача: поставить посылку в зону приёма этой почты и отметить доставку в меню —
+// закрываются все посылки в зоне приёма, адресованные сюда, и кошелёк получает их награды.
+public class PostTerminal : MonoBehaviour
+{
+    public static readonly List<PostTerminal> All = new();
+
+    public string address;                // id этой почты, на него ссылаются заказы (DeliveryOrder.to)
+    public string title = "Почта";        // как почта называется в меню
+    public DeliveryOrder[] orders;        // заказы, которые выдаёт эта почта
+    public Parcel parcelPrefab;
+
+    public Transform usePoint;            // где встаёт кот
+    public float useDistance = 2.5f;      // м
+    public ParcelSlot[] issueSlots;       // зона выдачи
+    public ParcelSlot[] receiveSlots;     // зона приёма
+    public PostTerminalMenu menu;
+
+    GUIStyle hintStyle;
+
+    void OnEnable() => All.Add(this);
+    void OnDisable() => All.Remove(this);
+
+    public static PostTerminal Find(string address) => All.Find(t => t.address == address);
+
+    public bool IsTaken(DeliveryOrder order) => Parcel.All.Exists(p => p.order == order);
+
+    public bool HasFreeIssueSlot => System.Array.Exists(issueSlots, s => s.IsFree);
+
+    public void Take(DeliveryOrder order)
+    {
+        ParcelSlot slot = System.Array.Find(issueSlots, s => s.IsFree);
+        if (slot == null || IsTaken(order)) return;
+        Parcel parcel = Instantiate(parcelPrefab);
+        parcel.order = order;
+        parcel.Attach(slot.transform, slot);
+    }
+
+    // Посылки в зоне приёма, адресованные сюда.
+    public List<Parcel> Received()
+    {
+        var parcels = new List<Parcel>();
+        foreach (ParcelSlot slot in receiveSlots)
+            if (!slot.IsFree && slot.Parcel.order != null && slot.Parcel.order.to == address) parcels.Add(slot.Parcel);
+        return parcels;
+    }
+
+    public static int Reward(List<Parcel> parcels)
+    {
+        int sum = 0;
+        foreach (Parcel parcel in parcels) sum += parcel.order.reward;
+        return sum;
+    }
+
+    // Посылка уничтожается вместе с оплатой, поэтому одну коробку дважды не оплатить.
+    public void Complete(List<Parcel> parcels)
+    {
+        Wallet.Current.Add(Reward(parcels));
+        foreach (Parcel parcel in parcels)
+        {
+            parcel.Slot.Parcel = null;
+            parcel.gameObject.SetActive(false); // сразу пропадает из Parcel.All
+            Destroy(parcel.gameObject);
+        }
+    }
+
+    bool CatNear => ParcelCarrier.Current != null && ParcelCarrier.Current.isActiveAndEnabled
+                 && Vector3.Distance(ParcelCarrier.Current.transform.position, usePoint.position) < useDistance;
+
+    void Update()
+    {
+        Keyboard k = Keyboard.current;
+        if (k != null && k.eKey.wasPressedThisFrame && !menu.gameObject.activeSelf && CatNear) menu.Open(this);
+    }
+
+    void OnGUI()
+    {
+        if (menu.gameObject.activeSelf || !CatNear) return;
+        hintStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.LowerCenter };
+        GUI.Label(new Rect(0f, Screen.height - 40f, Screen.width, 30f), "E — почта", hintStyle);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (usePoint == null) return;
+        Gizmos.color = new Color(0.4f, 0.8f, 1f, 0.6f);
+        Gizmos.DrawWireSphere(usePoint.position, useDistance);
+    }
+}

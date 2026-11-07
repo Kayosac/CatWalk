@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlanetSurface
+  m_Shader: {fileID: 4800000, guid: a652dec9078c4c5f88576eb404472ae7, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _BasinCoverage: 0.32
+    - _BasinDepth: 0.687
+    - _BasinScale: 3
+    - _Basins: 1
+    - _CanyonDepth: 0.476
+    - _CanyonScale: 5
+    - _CanyonWarp: 1.2
+    - _CanyonWidth: 0.3
+    - _Canyons: 1
+    - _ColorBlend: 0.22
+    - _ColorHeight: 0.5
+    - _CraterDensity: 0.32
+    - _CraterDepth: 0.3
+    - _CraterRim: 0.08
+    - _CraterScale: 10
+    - _CraterSize: 0.8
+    - _Craters: 0
+    - _Displacement: 0.08
+    - _Grass: 1
+    - _GrassBump: 0.65
+    - _GrassCoverage: 0.58
+    - _GrassDetail: 160
+    - _GrassMaxHeight: 0.75
+    - _GrassMaxSlope: 0.3
+    - _GrassMinHeight: 0.3
+    - _GrassScale: 9
+    - _GrassSmoothness: 0.639
+    - _Metallic: 0
+    - _MountainHeight: 0.118
+    - _MountainScale: 20
+    - _NormalStrength: 1
+    - _RockSlope: 0.25
+    - _Roughness: 0.574
+    - _Seed: 1
+    - _Smoothness: 0.22
+    - _TerrainHeight: 1
+    - _TerrainScale: 4
+    - _Tessellation: 4
+    - _TessellationFar: 1
+    - _TessellationNear: 2
+    m_Colors:
+    - _GrassColor: {r: 0.18, g: 0.31, b: 0.065, a: 1}
+    - _GrassDryColor: {r: 0.4, g: 0.34, b: 0.12, a: 1}
+    - _HighColor: {r: 0.57, g: 0.51, b: 0.38, a: 1}
+    - _LowColor: {r: 0.19, g: 0.13, b: 0.08, a: 1}
+    - _RockColor: {r: 0.28, g: 0.29, b: 0.27, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

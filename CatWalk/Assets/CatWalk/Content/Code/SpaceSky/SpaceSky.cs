@@ -29,7 +29,7 @@ namespace CatWalk.Rendering
             Resolution = Shader.PropertyToID("_PixelResolution"), Steps = Shader.PropertyToID("_ColorSteps"), Seed = Shader.PropertyToID("_Seed"),
             Exposure = Shader.PropertyToID("_Exposure"), Stars = Shader.PropertyToID("_StarDensity"), Galaxy = Shader.PropertyToID("_GalaxyVisibility"),
             Nebula = Shader.PropertyToID("_NebulaDensity"), Activity = Shader.PropertyToID("_Activity"), Warmth = Shader.PropertyToID("_Warmth"),
-            Clock = Shader.PropertyToID("_SkyTime");
+            Clock = Shader.PropertyToID("_SkyTime"), SunRadius = Shader.PropertyToID("_SunRadius"), SunCorona = Shader.PropertyToID("_SunCorona");
         static readonly int[] Directions = { Shader.PropertyToID("_GalaxyDirection0"), Shader.PropertyToID("_GalaxyDirection1"), Shader.PropertyToID("_GalaxyDirection2") },
             Shapes = { Shader.PropertyToID("_GalaxyShape0"), Shader.PropertyToID("_GalaxyShape1"), Shader.PropertyToID("_GalaxyShape2") },
             Colors = { Shader.PropertyToID("_GalaxyColor0"), Shader.PropertyToID("_GalaxyColor1"), Shader.PropertyToID("_GalaxyColor2") };
@@ -107,6 +107,7 @@ namespace CatWalk.Rendering
             target.SetColor(Void, settings.VoidColor); target.SetColor(Cool, settings.NebulaCool); target.SetColor(Warm, settings.NebulaWarm);
             target.SetFloat(Resolution, Mathf.Clamp(settings.PixelResolution, 96, 1024)); target.SetFloat(Steps, Mathf.Clamp(settings.ColorSteps, 4, 32));
             target.SetFloat(Seed, settings.Seed); target.SetFloat(Exposure, Mathf.Clamp(settings.Exposure, 0, 3));
+            target.SetFloat(SunRadius, Mathf.Clamp(settings.SunRadius, .2f, 15)); target.SetFloat(SunCorona, Mathf.Clamp(settings.SunCorona, 0, 2));
             for (int i = 0; i < 3; i++)
             {
                 target.SetVector(Directions[i], Vector4.zero); target.SetVector(Shapes[i], Vector4.zero); target.SetVector(Colors[i], Vector4.zero);

@@ -19,6 +19,8 @@ MonoBehaviour:
   VoidColor: {r: 0.004, g: 0.007, b: 0.016, a: 1}
   NebulaCool: {r: 0.075, g: 0.28, b: 0.32, a: 1}
   NebulaWarm: {r: 0.28, g: 0.085, b: 0.19, a: 1}
+  SunRadius: 4
+  SunCorona: 1
   Galaxies:
   - Direction: {x: -18, y: 14}
     Radius: 24

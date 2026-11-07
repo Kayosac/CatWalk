@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: FuelStop04_Atlas
-    second: {fileID: 2100000, guid: 68e3c55396665414e84ac703497fe046, type: 2}
+      name: SpaceKonbini_Surfaces
+    second: {fileID: 2100000, guid: 6b2ce8b5c11646889cb4470487e253aa, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

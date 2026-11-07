@@ -34,7 +34,9 @@ public class CosmoCarSeat : MonoBehaviour
         else if (CanEnter()) Enter();
     }
 
-    bool CanEnter() => player != null && Vector3.Distance(playerBody.position, transform.position) < enterDistance;
+    // С посылкой в руках не садимся: её сначала ставят на полку или кладут.
+    bool CanEnter() => player != null && Vector3.Distance(playerBody.position, transform.position) < enterDistance
+                    && playerBody.GetComponent<ParcelCarrier>().Held == null;
 
     // Подсказка внизу экрана, когда можно выйти или сесть.
     void OnGUI()
@@ -53,7 +55,10 @@ public class CosmoCarSeat : MonoBehaviour
         // Точка слева от машины на поверхности площадки, не дальше её края.
         Vector3 up = zone.transform.up;
         Vector3 offset = transform.position - transform.right * exitSide - zone.transform.position;
-        Vector3 lateral = Vector3.ClampMagnitude(Vector3.ProjectOnPlane(offset, up), zone.padHalfSize - 0.6f);
+        Transform pad = zone.transform;
+        float halfX = zone.padSize.x * 0.5f - 0.6f, halfZ = zone.padSize.y * 0.5f - 0.6f;
+        Vector3 lateral = pad.right * Mathf.Clamp(Vector3.Dot(offset, pad.right), -halfX, halfX)
+                        + pad.forward * Mathf.Clamp(Vector3.Dot(offset, pad.forward), -halfZ, halfZ);
         Vector3 spot = zone.transform.position + lateral + up * 0.05f;
         Vector3 forward = Vector3.ProjectOnPlane(transform.forward, up);
 

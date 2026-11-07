@@ -34,6 +34,8 @@ Material:
     - _Seed: 108
     - _SkyTime: 0
     - _StarDensity: 0.55
+    - _SunCorona: 0.9
+    - _SunRadius: 5
     - _Warmth: 0.4
     m_Colors:
     - _GalaxyColor0: {r: 0.72, g: 0.79, b: 0.68, a: 1}
