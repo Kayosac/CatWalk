@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Мастерская. E рядом — меню: ремонт корпуса и улучшения космокара.
+// Мастерская. E рядом — меню: ремонт корпуса и улучшения космокара (или только ремонт — repairOnly).
 // Чинит и улучшает космокар, где бы тот ни стоял. Ремонт оплачивается за каждый процент — на сколько хватает денег.
 public class WorkshopTerminal : MonoBehaviour
 {
     public int pricePerPercent = 2;       // кр
+    public bool repairOnly;               // только ремонт корпуса, без улучшений (маленькая ремонтная платформа)
     public Transform usePoint;            // где встаёт кот
     public float useDistance = 2.5f;      // м
     public WorkshopMenu menu;
@@ -41,7 +42,7 @@ public class WorkshopTerminal : MonoBehaviour
     {
         Keyboard k = Keyboard.current;
         if (MenuScreen.Opened != null || !CatNear) return;
-        Hud.Prompt("E — мастерская", 10);
+        Hud.Prompt(repairOnly ? "E — ремонт" : "E — мастерская", 10);
         if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
     }
 

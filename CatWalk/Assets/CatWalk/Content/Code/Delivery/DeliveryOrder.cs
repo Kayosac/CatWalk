@@ -12,4 +12,5 @@ public class DeliveryOrder : ScriptableObject
     public int reward = 50;               // кредиты за доставку
     public bool fragile;
     public FactCondition[] requires;      // пусто — заказ виден всегда
+    [TextArea] public string reaction;    // что скажет житель почты-адресата при сдаче; пусто — его обычная реакция
 }

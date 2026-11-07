@@ -173,6 +173,18 @@ public class SaveGame : MonoBehaviour
 
     void LoadParcels(List<ParcelData> saved)
     {
+        // Заказ ищется по заказам всех почт, а заказ посылки, расставленной в сцене заранее (потерянная почта, LostMail),
+        // и по ней самой; такую посылку делает префаб почты-адресата.
+        var orders = new Dictionary<string, (DeliveryOrder order, PostTerminal from)>();
+        foreach (Parcel placed in FindObjectsByType<Parcel>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            PostTerminal to = placed.order != null ? PostTerminal.Find(placed.order.to) : null;
+            if (to != null) orders[placed.order.name] = (placed.order, to);
+        }
+        foreach (PostTerminal terminal in PostTerminal.All)
+            foreach (DeliveryOrder order in terminal.orders)
+                if (order != null) orders[order.name] = (order, terminal);
+
         // Посылки, расставленные в сцене заранее, заменяются сохранёнными.
         foreach (Parcel parcel in Parcel.All.ToArray())
         {
@@ -184,12 +196,6 @@ public class SaveGame : MonoBehaviour
         var slots = new Dictionary<string, ParcelSlot>();
         foreach (ParcelSlot slot in FindObjectsByType<ParcelSlot>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             slots[SlotId(slot)] = slot;
-
-        // Заказ ищется по заказам всех почт; посылку делает префаб той почты, что его выдаёт.
-        var orders = new Dictionary<string, (DeliveryOrder order, PostTerminal from)>();
-        foreach (PostTerminal terminal in PostTerminal.All)
-            foreach (DeliveryOrder order in terminal.orders)
-                if (order != null) orders[order.name] = (order, terminal);
 
         foreach (ParcelData p in saved)
         {
