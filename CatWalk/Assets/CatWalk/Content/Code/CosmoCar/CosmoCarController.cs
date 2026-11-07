@@ -23,6 +23,7 @@ public class CosmoCarController : MonoBehaviour
     public float strafeThrust = 12f;
     public float liftThrust = 12f;
     public float boostMultiplier = 2.5f;  // Shift
+    public float thrustScale = 1f;        // доля тяги, которую дают двигатели: её снижает, например, побитый корпус
 
     [Header("Инерция")]
     public float linearDamping = 1f;      // общее сопротивление: меньше — дольше катится вперёд
@@ -99,7 +100,7 @@ public class CosmoCarController : MonoBehaviour
         planetUp = up;
 
         // Без топлива ввода тяги нет — остаётся только гашение сноса.
-        float power = fuel.Power;
+        float power = fuel.Power * thrustScale;
         float forwardIn = power > 0f ? Axis(k.sKey, k.wKey) : 0f;
         float strafeIn = power > 0f ? Axis(k.qKey, k.eKey) : 0f;
         float liftIn = power > 0f ? Axis(k.cKey, k.spaceKey) : 0f;
@@ -187,6 +188,22 @@ public class CosmoCarController : MonoBehaviour
         parkingUp = target * Vector3.up;
         parkingTime = Time.fixedTime;
         if (!steering) hold = Quaternion.RotateTowards(hold, target, maxDegrees);
+    }
+
+    // Мгновенно переставить машину (маршевый перелёт, буксир): без скорости, держит новую ориентацию.
+    public void Teleport(Vector3 position, Quaternion rotation)
+    {
+        rb.position = position;
+        rb.rotation = rotation;
+        transform.SetPositionAndRotation(position, rotation);
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        hold = rotation;
+        knockTimer = 0f;
+        leveling = false;
+        planet = null;
+        transport = Quaternion.identity;
+        if (aim != null) aim.Snap();
     }
 
     // Поворот вокруг планеты, накопленный с прошлого вызова: камера поворачивает на него свой взгляд.

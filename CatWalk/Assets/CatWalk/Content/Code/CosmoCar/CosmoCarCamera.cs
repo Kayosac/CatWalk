@@ -106,6 +106,17 @@ public class CosmoCarCamera : MonoBehaviour
         transform.SetPositionAndRotation(pivot + shown * new Vector3(0f, height, -distance), shown);
     }
 
+    // Сразу встать за машиной — после телепорта (CosmoCarController.Teleport), без пролёта через всё пространство.
+    public void Snap()
+    {
+        if (target == null) return;
+        pivot = target.position;
+        pivotVelocity = Vector3.zero;
+        yaw = 0f;
+        pitch = restPitch;
+        look = shown = Frame() * Quaternion.Euler(pitch, yaw, 0f);
+    }
+
     // Система отсчёта осмотра — ориентация машины без крена.
     Quaternion Frame() => car != null ? car.HoldRotation : target.rotation;
 

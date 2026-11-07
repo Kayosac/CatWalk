@@ -8,6 +8,7 @@ public class FuelTank : MonoBehaviour
     public float burnRate = 1f / 3f;      // л/с на полном газу без форсажа — полного бака хватает на 5 минут
     [Range(0f, 1f)] public float reserve = 0.05f;      // доля бака
     [Range(0f, 1f)] public float reservePower = 0.3f;  // тяга на резерве
+    public float efficiency = 1f;         // делитель расхода: улучшение экономичности (CarUpgrades)
 
     public float Fuel { get; private set; }
     public float Free => capacity - Fuel;
@@ -18,7 +19,18 @@ public class FuelTank : MonoBehaviour
     void Awake() => Fuel = capacity;
 
     // throttle — тяга в долях полного газа без форсажа.
-    public void Burn(float throttle, float dt) => Fuel = Mathf.Max(0f, Fuel - burnRate * throttle * dt);
+    public void Burn(float throttle, float dt) => Fuel = Mathf.Max(0f, Fuel - burnRate * throttle / efficiency * dt);
+
+    // Списать литры разом (маршевый перелёт); false — столько нет.
+    public bool TryUse(float liters)
+    {
+        if (liters > Fuel) return false;
+        Fuel -= liters;
+        return true;
+    }
+
+    // Восстановить из сохранения.
+    public void Set(float liters) => Fuel = Mathf.Clamp(liters, 0f, capacity);
 
     public void Fill(float liters) => Fuel = Mathf.Min(capacity, Fuel + liters);
 }

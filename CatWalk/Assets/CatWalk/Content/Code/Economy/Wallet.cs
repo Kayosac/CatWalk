@@ -33,6 +33,14 @@ public class Wallet : MonoBehaviour
         Changed?.Invoke(amount);
     }
 
+    // Восстановить из сохранения.
+    public void Set(int balance)
+    {
+        int delta = balance - Balance;
+        Balance = balance;
+        Changed?.Invoke(delta);
+    }
+
     // Списать, только если хватает.
     public bool TrySpend(int amount)
     {

@@ -11,6 +11,9 @@ public class PostTerminal : MonoBehaviour
 {
     public static readonly List<PostTerminal> All = new();
 
+    // Доставка закрыта: почта и сданные посылки (ещё не уничтожены). Для жителей, сохранения, долга.
+    public static event System.Action<PostTerminal, List<Parcel>> Delivered;
+
     public string address;                // id этой почты, на него ссылаются заказы (DeliveryOrder.to)
     public string title = "Почта";        // как почта называется в меню
     public DeliveryOrder[] orders;        // заказы, которые выдаёт эта почта
@@ -60,6 +63,7 @@ public class PostTerminal : MonoBehaviour
     public void Complete(List<Parcel> parcels)
     {
         Wallet.Current.Add(Reward(parcels));
+        Delivered?.Invoke(this, parcels);
         foreach (Parcel parcel in parcels)
         {
             parcel.Slot.Parcel = null;
