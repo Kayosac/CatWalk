@@ -15,6 +15,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: CosmoMotel_Cutout
+    second: {fileID: 2100000, guid: 48f751e764c345a4a7d0438e97b410b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: CosmoMotel_Emission
     second: {fileID: 2100000, guid: a0bb76fbf0094914a14e7c95a88389fa, type: 2}
   materials:
