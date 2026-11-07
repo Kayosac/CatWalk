@@ -23,7 +23,9 @@ public class PauseMenu : MenuScreen
     public void Open()
     {
         showControls = confirmNew = false;
-        if (Show()) Refresh();
+        if (!Show()) return;
+        if (status != null) status.text = "Сохраниться можно в телефонной будке на любой станции.";
+        Refresh();
     }
 
     protected override void Refresh()
@@ -32,7 +34,6 @@ public class PauseMenu : MenuScreen
         title.text = Debt.Current != null ? "Пауза | " + Debt.Current.Summary : "Пауза";
 
         AddRow("Продолжить", () => { Close(); return null; });
-        AddRow("Сохранить", () => { SaveGame.Current.Save(false); return "Сохранено."; });
         AddRow(SaveGame.Exists ? "Загрузить последнее" : "Загрузить последнее — сохранений нет",
             SaveGame.Exists ? () => { SaveGame.Current.LoadLast(); return null; } : null);
         if (towAction.GetPersistentEventCount() > 0) AddRow("Вызвать буксир", () => { Close(); towAction.Invoke(); return null; });
@@ -47,9 +48,8 @@ public class PauseMenu : MenuScreen
             confirmNew = true;
             return null;
         });
-        AddRow("Выйти", () =>
+        AddRow("Выйти — несохранённое пропадёт", () =>
         {
-            SaveGame.Current.Save(false);
             Application.Quit();
             return null;
         });

@@ -1,0 +1,39 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+// Телефонная будка. E рядом — меню: сохранить игру; звонки пока заглушка.
+// Сохраниться можно только здесь. Работает пешком, где бы будка ни стояла.
+public class PhoneBooth : MonoBehaviour
+{
+    public Transform usePoint;            // где встаёт кот
+    public float useDistance = 1.5f;      // м
+    public PhoneBoothMenu menu;
+
+    // Название места в меню: Location в родителях, иначе «будка».
+    public string Place
+    {
+        get
+        {
+            Location location = GetComponentInParent<Location>();
+            return location != null ? location.Label : "будка";
+        }
+    }
+
+    bool CatNear => ParcelCarrier.Current != null && ParcelCarrier.Current.isActiveAndEnabled
+                 && Vector3.Distance(ParcelCarrier.Current.transform.position, usePoint.position) < useDistance;
+
+    void Update()
+    {
+        Keyboard k = Keyboard.current;
+        if (MenuScreen.Opened != null || !CatNear) return;
+        Hud.Prompt("E — телефон", 10);
+        if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (usePoint == null) return;
+        Gizmos.color = new Color(1f, 0.85f, 0.4f, 0.6f);
+        Gizmos.DrawWireSphere(usePoint.position, useDistance);
+    }
+}
