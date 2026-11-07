@@ -11,7 +11,8 @@ using UnityEngine.InputSystem.Controls;
 // по её изгибу, так что W ведёт по кругу на той же высоте. Высоту меняют только Space/C.
 // Машина сама ложится крышей от планеты: у поверхности — жёстко, к краю атмосферы всё мягче.
 // F — медленно выровняться, сохранив курс: на парковке — по ней, в атмосфере — по планете, иначе по мировому верху.
-[RequireComponent(typeof(Rigidbody))]
+// Тяга тратит топливо (FuelTank): на резерве она слабее и без форсажа, в пустом баке двигатели молчат.
+[RequireComponent(typeof(Rigidbody), typeof(FuelTank))]
 public class CosmoCarController : MonoBehaviour
 {
     public CosmoCarCamera aim;            // по умолчанию — камера в сцене
@@ -47,6 +48,7 @@ public class CosmoCarController : MonoBehaviour
         "Esc — курсор · F1 — подсказка";
 
     Rigidbody rb;
+    FuelTank fuel;
     Quaternion hold;                      // ориентация, которую машина держит (без крена)
     float knockTimer;
     bool leveling;
@@ -64,6 +66,7 @@ public class CosmoCarController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        fuel = GetComponent<FuelTank>();
         rb.useGravity = false;
         rb.mass = 800f;
         rb.angularDamping = 0f;
@@ -95,16 +98,22 @@ public class CosmoCarController : MonoBehaviour
         planet = air;
         planetUp = up;
 
-        float forwardIn = Axis(k.sKey, k.wKey);
-        float strafeIn = Axis(k.qKey, k.eKey);
-        float liftIn = Axis(k.cKey, k.spaceKey);
-        float forwardAccel = forwardIn > 0f ? thrust * (k.leftShiftKey.isPressed ? boostMultiplier : 1f) : reverseThrust;
+        // Без топлива ввода тяги нет — остаётся только гашение сноса.
+        float power = fuel.Power;
+        float forwardIn = power > 0f ? Axis(k.sKey, k.wKey) : 0f;
+        float strafeIn = power > 0f ? Axis(k.qKey, k.eKey) : 0f;
+        float liftIn = power > 0f ? Axis(k.cKey, k.spaceKey) : 0f;
+        bool boost = k.leftShiftKey.isPressed && !fuel.OnReserve;
+        float forwardAccel = (forwardIn > 0f ? thrust * (boost ? boostMultiplier : 1f) : reverseThrust) * power;
+        float strafeAccel = strafeThrust * power;
+        float liftAccel = liftThrust * power;
+        fuel.Burn((Mathf.Abs(forwardIn) * forwardAccel + Mathf.Abs(strafeIn) * strafeAccel + Mathf.Abs(liftIn) * liftAccel) / thrust, dt);
 
         // Скорость в осях машины: по боковой и вертикальной оси без тяги снос гасится — машина едет носом.
         Vector3 localVelocity = Quaternion.Inverse(rb.rotation) * rb.linearVelocity;
         var force = new Vector3(
-            strafeIn != 0f ? strafeIn * strafeThrust : -localVelocity.x * sideGrip,
-            liftIn != 0f ? liftIn * liftThrust : -localVelocity.y * sideGrip,
+            strafeIn != 0f ? strafeIn * strafeAccel : -localVelocity.x * sideGrip,
+            liftIn != 0f ? liftIn * liftAccel : -localVelocity.y * sideGrip,
             forwardIn * forwardAccel);
         Vector3 worldForce = rb.rotation * force;
 
@@ -113,7 +122,7 @@ public class CosmoCarController : MonoBehaviour
             // По высоте — только Space/C, иначе вертикальный снос гасится: тяга и удары от планеты не уводят.
             Vector3 velocity = rb.linearVelocity;
             float vUp = Vector3.Dot(velocity, up);
-            float vertical = liftIn != 0f ? liftIn * liftThrust : -vUp * sideGrip;
+            float vertical = liftIn != 0f ? liftIn * liftAccel : -vUp * sideGrip;
             worldForce += (up * vertical - up * Vector3.Dot(worldForce, up)) * airWeight;
 
             // Изгиб поверхности: ровно столько ускорения к центру, чтобы лететь по кругу, а не по касательной.

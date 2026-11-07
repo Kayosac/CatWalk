@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 // Кошелёк кота: баланс в кредитах, один на сцену. Живёт отдельно от кота — тот пропадает, когда садится в космокар.
-// Пока деньги только приходят: оплата за доставку (PostTerminal.Complete).
+// Деньги приходят за доставку (PostTerminal.Complete) и уходят на топливо (FuelPump).
 public class Wallet : MonoBehaviour
 {
     public static Wallet Current { get; private set; }
@@ -11,7 +11,7 @@ public class Wallet : MonoBehaviour
 
     public int Balance { get; private set; }
 
-    public event Action<int> Added;       // сколько пришло; Balance уже обновлён
+    public event Action<int> Changed;     // на сколько изменился: + доход, − трата; Balance уже обновлён
 
     public static string Format(int credits) => $"{credits} кр";
 
@@ -30,6 +30,15 @@ public class Wallet : MonoBehaviour
     {
         if (amount <= 0) return;
         Balance += amount;
-        Added?.Invoke(amount);
+        Changed?.Invoke(amount);
+    }
+
+    // Списать, только если хватает.
+    public bool TrySpend(int amount)
+    {
+        if (amount <= 0 || amount > Balance) return false;
+        Balance -= amount;
+        Changed?.Invoke(-amount);
+        return true;
     }
 }

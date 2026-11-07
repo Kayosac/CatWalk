@@ -11,8 +11,8 @@ public class BalanceHud : MonoBehaviour
 
     float hideAt;
 
-    void Awake() => wallet.Added += OnAdded;
-    void OnDestroy() => wallet.Added -= OnAdded;
+    void Awake() => wallet.Changed += OnChanged;
+    void OnDestroy() => wallet.Changed -= OnChanged;
 
     void Start()
     {
@@ -25,9 +25,10 @@ public class BalanceHud : MonoBehaviour
         if (income.gameObject.activeSelf && Time.time >= hideAt) income.gameObject.SetActive(false);
     }
 
-    void OnAdded(int amount)
+    void OnChanged(int amount)
     {
         balance.text = Wallet.Format(wallet.Balance);
+        if (amount <= 0) return;
         income.text = "+" + Wallet.Format(amount);
         income.gameObject.SetActive(true);
         hideAt = Time.time + incomeTime;
