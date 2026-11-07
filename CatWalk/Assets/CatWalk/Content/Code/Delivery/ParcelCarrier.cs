@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 // Кот носит одну посылку. F с пустыми руками — взять ближайшую (свободную или из слота).
 // F с посылкой — поставить в ближайший свободный слот, а если рядом его нет — положить перед собой.
+// Пока коробка в руках, подсказка показывает груз (у хрупкого — сохранность).
 [RequireComponent(typeof(CatController))]
 public class ParcelCarrier : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class ParcelCarrier : MonoBehaviour
         string hint = Held != null ? (NearestFreeSlot() != null ? "F — поставить посылку" : "F — положить посылку")
                     : NearestParcel() != null ? "F — взять посылку" : null;
         if (hint == null) return;
-        Hud.Prompt(hint, 20);
+        Hud.Prompt(Held != null ? $"{hint} · {Held.Label}" : hint, 20);
 
         Keyboard k = Keyboard.current;
         if (k == null || !k.fKey.wasPressedThisFrame) return;

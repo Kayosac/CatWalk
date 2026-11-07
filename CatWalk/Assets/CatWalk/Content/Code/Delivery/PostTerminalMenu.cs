@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 // Экранное меню почты: баланс, заказы этой почты с наградами, отметка доставки и платежи по долгу (Debt).
+// Хрупкие заказы помечены, у сданных хрупких посылок видна сохранность.
 public class PostTerminalMenu : MenuScreen
 {
     PostTerminal terminal;
@@ -19,7 +20,7 @@ public class PostTerminalMenu : MenuScreen
         foreach (DeliveryOrder order in terminal.orders)
         {
             PostTerminal to = PostTerminal.Find(order.to);
-            string line = $"{order.cargo} → {(to != null ? to.title : order.to)} · {Wallet.Format(order.reward)}";
+            string line = $"{order.cargo} → {(to != null ? to.title : order.to)} · {Wallet.Format(order.reward)}{(order.fragile ? " · хрупкое" : "")}";
             if (terminal.IsTaken(order)) AddRow(line + " · в пути");
             else AddRow("Взять: " + line, terminal.HasFreeIssueSlot ? () =>
             {
@@ -30,11 +31,14 @@ public class PostTerminalMenu : MenuScreen
 
         List<Parcel> received = terminal.Received();
         int reward = PostTerminal.Reward(received);
-        AddRow(received.Count > 0 ? $"Отметить доставку ({received.Count}) · +{Wallet.Format(reward)}" : "Отметить доставку — в зоне приёма нет посылок сюда",
+        string fragile = "";
+        foreach (Parcel parcel in received)
+            if (parcel.Fragile) fragile += $" · «{parcel.order.cargo}» — сохранность {Parcel.Percent(parcel.condition)}";
+        AddRow(received.Count > 0 ? $"Отметить доставку ({received.Count}) · +{Wallet.Format(reward)}{fragile}" : "Отметить доставку — в зоне приёма нет посылок сюда",
             received.Count > 0 ? () =>
             {
                 terminal.Complete(received);
-                return $"Доставлено посылок: {received.Count}. Оплата: +{Wallet.Format(reward)}.";
+                return $"Доставлено посылок: {received.Count}. Оплата: +{Wallet.Format(reward)}{fragile}.";
             } : null);
 
         Debt debt = Debt.Current;

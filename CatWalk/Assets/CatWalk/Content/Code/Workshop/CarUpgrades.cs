@@ -35,7 +35,10 @@ public class CarUpgrades : MonoBehaviour, ISaveable
 
     public int Level(Kind kind) => levels[(int)kind];
 
-    public bool IsMax(Kind kind) => Level(kind) >= maxLevel || (kind == Kind.Cargo && Level(kind) >= extraSlots.Length);
+    // У трюма уровней не больше, чем групп слотов.
+    public int MaxLevel(Kind kind) => kind == Kind.Cargo ? Mathf.Min(maxLevel, extraSlots.Length) : maxLevel;
+
+    public bool IsMax(Kind kind) => Level(kind) >= MaxLevel(kind);
 
     public int Cost(Kind kind) => BaseCost(kind) * (Level(kind) + 1);
 

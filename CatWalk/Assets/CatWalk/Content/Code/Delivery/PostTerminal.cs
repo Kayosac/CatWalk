@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 // Взятый заказ появляется посылкой в свободном слоте зоны выдачи. Заказов можно взять несколько,
 // пока есть свободные слоты; один и тот же заказ — только пока его посылки нет в мире.
 // Сдача: поставить посылку в зону приёма этой почты и отметить доставку в меню —
-// закрываются все посылки в зоне приёма, адресованные сюда, и кошелёк получает их награды.
+// закрываются все посылки в зоне приёма, адресованные сюда, и кошелёк получает их награды (хрупкие — по сохранности).
 public class PostTerminal : MonoBehaviour
 {
     public static readonly List<PostTerminal> All = new();
@@ -55,7 +55,7 @@ public class PostTerminal : MonoBehaviour
     public static int Reward(List<Parcel> parcels)
     {
         int sum = 0;
-        foreach (Parcel parcel in parcels) sum += parcel.order.reward;
+        foreach (Parcel parcel in parcels) sum += parcel.Reward;
         return sum;
     }
 
