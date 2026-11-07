@@ -6,6 +6,15 @@ ModelImporter:
   - first:
       43: 4300000
     second: MotelSign
+  - first:
+      43: 4300006
+    second: MotelSign_GlowVacancy
+  - first:
+      43: 4300004
+    second: MotelSign_GlowArrow
+  - first:
+      43: 4300002
+    second: MotelSign_GlowMotel
   externalObjects:
   - first:
       type: UnityEngine:Material
