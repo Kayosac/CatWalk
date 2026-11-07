@@ -37,11 +37,15 @@ public class Tow : MonoBehaviour
         if (k != null && k.hKey.wasPressedThisFrame) Call();
     }
 
-    // false — в сцене нет ни одной парковки.
-    public bool Call()
+    // Вызвать буксир (H в тупике, меню паузы).
+    public void Call()
     {
         ParkingZone zone = NearestParking();
-        if (zone == null) return false;
+        if (zone == null)
+        {
+            Hud.Toast("Буксиру некуда везти: рядом нет парковок.");
+            return;
+        }
 
         int cost = Cost;
         if (cost > 0) Wallet.Current.TrySpend(cost);
@@ -53,7 +57,6 @@ public class Tow : MonoBehaviour
         Location place = NearestLocation(pad.position);
         Hud.Toast($"Буксир доставил космокар {(place != null ? $"к «{place.title}»" : "на парковку")} · "
                 + (cost > 0 ? $"−{Wallet.Format(cost)}" : "даром"));
-        return true;
     }
 
     // Ближайшая парковка, на месте стоянки которой ничего нет; если заняты все — просто ближайшая.

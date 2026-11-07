@@ -31,13 +31,15 @@ public class Hull : MonoBehaviour, ISaveable
     void Update() =>
         car.thrustScale = IsBroken ? 0f : Mathf.Lerp(weakThrust, 1f, Condition / weakAt);
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision) => Damage((collision.impulse.magnitude / rb.mass - safeImpact) * damagePerImpact);
+
+    // Снять проценты — как от удара: хрупкий груз на полке тоже пострадает.
+    public void Damage(float percent)
     {
-        float damage = (collision.impulse.magnitude / rb.mass - safeImpact) * damagePerImpact;
-        if (damage <= 0f) return;
-        damage = Mathf.Min(damage, Condition);
-        Condition -= damage;
-        Hit?.Invoke(this, damage);
+        percent = Mathf.Min(percent, Condition);
+        if (percent <= 0f) return;
+        Condition -= percent;
+        Hit?.Invoke(this, percent);
     }
 
     public void Repair(float percent) => Condition = Mathf.Clamp(Condition + percent, 0f, 100f);
