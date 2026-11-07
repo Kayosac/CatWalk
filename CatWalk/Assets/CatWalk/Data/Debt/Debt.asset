@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404e2028bc1984389b00d8b4b373bd21, type: 3}
   m_Name: Debt
   m_EditorClassIdentifier: 
-  total: 15000
-  payment: 400
-  paymentInterval: 480
-  demandEveryMin: 360
-  demandEveryMax: 720
-  demandChance: 0.35
-  demandMin: 150
-  demandMax: 350
-  demandTime: 180
+  total: 14000
+  payment: 350
+  paymentInterval: 600
+  firstPayment: 1500
+  demandEveryMin: 480
+  demandEveryMax: 900
+  demandChance: 0.3
+  demandMin: 120
+  demandMax: 250
+  demandTime: 240
   extraPayment: 1000
-  missedPayment: 25
-  missedDemand: 15
+  missedPayment: 20
+  missedDemand: 10
   paidOnTime: 5
   extraRelief: 10
   mischiefPressure: 50

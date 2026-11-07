@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u041B\u0430\u043C\u043F\u043E\u0447\u043A\u0438 \u0434\u043B\u044F \u043E\u043A\u043D\u0430"
   to: galka
-  reward: 420
+  reward: 500
   fragile: 1
   requires: []
   reaction: 

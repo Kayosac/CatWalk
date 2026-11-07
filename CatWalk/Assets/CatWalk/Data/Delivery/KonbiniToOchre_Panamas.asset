@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u041A\u043E\u0440\u043E\u0431\u043A\u0430 \u043F\u0430\u043D\u0430\u043C"
   to: ochre
-  reward: 360
+  reward: 380
   fragile: 0
+  requires: []
+  reaction: 

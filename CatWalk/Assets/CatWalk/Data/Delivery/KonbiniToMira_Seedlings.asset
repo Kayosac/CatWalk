@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u042F\u0449\u0438\u043A \u0440\u0430\u0441\u0441\u0430\u0434\u044B"
   to: mira
-  reward: 280
+  reward: 320
   fragile: 1
+  requires: []
+  reaction: 

@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u041E\u0431\u0440\u0430\u0437\u0446\u044B \u0440\u0443\u0434\u044B"
   to: research
-  reward: 470
+  reward: 480
   fragile: 0
+  requires: []
+  reaction: 

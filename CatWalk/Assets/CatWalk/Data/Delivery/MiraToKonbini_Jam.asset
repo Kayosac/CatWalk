@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u0411\u0430\u043D\u043A\u0438 \u0432\u0430\u0440\u0435\u043D\u044C\u044F"
   to: konbini
-  reward: 280
+  reward: 320
   fragile: 1
+  requires: []
+  reaction: 

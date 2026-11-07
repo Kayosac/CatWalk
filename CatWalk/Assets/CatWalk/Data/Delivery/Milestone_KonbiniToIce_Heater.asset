@@ -21,3 +21,4 @@ MonoBehaviour:
   - fact: milestone.first-upgrade
     compare: 0
     value: 1
+  reaction: 

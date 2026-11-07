@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6b3352ad104d229563f3b6a5999e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 100
+  capacity: 150
   burnRate: 0.33333334
   reserve: 0.05
   reservePower: 0.3
@@ -167,18 +167,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 4
   cruisePerLevel: 0.15
-  baseCapacity: 100
-  capacityPerLevel: 55
+  baseCapacity: 150
+  capacityPerLevel: 50
   extraSlots:
   - {fileID: 1050640410991394491}
   - {fileID: 6566696662346978631}
   - {fileID: 4490811817180545936}
   - {fileID: 5664401910748802627}
   efficiencyPerLevel: 0.24
-  engineCost: 650
-  tankCost: 420
-  cargoCost: 380
-  economyCost: 480
+  engineCost: 600
+  tankCost: 300
+  cargoCost: 350
+  economyCost: 450
 --- !u!114 &3457697247108982284
 MonoBehaviour:
   m_ObjectHideFlags: 0

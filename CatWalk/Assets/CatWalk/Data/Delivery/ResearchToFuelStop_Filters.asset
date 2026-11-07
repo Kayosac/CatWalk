@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u0424\u0438\u043B\u044C\u0442\u0440\u044B \u0434\u043B\u044F \u043D\u0430\u0441\u043E\u0441\u0430"
   to: fuelstop04
-  reward: 290
+  reward: 310
   fragile: 0
+  requires: []
+  reaction: 

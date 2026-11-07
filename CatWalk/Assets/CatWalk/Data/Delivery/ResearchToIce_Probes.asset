@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cargo: "\u041C\u0435\u0442\u0435\u043E\u0437\u043E\u043D\u0434\u044B"
   to: ice
-  reward: 290
+  reward: 330
   fragile: 1
+  requires: []
+  reaction: 
