@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 // Экранное меню почты: баланс, заказы этой почты с наградами, отметка доставки и платежи по долгу (Debt).
-// Хрупкие заказы помечены, у сданных хрупких посылок видна сохранность.
+// Хрупкие заказы помечены, у сданных хрупких посылок видна сохранность. Заказ с невыполненными условиями (requires) скрыт.
 public class PostTerminalMenu : MenuScreen
 {
     PostTerminal terminal;
@@ -19,6 +19,7 @@ public class PostTerminalMenu : MenuScreen
 
         foreach (DeliveryOrder order in terminal.orders)
         {
+            if (!FactCondition.All(order.requires)) continue;
             PostTerminal to = PostTerminal.Find(order.to);
             string line = $"{order.cargo} -> {(to != null ? to.title : order.to)} | {Wallet.Format(order.reward)}{(order.fragile ? " | хрупкое" : "")}";
             if (terminal.IsTaken(order)) AddRow(line + " | в пути");
