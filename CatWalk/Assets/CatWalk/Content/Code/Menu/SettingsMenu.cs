@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Настройки: мышь и стик, экран, частота кадров (GameSettings), управление (Controls). Открываются из главного меню
+// Настройки: мышь и стик, экран, частота кадров, подсказки обучения (GameSettings), управление (Controls). Открываются из главного меню
 // и из паузы; закрытие (Esc или «Назад») возвращает туда, откуда открыли. Клик по строке — следующее значение.
 // «Управление» — список действий с клавишами «клавиатура | геймпад»: выбор строки мышью или Enter ждёт новую клавишу,
 // кнопкой A — новую кнопку геймпада; Esc — отмена. Esc в списке — назад к настройкам. Звук — позже.
@@ -52,6 +52,11 @@ public class SettingsMenu : MenuScreen
             return;
         }
         title.text = "Настройки";
+        AddRow("Подсказки обучения: " + OnOff(GameSettings.Tutorial), () =>
+        {
+            GameSettings.SetTutorial(!GameSettings.Tutorial);
+            return null;
+        });
         AddRow($"Чувствительность мыши: {GameSettings.Sensitivity:0.##}", () =>
         {
             GameSettings.SetSensitivity(Next(GameSettings.Sensitivities, GameSettings.Sensitivity));

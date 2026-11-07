@@ -81,8 +81,12 @@ public class SaveGame : MonoBehaviour
 
     void LateUpdate() => menuWasOpen = MenuScreen.Opened != null;
 
-    // Зовёт телефонная будка.
-    public void Save() => File.WriteAllText(FilePath, JsonUtility.ToJson(Collect(), true));
+    // Зовёт телефонная будка. Факт save.count (обучение) ставится до сбора — попадает в этот же файл.
+    public void Save()
+    {
+        StoryFacts.Add("save.count");
+        File.WriteAllText(FilePath, JsonUtility.ToJson(Collect(), true));
+    }
 
     // Последнее сохранение: сцена с нуля, файл подхватится на старте.
     public void LoadLast() => Reload();
