@@ -14,8 +14,10 @@ public class ParcelCarrier : MonoBehaviour
 
     public Parcel Held { get; private set; }
 
+    // F сейчас что-то делает с посылкой: держим коробку или рядом есть что взять.
+    public bool HasAction => Held != null || NearestParcel() != null;
+
     Rigidbody rb;
-    GUIStyle hintStyle;
 
     Vector3 Center => transform.position + transform.up;
 
@@ -32,6 +34,11 @@ public class ParcelCarrier : MonoBehaviour
 
     void Update()
     {
+        string hint = Held != null ? (NearestFreeSlot() != null ? "F — поставить посылку" : "F — положить посылку")
+                    : NearestParcel() != null ? "F — взять посылку" : null;
+        if (hint == null) return;
+        Hud.Prompt(hint, 20);
+
         Keyboard k = Keyboard.current;
         if (k == null || !k.fKey.wasPressedThisFrame) return;
 
@@ -46,15 +53,6 @@ public class ParcelCarrier : MonoBehaviour
         if (slot != null) Held.Attach(slot.transform, slot);
         else Held.Drop(transform.position + transform.forward * dropDistance + transform.up * 0.05f, transform.rotation, rb.linearVelocity);
         Held = null;
-    }
-
-    void OnGUI()
-    {
-        string hint = Held != null ? (NearestFreeSlot() != null ? "F — поставить посылку" : "F — положить посылку")
-                    : NearestParcel() != null ? "F — взять посылку" : null;
-        if (hint == null) return;
-        hintStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.LowerCenter };
-        GUI.Label(new Rect(0f, Screen.height - 64f, Screen.width, 30f), hint, hintStyle);
     }
 
     Parcel NearestParcel()

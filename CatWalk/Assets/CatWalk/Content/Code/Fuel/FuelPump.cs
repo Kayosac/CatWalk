@@ -13,7 +13,6 @@ public class FuelPump : MonoBehaviour
     public FuelTank Tank { get; private set; }
 
     float flow;                           // налито кнопкой, но ещё не залито — копится до целого литра
-    GUIStyle hintStyle;
 
     void Start() => Tank = FindFirstObjectByType<FuelTank>();
 
@@ -50,14 +49,9 @@ public class FuelPump : MonoBehaviour
     void Update()
     {
         Keyboard k = Keyboard.current;
-        if (k != null && k.eKey.wasPressedThisFrame && !menu.gameObject.activeSelf && CatNear) menu.Open(this);
-    }
-
-    void OnGUI()
-    {
-        if (menu.gameObject.activeSelf || !CatNear) return;
-        hintStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.LowerCenter };
-        GUI.Label(new Rect(0f, Screen.height - 40f, Screen.width, 30f), "E — колонка", hintStyle);
+        if (MenuScreen.Opened != null || !CatNear) return;
+        Hud.Prompt("E — колонка", 10);
+        if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
     }
 
     void OnDrawGizmos()

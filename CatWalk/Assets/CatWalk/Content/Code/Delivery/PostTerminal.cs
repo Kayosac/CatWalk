@@ -22,8 +22,6 @@ public class PostTerminal : MonoBehaviour
     public ParcelSlot[] receiveSlots;     // зона приёма
     public PostTerminalMenu menu;
 
-    GUIStyle hintStyle;
-
     void OnEnable() => All.Add(this);
     void OnDisable() => All.Remove(this);
 
@@ -76,14 +74,9 @@ public class PostTerminal : MonoBehaviour
     void Update()
     {
         Keyboard k = Keyboard.current;
-        if (k != null && k.eKey.wasPressedThisFrame && !menu.gameObject.activeSelf && CatNear) menu.Open(this);
-    }
-
-    void OnGUI()
-    {
-        if (menu.gameObject.activeSelf || !CatNear) return;
-        hintStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.LowerCenter };
-        GUI.Label(new Rect(0f, Screen.height - 40f, Screen.width, 30f), "E — почта", hintStyle);
+        if (MenuScreen.Opened != null || !CatNear) return;
+        Hud.Prompt("E — почта", 10);
+        if (k != null && k.eKey.wasPressedThisFrame) menu.Open(this);
     }
 
     void OnDrawGizmos()

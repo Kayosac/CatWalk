@@ -16,7 +16,6 @@ public class CosmoCarSeat : MonoBehaviour
     ParkingZone[] zones;
     GameObject player;
     Transform playerBody;
-    GUIStyle hintStyle;
 
     void Start()
     {
@@ -27,25 +26,20 @@ public class CosmoCarSeat : MonoBehaviour
 
     void Update()
     {
+        // Подсказка внизу экрана, когда можно выйти или сесть.
+        string hint = player == null ? (DockedZone() != null ? "E — выйти" : null) : (CanEnter() ? "E — сесть" : null);
+        if (hint == null) return;
+        Hud.Prompt(hint, 5);
+
         Keyboard k = Keyboard.current;
         if (k == null || !k.eKey.wasPressedThisFrame) return;
-
         if (player == null) TryExit();
-        else if (CanEnter()) Enter();
+        else Enter();
     }
 
     // С посылкой в руках не садимся: её сначала ставят на полку или кладут.
     bool CanEnter() => player != null && Vector3.Distance(playerBody.position, transform.position) < enterDistance
                     && playerBody.GetComponent<ParcelCarrier>().Held == null;
-
-    // Подсказка внизу экрана, когда можно выйти или сесть.
-    void OnGUI()
-    {
-        string hint = player == null ? (DockedZone() != null ? "E — выйти" : null) : (CanEnter() ? "E — сесть" : null);
-        if (hint == null) return;
-        hintStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 14, alignment = TextAnchor.LowerCenter };
-        GUI.Label(new Rect(0f, Screen.height - 40f, Screen.width, 30f), hint, hintStyle);
-    }
 
     void TryExit()
     {
