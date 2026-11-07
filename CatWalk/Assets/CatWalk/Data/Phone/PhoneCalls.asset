@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dfd6dfba4d2b4715bbe596501f2f20a, type: 3}
+  m_Name: PhoneCalls
+  m_EditorClassIdentifier: 
+  note: "\u0412\u0420\u0415\u041C\u0415\u041D\u041D\u042B\u0415 \u0442\u0435\u043A\u0441\u0442\u044B-\u0437\u0430\u0433\u043B\u0443\u0448\u043A\u0438
+    \u0432 \u0442\u043E\u043D\u0435 \u043D\u0430\u0440\u0440\u0430\u0442\u0438\u0432\u043D\u043E\u0439
+    \u0434\u043E\u0441\u043A\u0438 (\xAB\u0414\u0430\u043B\u044C\u043D\u044F\u044F
+    \u043F\u043E\u0447\u0442\u0430 \u2014 \u043D\u0430\u0440\u0440\u0430\u0442\u0438\u0432
+    \u0438 \u043C\u0438\u0440\xBB). \u0423\u0441\u043B\u043E\u0432\u0438\u044F \u0438
+    \u043F\u043E\u0440\u043E\u0433\u0438 \u2014 \u043F\u043E\u0434 1-2 \u0447\u0430\u0441\u0430
+    \u043E\u0431\u044B\u0447\u043D\u043E\u0439 \u0438\u0433\u0440\u044B. \u041F\u0435\u0440\u0435\u043F\u0438\u0448\u0435\u0442
+    \u0430\u0432\u0442\u043E\u0440."
+  names:
+  - "\u042F"
+  - "\u041C\u0430\u043C\u0430"
+  - "\u041F\u0430\u043F\u0430"
+  - "\u0410\u0432\u0442\u043E\u043E\u0442\u0432\u0435\u0442\u0447\u0438\u043A"
+  storyGap: 3
+  calls:
+  - {fileID: 11400000, guid: 5ae6b73d29bc8474f82a047269232720, type: 2}
+  - {fileID: 11400000, guid: 50201f47137e646dfbd945fdecfaa48a, type: 2}
+  - {fileID: 11400000, guid: 1344eb81732614f78b174ac7648ccfc1, type: 2}
+  - {fileID: 11400000, guid: 331be8122e4fb4367866fc0350aeacaf, type: 2}
+  - {fileID: 11400000, guid: 76fa6e0ce77834be39e1cbcf78f4af99, type: 2}
+  - {fileID: 11400000, guid: db6a950349a5e4e168ad65b42ad07a60, type: 2}
+  - {fileID: 11400000, guid: 3f721d0ae55614b5fb1f31acc0d15b0f, type: 2}
+  - {fileID: 11400000, guid: 9151d56213c90401d8a3ab0c41c8f40a, type: 2}
+  - {fileID: 11400000, guid: 7e46a1c4dd5884cd5b601593e414f34d, type: 2}
+  - {fileID: 11400000, guid: f0097bd9610bd40428ef7a57ce3a3053, type: 2}
+  - {fileID: 11400000, guid: 9fe42bc714f194b3fa7320b2ebfb9d92, type: 2}
+  - {fileID: 11400000, guid: 44a179fd4193a404f9e6d5492d92de2a, type: 2}
+  - {fileID: 11400000, guid: 33f8af82b7484415caf7fcc9950905e7, type: 2}
+  - {fileID: 11400000, guid: 8294f1fea3acf41998ad2a20d92c6eed, type: 2}
