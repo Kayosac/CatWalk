@@ -1,8 +1,8 @@
 using UnityEngine;
 
 // Улучшения космокара, покупаются в мастерской. У каждого направления 0..maxLevel уровней.
-// Двигатель — дальность маршевого перелёта, бак — вместимость, трюм — места на полке, экономичность — расход.
-[RequireComponent(typeof(FuelTank))]
+// Двигатель — скорость маршевого режима, бак — вместимость, трюм — места на полке, экономичность — расход.
+[RequireComponent(typeof(FuelTank), typeof(CosmoCarController))]
 public class CarUpgrades : MonoBehaviour, ISaveable
 {
     public enum Kind { Engine, Tank, Cargo, Economy }
@@ -10,8 +10,7 @@ public class CarUpgrades : MonoBehaviour, ISaveable
     public int maxLevel = 4;
 
     [Header("Двигатель")]
-    public float baseRange = 1650f;       // дальность маршевого без улучшений, м
-    public float rangePerLevel = 1900f;   // м
+    public float cruisePerLevel = 0.15f;  // доля к скорости маршевого за уровень
 
     [Header("Бак")]
     public float baseCapacity = 100f;     // л
@@ -30,8 +29,6 @@ public class CarUpgrades : MonoBehaviour, ISaveable
     public int economyCost = 480;
 
     readonly int[] levels = new int[4];
-
-    public float CruiseRange => baseRange + rangePerLevel * Level(Kind.Engine);
 
     public int Level(Kind kind) => levels[(int)kind];
 
@@ -65,6 +62,7 @@ public class CarUpgrades : MonoBehaviour, ISaveable
         FuelTank tank = GetComponent<FuelTank>();
         tank.capacity = baseCapacity + capacityPerLevel * Level(Kind.Tank);
         tank.efficiency = 1f + efficiencyPerLevel * Level(Kind.Economy);
+        GetComponent<CosmoCarController>().cruiseScale = 1f + cruisePerLevel * Level(Kind.Engine);
         for (int i = 0; i < extraSlots.Length; i++) extraSlots[i].SetActive(i < Level(Kind.Cargo));
     }
 

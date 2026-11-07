@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Навигатор космокара: текущая цель на карте. Работает и в машине, и пешком.
-// T — следующая цель по кругу, от ближайшей к дальней. Tab — карта (MapMenu).
+// T — следующая цель по кругу, от ближайшей к дальней. M — карта (MapMenu).
 // Расстояния считаются от машины.
 public class Navigator : MonoBehaviour, ISaveable
 {
@@ -29,7 +29,7 @@ public class Navigator : MonoBehaviour, ISaveable
     {
         Keyboard k = Keyboard.current;
         if (k == null || MenuScreen.Opened != null) return;
-        if (k.tabKey.wasPressedThisFrame && map != null) map.Open(this);
+        if (k.mKey.wasPressedThisFrame && map != null) map.Open(this);
         if (k.tKey.wasPressedThisFrame) Next();
     }
 
