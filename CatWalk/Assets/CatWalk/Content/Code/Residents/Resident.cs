@@ -6,9 +6,11 @@ using UnityEngine.InputSystem;
 
 // Житель у почты своей станции. Поворачивается к коту, когда тот рядом; при подходе машет и здоровается.
 // Без анимаций: в покое модель «дышит» скейлом, а взмах — скейл-баунс на пружине, как приземление кота.
-// F рядом — следующая тема разговора. После доставки на свою почту — реакция на груз или благодарность.
+// F рядом — новое событие истории, если оно открылось (над головой тогда висит «!»), иначе следующая тема.
+// После доставки на свою почту — реакция на груз или благодарность.
 // Реплика — облачко над головой: печатается посимвольно (Text Animator), висит lineTime и не мешает ходить.
-public class Resident : MonoBehaviour
+// Помнит доставки сюда, последний груз, знакомство, тему и рассказанное — в сохранении по адресу почты.
+public class Resident : MonoBehaviour, ISaveable
 {
     public ResidentProfile profile;
     public PostTerminal terminal;         // почта, у которой живёт
@@ -19,6 +21,7 @@ public class Resident : MonoBehaviour
     public TMP_Text text;
     public TypewriterComponent typewriter;
     public float lineTime = 5.5f;         // сколько висит реплика, с; длинную — не меньше, чем печатается, и ещё 2 с
+    public GameObject newsIcon;           // «!» — есть новое событие истории
 
     [Header("Внимание")]
     public float lookRadius = 6f;         // ближе — поворачивается к коту и здоровается, м
@@ -32,8 +35,18 @@ public class Resident : MonoBehaviour
     public float squashStiffness = 120f;
     public float squashDamping = 7f;
 
-    int deliveries, topic;
-    bool known, catNear;
+    [System.Serializable]
+    class Memory
+    {
+        public int deliveries;            // посылок, сданных на эту почту
+        public string lastCargo;
+        public bool known;
+        public int topic;
+        public List<string> heard = new(); // рассказанные события истории
+    }
+
+    Memory memory = new();
+    bool catNear;
     string pending;                       // ждёт, пока закроют меню
     float hideAt, squash, squashVelocity;
     Quaternion restRotation;
@@ -69,15 +82,17 @@ public class Resident : MonoBehaviour
         Bounce();
 
         bool menu = MenuScreen.Opened != null;
+        ResidentProfile.StoryEvent news = News();
         if (!menu && distance < talkDistance && !ParcelCarrier.Current.HasAction)
         {
-            Hud.Prompt("F — поговорить", 9);
+            Hud.Prompt(news != null ? "F — поговорить · есть новости" : "F — поговорить", 9);
             Keyboard k = Keyboard.current;
             if (k != null && k.fKey.wasPressedThisFrame) Talk();
         }
 
         if (!menu && pending != null) Show();
         bubble.enabled = !menu && Time.time < hideAt;
+        newsIcon.SetActive(news != null && !bubble.enabled);
     }
 
     void LateUpdate()
@@ -88,21 +103,34 @@ public class Resident : MonoBehaviour
 
     bool Speaking => pending != null || Time.time < hideAt;
 
-    string Greeting() => deliveries >= profile.warmDeliveries ? profile.greetingWarm : known ? profile.greetingKnown : profile.greeting;
+    string Greeting() => memory.deliveries >= profile.warmDeliveries ? profile.greetingWarm
+                       : memory.known ? profile.greetingKnown : profile.greeting;
+
+    // Первое открывшееся и ещё не рассказанное событие истории.
+    ResidentProfile.StoryEvent News() => System.Array.Find(profile.story, e => !memory.heard.Contains(e.id)
+        && memory.deliveries >= e.minDeliveries && (string.IsNullOrEmpty(e.after) || memory.heard.Contains(e.after)));
 
     void Talk()
     {
-        known = true;
+        memory.known = true;
+        ResidentProfile.StoryEvent news = News();
+        if (news != null)
+        {
+            memory.heard.Add(news.id);
+            Say(news.line);
+            return;
+        }
         if (profile.topics.Length == 0) return;
-        topic %= profile.topics.Length;
-        Say(profile.topics[topic++]);
+        memory.topic %= profile.topics.Length;
+        Say(profile.topics[memory.topic++]);
     }
 
     void OnDelivered(PostTerminal post, List<Parcel> parcels)
     {
         if (post != terminal) return;
-        deliveries += parcels.Count;
-        known = true;
+        memory.deliveries += parcels.Count;
+        memory.known = true;
+        memory.lastCargo = parcels[^1].order.cargo;
         ResidentProfile.CargoReaction reaction = System.Array.Find(profile.reactions, r => parcels.Exists(p => p.order == r.order));
         Say(reaction != null ? reaction.line : profile.thanks);
     }
@@ -140,4 +168,8 @@ public class Resident : MonoBehaviour
         float xz = 1f / Mathf.Sqrt(y);
         visual.localScale = Vector3.Scale(baseScale, new Vector3(xz, y, xz));
     }
+
+    public string SaveKey => "resident:" + terminal.address;
+    public string Save() => JsonUtility.ToJson(memory);
+    public void Load(string data) => memory = JsonUtility.FromJson<Memory>(data) ?? new Memory();
 }

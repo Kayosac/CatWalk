@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-// Кто живёт у почты и что говорит: приветствия, темы для разговора, благодарности за доставку.
+// Кто живёт у почты и что говорит: приветствия, темы для разговора, благодарности за доставку
+// и короткая история — события, которые открываются по мере доставок сюда.
 // Реплики временные — тёплые, короткие, с лёгкой абсурдинкой.
 [CreateAssetMenu(menuName = "CatWalk/Resident Profile")]
 public class ResidentProfile : ScriptableObject
@@ -14,6 +15,16 @@ public class ResidentProfile : ScriptableObject
         [TextArea] public string line;
     }
 
+    // Событие истории: открывается после minDeliveries доставок сюда и, если задано, после события after.
+    [Serializable]
+    public class StoryEvent
+    {
+        public string id;                 // постоянный — по нему житель помнит, что уже рассказал
+        [TextArea] public string line;
+        public int minDeliveries = 1;
+        public string after;              // id события, которое должно быть уже рассказано; пусто — без условия
+    }
+
     public string displayName = "Житель";
     [TextArea] public string greeting;        // при первой встрече
     [TextArea] public string greetingKnown;   // знакомому — после разговора или доставки
@@ -23,4 +34,5 @@ public class ResidentProfile : ScriptableObject
     [TextArea] public string thanks;          // за доставку, если на груз нет своей реакции
     public CargoReaction[] reactions;
     [TextArea] public string damagedRemark;   // о помятой хрупкой коробке
+    public StoryEvent[] story;
 }
