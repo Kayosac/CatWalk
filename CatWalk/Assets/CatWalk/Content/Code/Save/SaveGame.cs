@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 // Сохранение игры, одно на сцену: JSON-файл в persistentDataPath.
 // Хранит строки всех ISaveable в сцене (включая неактивные) и своё ядро: баланс, топливо, позу и скорость машины,
 // кота пешком и все посылки. Загружается само через кадр после старта сцены — когда все системы прошли Start.
 // «Загрузить» перезапускает сцену, и та подхватывает файл. Автосохранение: после доставки и трат (как только
-// закрыто меню), когда машина встала на парковку, при выходе из игры.
+// закрыто меню), когда машина встала на парковку, при выходе из игры. Esc без открытого меню — пауза.
 public class SaveGame : MonoBehaviour
 {
     const int Version = 1;                // формат файла; другой номер — файл не читаем
@@ -18,6 +19,7 @@ public class SaveGame : MonoBehaviour
     public static string FilePath => Path.Combine(Application.persistentDataPath, "catwalk-prototype.json");
     public static bool Exists => File.Exists(FilePath);
 
+    public PauseMenu pause;
     public float dockSaveDelay = 3f;      // после загрузки машина оседает на парковку — это ещё не повод сохраняться, с
 
     [Serializable]
@@ -55,7 +57,7 @@ public class SaveGame : MonoBehaviour
     CosmoCarSeat seat;
     FuelTank tank;
     ParkingZone[] zones;
-    bool ready, pending, docked;
+    bool ready, pending, docked, menuWasOpen;
     float readyTime;
 
     void Awake() => Current = this;
@@ -93,12 +95,18 @@ public class SaveGame : MonoBehaviour
 
     void Update()
     {
+        // Esc, которым только что закрыли другое меню, паузу не открывает.
+        Keyboard k = Keyboard.current;
+        if (pause != null && k != null && k.escapeKey.wasPressedThisFrame && MenuScreen.Opened == null && !menuWasOpen) pause.Open();
+
         if (!ready) return;
         bool nowDocked = seat != null && seat.Driving && Array.Exists(zones, z => z.IsDocked);
         if (nowDocked && !docked && Time.time > readyTime + dockSaveDelay) pending = true;
         docked = nowDocked;
         if (pending && MenuScreen.Opened == null) Save();
     }
+
+    void LateUpdate() => menuWasOpen = MenuScreen.Opened != null;
 
     void OnApplicationQuit()
     {

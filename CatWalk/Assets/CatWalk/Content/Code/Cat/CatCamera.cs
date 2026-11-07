@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 // Орбитальная камера от третьего лица. Курсор захвачен, мышь вращает камеру вокруг персонажа.
 // Горизонт камеры плавно следует за «верхом» кота: на планетке камера обходит её вместе с ним.
 // В невесомости горизонт замирает, кот кувыркается сам по себе.
-// Esc — отпустить курсор, ЛКМ — захватить снова.
+// Курсор отпускают меню (MenuScreen), ЛКМ — захватить снова.
 public class CatCamera : MonoBehaviour
 {
     public Transform target;
@@ -34,9 +34,7 @@ public class CatCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        Keyboard k = Keyboard.current;
         Mouse m = Mouse.current;
-        if (k != null && k.escapeKey.wasPressedThisFrame) SetCursorLocked(false);
         if (m != null && m.leftButton.wasPressedThisFrame) SetCursorLocked(true);
 
         if (m != null && Cursor.lockState == CursorLockMode.Locked)
