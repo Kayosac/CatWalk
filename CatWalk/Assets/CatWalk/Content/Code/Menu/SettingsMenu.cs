@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Настройки: мышь, экран, частота кадров (GameSettings). Открываются из главного меню и из паузы;
+// Настройки: мышь, экран, частота кадров, подсказки обучения (GameSettings). Открываются из главного меню и из паузы;
 // закрытие (Esc или «Назад») возвращает туда, откуда открыли. Клик по строке — следующее значение.
 // Звук и переназначение клавиш — позже.
 public class SettingsMenu : MenuScreen
@@ -33,6 +33,11 @@ public class SettingsMenu : MenuScreen
     protected override void Refresh()
     {
         ClearRows();
+        AddRow("Подсказки обучения: " + OnOff(GameSettings.Tutorial), () =>
+        {
+            GameSettings.SetTutorial(!GameSettings.Tutorial);
+            return null;
+        });
         AddRow($"Чувствительность мыши: {GameSettings.Sensitivity:0.##}", () =>
         {
             GameSettings.SetSensitivity(Next(GameSettings.Sensitivities, GameSettings.Sensitivity));

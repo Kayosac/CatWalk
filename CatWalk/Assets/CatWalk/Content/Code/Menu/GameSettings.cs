@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Настройки игрока в PlayerPrefs: мышь (множитель чувствительности, инверсия Y), VSync и предел FPS.
+// Настройки игрока в PlayerPrefs: мышь (множитель чувствительности, инверсия Y), VSync и предел FPS, подсказки обучения.
 // Режим экрана и разрешение Unity запоминает в PlayerPrefs сама. Читаются и применяются при запуске игры.
 public static class GameSettings
 {
@@ -11,6 +11,7 @@ public static class GameSettings
     public static bool InvertY { get; private set; }
     public static bool VSync { get; private set; }
     public static int FpsLimit { get; private set; }
+    public static bool Tutorial { get; private set; } = true; // подсказки обучения (Onboarding/Tutorial)
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
@@ -19,6 +20,7 @@ public static class GameSettings
         InvertY = PlayerPrefs.GetInt("settings.invertY", 0) == 1;
         VSync = PlayerPrefs.GetInt("settings.vsync", QualitySettings.vSyncCount > 0 ? 1 : 0) == 1;
         FpsLimit = PlayerPrefs.GetInt("settings.fps", 0);
+        Tutorial = PlayerPrefs.GetInt("settings.tutorial", 1) == 1;
         ApplyFrameRate();
     }
 
@@ -53,6 +55,13 @@ public static class GameSettings
         PlayerPrefs.SetInt("settings.fps", value);
         PlayerPrefs.Save();
         ApplyFrameRate();
+    }
+
+    public static void SetTutorial(bool value)
+    {
+        Tutorial = value;
+        PlayerPrefs.SetInt("settings.tutorial", value ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     static void ApplyFrameRate()
