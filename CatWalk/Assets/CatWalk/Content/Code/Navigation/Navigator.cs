@@ -3,15 +3,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Навигатор космокара: текущая цель на карте. Работает и в машине, и пешком.
-// T — следующая цель по кругу, от ближайшей к дальней. M — карта (MapMenu).
+// T — следующая цель по кругу, от ближайшей к дальней. M — карта (MapMenu), J — журнал заказов (OrderJournal).
 // Расстояния считаются от машины.
 public class Navigator : MonoBehaviour, ISaveable
 {
     public static Navigator Current { get; private set; }
 
     public MapMenu map;                   // по умолчанию — карта в сцене
+    public OrderJournal journal;          // по умолчанию — журнал в сцене
 
     public Location Target { get; set; }
+
+    bool menuWasOpen;                     // клавиша, которой только что закрыли меню, его снова не открывает
 
     void Awake() => Current = this;
 
@@ -23,15 +26,19 @@ public class Navigator : MonoBehaviour, ISaveable
     void Start()
     {
         if (map == null) map = FindFirstObjectByType<MapMenu>(FindObjectsInactive.Include);
+        if (journal == null) journal = FindFirstObjectByType<OrderJournal>(FindObjectsInactive.Include);
     }
 
     void Update()
     {
         Keyboard k = Keyboard.current;
-        if (k == null || MenuScreen.Opened != null) return;
+        if (k == null || MenuScreen.Opened != null || menuWasOpen) return;
         if (k.mKey.wasPressedThisFrame && map != null) map.Open(this);
+        if (k.jKey.wasPressedThisFrame && journal != null) journal.Open();
         if (k.tKey.wasPressedThisFrame) Next();
     }
+
+    void LateUpdate() => menuWasOpen = MenuScreen.Opened != null;
 
     public float DistanceTo(Location location) => Vector3.Distance(transform.position, location.transform.position);
 
