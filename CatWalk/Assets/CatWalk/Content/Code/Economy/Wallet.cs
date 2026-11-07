@@ -7,7 +7,7 @@ public class Wallet : MonoBehaviour
 {
     public static Wallet Current { get; private set; }
 
-    public int startBalance = 100;
+    public int startBalance = 400;
 
     public int Balance { get; private set; }
 

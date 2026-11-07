@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-// Долг кота кредиторам, один на сцену. Каждые paymentInterval игрового времени — плановый платёж,
+// Долг кота кредиторам, один на сцену. Каждые paymentInterval игрового времени (первый — через firstPayment) — плановый платёж,
 // изредка — внеплановое требование со своим сроком (сверх долга, его не уменьшает). Платят в меню почты.
 // Просрочки поднимают давление 0..100, платежи в срок и досрочное погашение — снижают.
 // С mischiefPressure каждая просрочка ещё и пакость (Mischief): слитое топливо или помятый корпус.
@@ -60,8 +60,8 @@ public class Debt : MonoBehaviour, ISaveable
         s = new State
         {
             left = settings.total,
-            paymentTimer = settings.paymentInterval,
-            demandRoll = NextRoll(),
+            paymentTimer = settings.firstPayment,  // спокойный вход: первый платёж и требования — не сразу
+            demandRoll = settings.firstPayment + NextRoll(),
         };
     }
 

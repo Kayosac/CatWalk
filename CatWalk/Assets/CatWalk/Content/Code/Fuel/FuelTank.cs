@@ -4,8 +4,8 @@ using UnityEngine;
 // Последние reserve бака — резерв: тяга слабая, без форсажа. Пустой бак — двигатели заглохли.
 public class FuelTank : MonoBehaviour
 {
-    public float capacity = 100f;         // л
-    public float burnRate = 1f / 3f;      // л/с на полном газу без форсажа — полного бака хватает на 5 минут
+    public float capacity = 150f;         // л
+    public float burnRate = 1f / 3f;      // л/с на полном газу без форсажа — полного бака хватает на 7,5 минуты
     [Range(0f, 1f)] public float reserve = 0.05f;      // доля бака
     [Range(0f, 1f)] public float reservePower = 0.3f;  // тяга на резерве
     public float efficiency = 1f;         // делитель расхода: улучшение экономичности (CarUpgrades)

@@ -13,8 +13,8 @@ public class CarUpgrades : MonoBehaviour, ISaveable
     public float cruisePerLevel = 0.15f;  // доля к скорости маршевого за уровень
 
     [Header("Бак")]
-    public float baseCapacity = 100f;     // л
-    public float capacityPerLevel = 55f;  // л
+    public float baseCapacity = 150f;     // л
+    public float capacityPerLevel = 50f;  // л
 
     [Header("Трюм")]
     public GameObject[] extraSlots;       // по одной группе слотов на уровень, включаются по порядку
@@ -23,10 +23,10 @@ public class CarUpgrades : MonoBehaviour, ISaveable
     public float efficiencyPerLevel = 0.24f; // расход делится на 1 + это × уровень
 
     [Header("Цена первого уровня, кр; следующий — цена × (уровень + 1)")]
-    public int engineCost = 650;
-    public int tankCost = 420;
-    public int cargoCost = 380;
-    public int economyCost = 480;
+    public int engineCost = 600;
+    public int tankCost = 300;
+    public int cargoCost = 350;
+    public int economyCost = 450;
 
     readonly int[] levels = new int[4];
 
