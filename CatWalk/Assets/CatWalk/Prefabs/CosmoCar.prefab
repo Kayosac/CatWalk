@@ -3641,6 +3641,10 @@ PrefabInstance:
       value: 14.15
       objectReference: {fileID: 0}
     - target: {fileID: 5384611086032389224, guid: bf721f703af36c2448469779fd8e6da1, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384611086032389224, guid: bf721f703af36c2448469779fd8e6da1, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 3
       objectReference: {fileID: 0}

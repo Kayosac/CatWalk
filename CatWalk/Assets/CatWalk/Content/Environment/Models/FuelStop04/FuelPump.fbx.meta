@@ -2,13 +2,29 @@ fileFormatVersion: 2
 guid: f80ade321901a473b8d83e1445a9bea4
 ModelImporter:
   serializedVersion: 22200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      43: 4300000
+    second: FuelPump
+  - first:
+      43: 4300002
+    second: Neon Pump FUEL
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: FuelStop04_Atlas
-    second: {fileID: 2100000, guid: 68e3c55396665414e84ac703497fe046, type: 2}
+      name: FuelStop04_Surface
+    second: {fileID: 2100000, guid: 5ddf86fdeab9bea2c7bfae52db84e157, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FuelStop04_Cutout
+    second: {fileID: 2100000, guid: dbbd7576a7ebf6714cbaf6c9df3e7132, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FuelStop04_Glow
+    second: {fileID: 2100000, guid: 7f396aece9c8ff7f797c6dd1d563d05c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -35,7 +51,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

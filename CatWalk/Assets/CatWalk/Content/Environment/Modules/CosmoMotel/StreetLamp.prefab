@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400010}
   - component: {fileID: 10800010}
+  - component: {fileID: 11400010}
   m_Layer: 0
   m_Name: Spot light
   m_TagString: Untagged
@@ -207,3 +208,15 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2c7cd88ba44803a78db7c7d30c1823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
